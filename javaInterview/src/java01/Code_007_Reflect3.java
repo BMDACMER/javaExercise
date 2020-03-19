@@ -1,4 +1,4 @@
-package java01.java01;
+package java01;
 
 import java.lang.reflect.Field;
 
