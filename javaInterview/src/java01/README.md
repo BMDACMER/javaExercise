@@ -136,3 +136,72 @@ hashcode方法的返回值与equals方法的关系：
 - 在运行时判断一个对象属于哪个类
 - 生成动态代理
 
+**9、嵌套类**
+
+内部类可以分为很多种，主要有以下四种：
+
+- 静态内部类
+- 成员内部类
+- 局部内部类
+- 匿名内部类
+
+```
+class outerClass{
+    static class innerClass{}  //  静态内部类
+}
+
+class outerClass{
+    class innerClass{}   // 成员内部类（普通内部类）
+}
+
+class outerClass{
+    public void menberFunction(){
+        class innerClass{}   // 局部内部类
+    }
+}
+
+public class MyFrame extends Frame{
+    // 外部类
+    public MyFrame(){
+        addWindowListener(new WindowAdapter()
+        {
+            // 匿名内部类
+            public void windowClosing(WindowEvent e)
+            {
+                dispose();
+                System.exit(0);
+            }
+        });
+    }
+}
+
+```
+
+在使用匿名类时，需要牢记以下几个原则：
+
+- 匿名内部类不能有构造函数
+- 匿名内部类不能定义静态成员、方法和类
+- 匿名内部类不能是public  protected private static
+- 只能创建匿名内部类的一个实例
+- 一个匿名内部类一定实在new的后面，这个匿名类必须继承一个父类或者实现一个接口
+- 因为匿名内部类为局部内部类，所以局部内部类的所有先自都对其生效
+
+
+### 第3章  泛型
+
+**10、泛型**
+
+引入泛型的两大好处：① 简单安全  ② 性能的提升
+
+泛型提供了以下几个功能：
+
+- 避免代码中的强制类型转换
+- 限定类型。在编译时提供一个额外的类型检查，避免错误的值被存入容器
+- 实现一些特别的编程技巧。例如： 提供一个方法用于拷贝对象，在不提供额外方法参数的情况下，
+使得返回类型和方法参数类型保持一致
+
+
+疑问：泛型擦除没看懂？？？？ 
+
+
+
