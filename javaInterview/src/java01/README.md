@@ -203,5 +203,40 @@ public class MyFrame extends Frame{
 
 疑问：泛型擦除没看懂？？？？ 
 
+### 第4章 Java新特性
 
+**11、JDK8**
+
+- Lambda表达式
+- 可以在接口总使用关键字default添加默认实现，还可以定义静态方法
+- 方法引用 (ClassName::New    ClassName:methodName   instanceName::methodName)
+- 注解（@Override   @Deprecated   @SuppressWarnings）
+- 类型推测
+- 参数名字（在编译的时候增加 -parameters选项，以及增加反射API与Parameter.getName()方法实现获取方法参数名的功能）
+- 新增Optional类
+- 新增Stream类
+- 日期新特性（1.8之前主要三个：Calendar,Date,DateFormat  之后进行了补充）
+- 新增调用javaScript
+- Base64编码解码
+- 并行处理数组（Arrays.paralleXXX()例如：Arrays.paralleSort(arr)）
+
+
+**12、JDK9**
+
+- JShell（测试的时候比较方便）
+- 不可变集合工厂方法
+- 私有接口方法
+-平台模块系统
+- 进程API的改进
+- try-catch改进
+-Stream API的改进
+
+
+JDK10，JDK11（LST）改进的都不大，截至到现在最新JDK为13  马上就要迎来JDK14啦
+
+**重点掌握JDK8即可**
+
+
+### 第5章 Collection框架
+ 
 
