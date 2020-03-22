@@ -245,3 +245,24 @@ JDK10，JDK11（LST）改进的都不大，截至到现在最新JDK为13  马上就要迎来JDK14啦
  
  （相关代码在java02中）
 
+
+### 第7章  JavaIO
+
+- 同步和异步关注的是任务是否可以同时被调用，阻塞和非阻塞则关注的是线程的状态
+- 同步（synchronized invoke）: 一个执行快同一时间只有一个线程可以访问
+- 异步：(asynchronous invoke), 多个执行块可以同时被多个线程访问
+- 阻塞： 线程阻塞状态，表示线程挂起
+- 非阻塞：线程不处于阻塞状态，表示线程没有挂起
+
+---
+
+BIO(同步阻塞IO模型)
+
+NIO （非阻塞式IO）
+
+AIO（相当于NIO的升级版）
+
+参考：https://www.cnblogs.com/java-chen-hao/p/11083740.html
+<br>https://www.cnblogs.com/java-chen-hao/p/11081558.html
+<br>https://www.cnblogs.com/java-chen-hao/p/11076176.html
+
