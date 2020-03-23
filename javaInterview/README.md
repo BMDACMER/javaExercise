@@ -266,3 +266,20 @@ AIO（相当于NIO的升级版）
 <br>https://www.cnblogs.com/java-chen-hao/p/11081558.html
 <br>https://www.cnblogs.com/java-chen-hao/p/11076176.html
 
+**以下参考尚硅谷2019**
+
+ * 抽象基类         节点流（或文件流）                               缓冲流（处理流的一种）
+ * InputStream     FileInputStream   (read(byte[] buffer))        BufferedInputStream (read(byte[] buffer))
+ * OutputStream    FileInputStream  (write(byte[] buffer,0,len)  BufferedOutputStream (write(byte[] buffer,0,len) / flush()
+ * Reader          FileReader (read(char[] cbuf))                 BufferedReader (read(char[] cbuf) / readLine())
+ * Writer          FileWriter (write(char[] cbuf,0,len)           BufferedWriter (write(char[] cbuf,0,len) / flush()
+ 
+ 套路：
+ 
+ 1、造文件<br> File
+ 2、造流<br>  FileInputStream\FileInputStream   FileReader\ FileWriter <br>
+ （如果由buffer的话(缓冲流))，得套一个对应的buffer）<br>
+ 3、写入、读取操作<br>
+ 4、关闭
+ 
+
