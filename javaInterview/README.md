@@ -276,10 +276,45 @@ AIO（相当于NIO的升级版）
  
  套路：
  
- 1、造文件<br> File
- 2、造流<br>  FileInputStream\FileInputStream   FileReader\ FileWriter <br>
+ 1、造文件 File<br>
+ 2、造流  FileInputStream\FileInputStream   FileReader\ FileWriter <br>
  （如果由buffer的话(缓冲流))，得套一个对应的buffer）<br>
  3、写入、读取操作<br>
  4、关闭
  
+
+### 第8章  JVM
+
+**13、JVM内存划分**
+
+class文件、类装载器子系统、方法去、堆、虚拟机栈、PC寄存器、本地方法栈、执行引擎、垃圾回收器
+
+**14、运行时内存划分**
+
+- 年轻代：（Eden 和两个Survivor（其中一个为空））Eden存储新对象，Survivor负责内存整理，包括复制等操作，作为双缓存
+- 老年代：主要存储生命周期较长的对象、超大的对象（无法在年轻代分配的对象）
+- 永久代：存放代码、字符串常量池、静态变量等可以持久化的数据。SunJDK将方法去是现在了永久代
+
+
+**String.intern()**
+
+在使用时，首先在字符串常量池中查找是否存在对应的字符串，若存在，则不执行从堆到字符串常量的复制操作，否则，将堆中的对象复制到字符串常量中。
+
+```
+ @Test
+    public void test(){
+        String s2 = new String("a") + "b";
+        s2.intern();
+        String s1 = "a" + "b";
+        System.out.println(s1 == s2); // true
+
+        String s3 = new String("a") + new String("a");
+        String s4 = "aa";
+        s3.intern();   //  由于“aa”已经存在  这条代码并不会起作用
+        System.out.println(s3 == s4);    // false
+
+    }
+
+```
+
 
