@@ -317,4 +317,14 @@ classÎÄ¼þ¡¢Àà×°ÔØÆ÷×ÓÏµÍ³¡¢·½·¨È¥¡¢¶Ñ¡¢ÐéÄâ»úÕ»¡¢PC¼Ä´æÆ÷¡¢±¾µØ·½·¨Õ»¡¢Ö´ÐÐÒýÇæ¡
 
 ```
 
+ÎÂÜ°ÌáÊ¾£º´ÓJDK1.7¿ªÊ¼£¬HopJVMÒÑ¾­Öð²½¿ªÊ¼°ÑÓÀ¾Ã´úµÄÊý¾ÝÏòÆäËü´æ´¢¿Õ¼ä×ªÒÆÁË¡£ÈçÔÚJDK1.7ÖÐ°Ñ×Ö·û´®³£Á¿³ØÓÀ¾Ã´ú×ªÒÆµ½ÁË
+JVMµÄ¶Ñ¿Õ¼äÖÐ£¬µ«ÊÇÓÀ¾Ã´ú²¢Ã»ÓÐÍêÈ«±»ÒÆ³ý¡£
+
+´ÓJDK1.8¿ªÊ¼³¹µ×°ÑÓÀ¾Ã´ú´ÓJVMÖÐÒÆ³ýÁË£¬¶ø°ÑÀàµÄÔªÊý¾Ýèó¸ß±¾µØ»¯µÄ¶ÑÄÚ´æÖÐ£¨native heap£©£¬ÕâÒ»¿é±¾µØ»¯
+µÄ¶ÑÄÚ´æÇøÓò±»½Ð×öMetaspace£¨Ô­¿Õ¼ä£©
+
+**15¡¢À¬»ø»ØÊÕ**
+
+
+
 
