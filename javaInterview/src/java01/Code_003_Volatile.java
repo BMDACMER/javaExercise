@@ -65,7 +65,7 @@ public class Code_003_Volatile {
             // main线程就一直在这样等待循环，直到number值不在等于零
         }
 
-        System.out.println(Thread.currentThread().getName() + "\t miss is over");
+        System.out.println(Thread.currentThread().getName() + "\t miss is over, the number is " + myData.number);
     }
 
     public static void main(String[] args) {
@@ -75,7 +75,7 @@ public class Code_003_Volatile {
             new Thread(() -> {
                 for (int j = 0; j <= 1000; j++) {
                     myData.addPlusPlus();
-                    myData.addMyAtomic();
+//                    myData.addMyAtomic();
                 }
             }, String.valueOf(i)).start();
         }
