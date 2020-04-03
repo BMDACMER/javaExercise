@@ -1,61 +1,25 @@
 import java.util.Stack;
 
 /**
- *题目：输入各链表的头结点，从尾到头反过来打印出每个结点的值。
+ * 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型.
  */
 public class Test05 {
+    Stack<Integer> stack1 = new Stack<>();
+    Stack<Integer> stack2 = new Stack<>();
 
-    /**
-     * 节点对象
-     */
-    public static class ListNode{
-        int val;    // 结点的值
-        ListNode next;  // 下一个节点
+    // 插入时用stack1
+    public void push(int node) {
+        stack1.push(node);
     }
 
-    /**
-     * 输入个链表的头结点，从未到头反过来打印出每个节点的值
-     * 使用栈的方式进行
-     */
-    public static void printListInverselyUsingIteration(ListNode root){
-        Stack<ListNode> stack = new Stack<>();
-        while (root != null){
-            stack.push(root);
-            root = root.next;
+    // 删除时用stack2
+    public int pop() {
+        if (stack2.isEmpty()){
+            while (!stack1.isEmpty()){
+                stack2.push(stack1.pop());
+            }
         }
-        ListNode tmp;
-        while (!stack.isEmpty()){
-            tmp = stack.pop();
-            System.out.print(tmp.val + " ");
-        }
-    }
-
-    /**
-     * 输入个链表的头结点，从尾到头反过来打印出每个结点的值
-     * 使用栈的方式进行
-     */
-    public static void printListInverselyUsingRecursion(ListNode root){
-        if (root != null){
-            printListInverselyUsingIteration(root.next);
-            System.out.print(root.val + " ");
-        }
-    }
-
-    public static void main(String[] args) {
-        ListNode root = new ListNode();
-        root.val = 1;
-        root.next = new ListNode();
-        root.next.val = 2;
-        root.next.next = new ListNode();
-        root.next.next.val = 3;
-        root.next.next.next = new ListNode();
-        root.next.next.next.val = 4;
-        root.next.next.next.next = new ListNode();
-        root.next.next.next.next.val = 5;
-
-        printListInverselyUsingIteration(root);
-        System.out.println("\n==============================");
-        printListInverselyUsingRecursion(root);
+        return stack2.pop();
     }
 
 }

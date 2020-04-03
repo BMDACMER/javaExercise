@@ -1,50 +1,78 @@
 /**
- * 题目描述
- 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，
- 每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，
- 判断数组中是否含有该整数。
+ * 题目：请实现一个函数，把字符串中的每个空格替换成"%20"，例如“We are happy.”，则输出
+ * “We%20are%20happy.”。
  */
-
 public class Test02 {
 
-    // matrix------矩阵    number-------要查找的数字
-    public static boolean find(int[][] matrix, int number){
-        // 异常处理
-        if ((matrix == null) || (matrix.length < 1) || (matrix[0].length < 1)){
-            return false;
+    // 方法一：
+    public static String replaceSpace(StringBuilder str){
+
+        if (str == null){
+            return null;
         }
 
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-
-        int row = 0;   // 初始化行  第一行的最后一个数
-        int col = cols - 1;
-
-        while ((row < rows) && (col >= 0)){
-            if (matrix[row][col] == number){
-                return true;
-            }else if (matrix[row][col] < number){
-                row++;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ' '){
+                stringBuilder.append('%');
+                stringBuilder.append('2');
+                stringBuilder.append('0');
             }else {
-                col--;
+                stringBuilder.append(str.charAt(i));
             }
         }
-        return false;
+        return stringBuilder.toString();
     }
 
+    // 方法二：
+    /*
+    问题1：替换字符串，是在原来的字符串上做替换，还是新开辟一个字符串做替换！
+    问题2：在当前字符串替换，怎么替换才更有效率（不考虑java里现有的replace方法）。
+          从前往后替换，后面的字符要不断往后移动，要多次移动，所以效率低下
+          从后往前，先计算需要多少空间，然后从后往前移动，则每个字符只为移动一次，这样效率更高一点。
+    */
+    public static String replaceSpace2(StringBuffer str){
+        if (str == null){
+            return null;
+        }
+
+        int countBlank = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ' '){
+                countBlank++;
+            }
+        }
+
+        int stringOld = str.length() - 1;   // 原始字符串长度(下标）
+        int stringNew2 = str.length() + 2 * countBlank;  // 加入20%后的字符串长度
+        int stringNew = stringNew2 - 1;  // 加入20%后的字符串长度(下标）
+        str.setLength(stringNew2);  // 防止数组越界
+
+        for (; stringOld >= 0; --stringOld) {
+            if (str.charAt(stringOld) == ' '){
+                str.setCharAt(stringNew--, '0');
+                str.setCharAt(stringNew--, '2');
+                str.setCharAt(stringNew--, '%');
+            }else{
+                str.setCharAt(stringNew--, str.charAt(stringOld));
+            }
+        }
+
+        return str.toString();
+    }
+
+
     public static void main(String[] args) {
-        int[][] matrix = {
-                {1, 2, 8, 9},
-                {2, 4, 9, 12},
-                {4, 7, 10, 13},
-                {6, 8, 11, 15}
-        };
-        System.out.println(find(matrix, 7));    // 要查找的数在数组中
-        System.out.println(find(matrix, 5));    // 要查找的数不在数组中
-        System.out.println(find(matrix, 1));    // 要查找的数是数组中最小的数字
-        System.out.println(find(matrix, 15));   // 要查找的数是数组中最大的数字
-        System.out.println(find(matrix, 0));    // 要查找的数比数组中最小的数字还小
-        System.out.println(find(matrix, 16));   // 要查找的数比数组中最大的数字还大
-        System.out.println(find(null, 16));     // 健壮性测试，输入空指针
+//        String s = "We Are happy";
+        // 方法一
+        StringBuilder s = new StringBuilder("We Are happy");
+        String str = replaceSpace(s);
+        System.out.println(str);
+
+        System.out.println("============================");
+
+        // 方法二
+        StringBuffer stringBuffer = new StringBuffer("We Are happy");
+        System.out.println(replaceSpace2(stringBuffer));
     }
 }

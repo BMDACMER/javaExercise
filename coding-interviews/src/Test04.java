@@ -1,78 +1,86 @@
+
 /**
- * 题目：请实现一个函数，把字符串中的每个空格替换成"%20"，例如“We are happy.”，则输出
- * “We%20are%20happy.”。
+ * 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
+ * 例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
  */
 public class Test04 {
 
-    // 方法一：
-    public static String replaceSpace(StringBuilder str){
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int x) {
+            val = x;
+        }
+    }
 
-        if (str == null){
+    // 构建二叉树
+    public static TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        // 异常处理
+        if (pre == null || in == null || pre.length != in.length || pre.length < 1) {
             return null;
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ' '){
-                stringBuilder.append('%');
-                stringBuilder.append('2');
-                stringBuilder.append('0');
-            }else {
-                stringBuilder.append(str.charAt(i));
-            }
-        }
-        return stringBuilder.toString();
+        return constructBinaryTree(pre, 0 , pre.length-1, in, 0, in.length-1);
     }
 
-    // 方法二：
-    /*
-    问题1：替换字符串，是在原来的字符串上做替换，还是新开辟一个字符串做替换！
-    问题2：在当前字符串替换，怎么替换才更有效率（不考虑java里现有的replace方法）。
-          从前往后替换，后面的字符要不断往后移动，要多次移动，所以效率低下
-          从后往前，先计算需要多少空间，然后从后往前移动，则每个字符只为移动一次，这样效率更高一点。
-    */
-    public static String replaceSpace2(StringBuffer str){
-        if (str == null){
+    /**
+     *
+     * @param pre --- 前序遍历
+     * @param ps ---- 前序遍历起始点
+     * @param pe ---- 前序遍历终止点
+     * @param in ---- 中序遍历
+     * @param ins ---- 中序遍历起始点
+     * @param ine ---- 中序遍历终止点
+     * @return ---- 重建树
+     */
+    private static TreeNode constructBinaryTree(int[] pre, int ps, int pe, int[] in, int ins, int ine) {
+        // 处理异常点
+        if (ps > pe || ins > ine) {
             return null;
         }
 
-        int countBlank = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ' '){
-                countBlank++;
+        // 前序遍历第一个节点为根节点
+        int root = pre[ps];
+        int index = ins;   // 在中序遍历中寻找根节点
+        while (index <= ine) {
+            if (in[index] == root) {
+                break;  // 找到根节点
             }
+            index++;
         }
 
-        int stringOld = str.length() - 1;   // 原始字符串长度(下标）
-        int stringNew2 = str.length() + 2 * countBlank;  // 加入20%后的字符串长度
-        int stringNew = stringNew2 - 1;  // 加入20%后的字符串长度(下标）
-        str.setLength(stringNew2);  // 防止数组越界
-
-        for (; stringOld >= 0; --stringOld) {
-            if (str.charAt(stringOld) == ' '){
-                str.setCharAt(stringNew--, '0');
-                str.setCharAt(stringNew--, '2');
-                str.setCharAt(stringNew--, '%');
-            }else{
-                str.setCharAt(stringNew--, str.charAt(stringOld));
-            }
+        if (index > ine) {
+            throw new RuntimeException("输入不合法");
         }
 
-        return str.toString();
+        // 到达这一步表示已经找到根节点   将原来的树一分为二
+        TreeNode treeNode = new TreeNode(root);
+
+        // 左子树对应的前序遍历的位置在[ps+1, ps+index-ins]
+        // 左子树对应的中序遍历的位置在[ins, index-1]
+        treeNode.left = constructBinaryTree(pre, ps+1, ps + index - ins, in, ins, index - 1);
+
+        // 右子树对应的前序遍历的位置在[ps + index - ins +1, pe]
+        // 右子树对应的中序遍历的位置在[index + 1, ine]
+        treeNode.right = constructBinaryTree(pre, ps + index - ins +1, pe, in, index + 1, ine);
+
+        return treeNode;
     }
 
+    // 中序遍历二叉树
+    public static void printBinaryTree(TreeNode treeNode){
+        if (treeNode != null) {
+            printBinaryTree(treeNode.left);
+            System.out.print(treeNode.val + " ");
+            printBinaryTree(treeNode.right);
+        }
+    }
 
     public static void main(String[] args) {
-//        String s = "We Are happy";
-        // 方法一
-        StringBuilder s = new StringBuilder("We Are happy");
-        String str = replaceSpace(s);
-        System.out.println(str);
-
-        System.out.println("============================");
-
-        // 方法二
-        StringBuffer stringBuffer = new StringBuffer("We Are happy");
-        System.out.println(replaceSpace2(stringBuffer));
+        int[] preOrder = {1, 2, 4, 7, 3, 5, 6, 8};
+        int[] inOrder = {4, 7, 2, 1, 5, 3, 8, 6};
+        TreeNode root = reConstructBinaryTree(preOrder, inOrder);
+        printBinaryTree(root);
     }
 }
