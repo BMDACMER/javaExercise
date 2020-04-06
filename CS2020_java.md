@@ -2,9 +2,87 @@
 
 
 
-### JUC 系统学习
+## 一、JUC 系统学习
 
-#### 一、JUC是什么
+### 1 JUC是什么
+
+
+
+
+
+## 二、JVM
+
+> 针对应聘要求：
+>
+> 熟悉JVM架构与GC垃圾回收机制以及相应的堆参调优，有过在linux进行系统调优的经验
+
+![image-20200406171803222](E:\dev\javaweb\IDEA\javaExercise\images\JVM.png)
+
+1. Class Loader类加载器
+  负责加载class文件，class文件在文件开头有特定的文件标示，并且ClassLoader只负责class文件的加载，至于它是否可以允许，则由Execution Engine决定
+
+2. Execution Engine执行引擎 负责解释命令，提交操作系统执行
+
+3. Native Interface 本地接口
+  Java语言本身不能对操作系统底层进行访问和操作，但是可以通过接口调用其他语言来实现对底层的访问。
+
+4. Native Method Stack 本地方法栈
+  java在内存中专门开辟了一块区域处理标记为native的代码，它的具体做法是Native Method Stack中登记
+  native方法，在Execution Engine执行时加载native libraies。
+
+5. Runtime Data Area 运行数据区
+
+6. Method Area方法区
+  方法区是被所有线程共享，所有字段和方法字节码、以及一些特殊方法如构造函数，接口代码也在此定义。简
+  单说，所有定义的方法的信息都保存在该区域，此区属于共享区间。用来保存装载的类的元结构信息。
+  ```静态变量+常量+类信息+运行时常量池存放在方法区```
+  实例变量存在堆内存中
+
+7. PC Register 程序计数器
+  每个线程都有一个程序计数器，就是一个指针，指向方法区中的方法字节码（下一个将要执行的指令代码），有执行引擎读取下一条指令，是一个非常小的内存空间，可以忽略不记
+  栈管运行，堆管存储
+
+8. Java Stack 栈
+  栈也叫栈内存，主管Java程序的运行，是在线程创建时创建，它的生命期是跟随线程的生命期，线程结束栈内
+  存也就释放，对于栈来说不存在垃圾回收问题，只要线程一结束该栈就Over，生命周期和线程一致，是线程私有的。基本类型的变量、实例方法、引用类型变量都是在函数的栈内存中分配。
+
+  
+
+### 1、类加载器
+
+**类装载器ClassLoader1**
+
+![image-20200406174435618](E:\dev\javaweb\IDEA\javaExercise\images\ClassLoader1.png)
+
+**类装载器ClassLoader2**
+
+![image-20200406174608029](E:\dev\javaweb\IDEA\javaExercise\images\ClassLoader2.png)
+
+```java
+public class MyObject {
+    public static void main(String[] args) {
+        Object object = new Object();
+//        System.out.println(object.getClass().getClassLoader().getParent().getParent());
+//        System.out.println(object.getClass().getClassLoader().getParent());  // Exception in thread "main" java.lang.NullPointerException
+        System.out.println(object.getClass().getClassLoader());  // null
+
+        System.out.println("\n\n\n\n");
+
+        MyObject myObject = new MyObject();
+        System.out.println(myObject.getClass().getClassLoader().getParent().getParent());  // null
+        System.out.println(myObject.getClass().getClassLoader().getParent()); // sun.misc.Launcher$ExtClassLoader@677327b6
+        System.out.println(myObject.getClass().getClassLoader()); // sun.misc.Launcher$AppClassLoader@18b4aac2
+    }
+}
+```
+
+
+
+
+
+
+
+
 
 
 
@@ -14,7 +92,9 @@
 
 -----
 
-###  JUC多线程及并发包 面试题
+##  三、面试题
+
+### 一、JUC多线程及并发包
 
 #### 1、谈谈你对volatile的理解？
 
