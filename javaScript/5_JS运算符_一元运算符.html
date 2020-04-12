@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一元运算符</title>
+    <script>
+        var num = 3;
+        var a = ++num;
+
+        document.write(num);  // 4
+        document.write(a);   // 44
+        document.write("<hr>");
+
+        var b = +"123abc";
+        document.write(typeof(b))
+        document.write(b + 1);
+        document.write("<br>")
+
+        var flag = + true;
+        var f2 = + false;
+        document.write(typeof (flag) + "<br>");//number
+        document.write(flag + "<br>");// 1
+        document.write(f2 + "<br>");// 0
+    </script>
+</head>
+<body>
+
+</body>
+</html>
