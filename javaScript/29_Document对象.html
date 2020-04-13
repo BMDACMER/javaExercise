@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document对象</title>
+</head>
+<body>
+<div id="div1">div1</div>
+<div id="div2">div2</div>
+<div id="div3">div3</div>
+<div class="cls1">div4</div>
+<div class="cls1">div5</div>
+<input type="text" name="username">
+
+<script>
+    var divs = document.getElementsByTagName("div");
+    alert(divs.length);
+    var div_cls = document.getElementsByClassName("cls1");
+    alert(div_cls.length);
+    var ele_username = document.getElementsByName("username");
+    alert(ele_username.length);
+
+    var table = document.createElement("table");
+    alert(table);
+</script>
+</body>
+</html>
