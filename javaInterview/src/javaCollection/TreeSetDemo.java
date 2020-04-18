@@ -14,7 +14,7 @@ import static java.util.Map.*;
  */
 public class TreeSetDemo {
     public static void main(String[] args) {
-
+/**
         ArrayList<Person> list = new ArrayList<>();
         list.add(new Person("张三",18));
         list.add(new Person("张三",18));
@@ -36,8 +36,26 @@ public class TreeSetDemo {
                 map.put(list.get(i),map.get(list.get(i)) + 1);
             }
         }
+*/
 
+        Map<String,String> map = new TreeMap<>();
+        map.put("a","ddddd");
+        map.put("b","dsfa");
+        map.put("d","rttt");
+        map.put("c","bbbbbb");
 
+        List<Entry<String,String>> list = new ArrayList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Entry<String, String>>() {
+            @Override
+            public int compare(Entry<String, String> o1, Entry<String, String> o2) {
+                // 升序排序
+                return o1.getValue().compareTo(o2.getValue());
+            }
+        });
+
+        for (Entry<String, String> e : list) {
+            System.out.println(e.getKey() + ":" + e.getValue());
+        }
     }
 }
 
