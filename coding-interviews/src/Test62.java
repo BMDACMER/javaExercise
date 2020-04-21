@@ -64,18 +64,19 @@ public class Test62 {
         String[] a = s.split(",");
         int index = 0;
         Queue<TreeNode> queue = new LinkedList<>();
-        TreeNode root = new TreeNode(change(a[index++]));
+//        TreeNode root = new TreeNode(change(a[index++]));
+        TreeNode root = new TreeNode(Integer.parseInt(a[index++]));
         queue.add(root);
         while (!queue.isEmpty() && index < a.length) {
             TreeNode node = queue.poll();
             if (!"#".equals(a[index])) {
-                node.left = new TreeNode(change(a[index++]));
+                node.left = new TreeNode(Integer.parseInt(a[index++]));
                 queue.add(node.left);
             } else {
                 index++;
             }
             if (index < a.length && !"#".equals(a[index])) {
-                node.right = new TreeNode(change(a[index++]));
+                node.right = new TreeNode(Integer.parseInt(a[index++]));
                 queue.add(node.right);
             } else {
                 index++;
