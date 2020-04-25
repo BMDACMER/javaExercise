@@ -43,7 +43,7 @@ public class Test05 {
         if (index > ie) {
             throw new RuntimeException("输入不合法");
         }
-sta
+
         // 到达这一步表示已经找到根节点   将原来的树一分为二
         TreeNode treeNode = new TreeNode(root);
 
