@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class VolatileDemo {
 
-    // volatile可以保证可见性，及时通知其他线程，主物理内存的值已经被修改
+    // volatile可以保证可见性，及时通知其他线程，主物理内存的值已经被D修改
     public static void visibilityByVolatile(){
         MyData myData = new MyData();
 
