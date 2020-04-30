@@ -30,8 +30,4 @@
     <mappers>
         <mapper resource="UserMapper.xml"/>
     </mappers>
-    <!--使用注解方式-->
-    <!--<mappers>-->
-        <!--<mapper class="cn.gh.mapper.UserMapper"/>-->
-    <!--</mappers>-->
 </configuration>

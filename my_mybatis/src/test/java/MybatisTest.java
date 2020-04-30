@@ -1,6 +1,5 @@
 import cn.gh.mapper.UserMapper;
 import cn.gh.pojo.User;
-import jdk.internal.util.xml.impl.Input;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -53,7 +52,8 @@ public class MybatisTest {
      */
     @Before
     public void init() throws Exception {
-        // 1 读取配置文件
+        // 1 读取配置文件 E:\dev\javaweb\IDEA\javaExercise\my_mybatis\src\main\resources\mybatis-config.xml
+        // mybatis-config.xml
         is = Resources.getResourceAsStream("mybatis-config.xml");
         // 2. 创建sqlSessionFactory工厂
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
@@ -157,11 +157,11 @@ public class MybatisTest {
 
         System.out.println("添加前 ： " + user);
 
-        // 调用mapper完成添加
-        int count = mapper.saveUser(user);
-        System.out.println("添加条数为 : " + count);
-
-        System.out.println("添加后 ： " + user);
+//        // 调用mapper完成添加
+//        int count = mapper.saveUser(user);
+//        System.out.println("添加条数为 : " + count);
+//
+//        System.out.println("添加后 ： " + user);
     }
 
 }

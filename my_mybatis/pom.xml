@@ -7,6 +7,7 @@
     <groupId>com.gh</groupId>
     <artifactId>my_mybatis</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <!--导入依赖-->
     <dependencies>
