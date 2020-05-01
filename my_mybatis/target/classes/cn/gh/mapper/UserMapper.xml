@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.ykf.mapper.UserMapper">
+<mapper namespace="cn.gh.mapper.UserMapper">
     <!-- 配置查询所有用户 -->
     <select id="listAllUsers" resultType="cn.gh.pojo.User">
         SELECT * FROM user
