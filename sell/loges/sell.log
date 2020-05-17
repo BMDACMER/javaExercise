@@ -1,0 +1,11 @@
+2020-05-16 18:54:32.438  INFO 4764 --- [main] com.gh.LoggerTest                        : Starting LoggerTest on DESKTOP-DMBH4AH with PID 4764 (started by guohao in E:\dev\javaweb\springFamily\sell)
+2020-05-16 18:54:32.440  INFO 4764 --- [main] com.gh.LoggerTest                        : No active profile set, falling back to default profiles: default
+2020-05-16 18:54:33.469  INFO 4764 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-16 18:54:33.690  INFO 4764 --- [main] com.gh.LoggerTest                        : Started LoggerTest in 1.583 seconds (JVM running for 2.394)
+2020-05-16 18:54:33.861  INFO 4764 --- [main] com.gh.LoggerTest                        : 我是info
+2020-05-16 18:54:33.861 ERROR 4764 --- [main] com.gh.LoggerTest                        : error...
+2020-05-16 18:54:33.861  INFO 4764 --- [main] com.gh.LoggerTest                        : name: imooc ,password: 123456
+2020-05-16 18:54:33.861  INFO 4764 --- [main] com.gh.LoggerTest                        : name: imooc, password: 123456
+2020-05-16 18:54:33.863 ERROR 4764 --- [main] com.gh.LoggerTest                        : error...
+2020-05-16 18:54:33.863  WARN 4764 --- [main] com.gh.LoggerTest                        : warn...
+2020-05-16 18:54:33.870  INFO 4764 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

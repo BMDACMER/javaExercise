@@ -1,0 +1,9 @@
+Starting LoggerTest on DESKTOP-DMBH4AH with PID 10124 (started by guohao in E:\dev\javaweb\springFamily\sell)
+No active profile set, falling back to default profiles: default
+Initializing ExecutorService 'applicationTaskExecutor'
+Started LoggerTest in 1.632 seconds (JVM running for 2.374)
+我是info
+name: imooc ,password: 123456
+name: imooc, password: 123456
+warn...
+Shutting down ExecutorService 'applicationTaskExecutor'

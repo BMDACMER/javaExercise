@@ -1,0 +1,11 @@
+2020-05-16 18:33:45.569  INFO 12504 --- [main] com.gh.LoggerTest                        : Starting LoggerTest on DESKTOP-DMBH4AH with PID 12504 (started by guohao in E:\dev\javaweb\springFamily\sell)
+2020-05-16 18:33:45.571  INFO 12504 --- [main] com.gh.LoggerTest                        : No active profile set, falling back to default profiles: default
+2020-05-16 18:33:46.606  INFO 12504 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-16 18:33:46.837  INFO 12504 --- [main] com.gh.LoggerTest                        : Started LoggerTest in 1.583 seconds (JVM running for 2.323)
+2020-05-16 18:33:46.989  INFO 12504 --- [main] com.gh.LoggerTest                        : 我是info
+2020-05-16 18:33:46.990 ERROR 12504 --- [main] com.gh.LoggerTest                        : error...
+2020-05-16 18:33:46.990  INFO 12504 --- [main] com.gh.LoggerTest                        : name: imooc ,password: 123456
+2020-05-16 18:33:46.990  INFO 12504 --- [main] com.gh.LoggerTest                        : name: imooc, password: 123456
+2020-05-16 18:33:46.992 ERROR 12504 --- [main] com.gh.LoggerTest                        : error...
+2020-05-16 18:33:46.992  WARN 12504 --- [main] com.gh.LoggerTest                        : warn...
+2020-05-16 18:33:47.000  INFO 12504 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
