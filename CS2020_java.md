@@ -3303,6 +3303,27 @@ c)非叶子结点的指针 :P[1], P[2], .... P[M] ;其中P[1]指向关键字小�
 
 ### Redis
 
+关于Redis的入门教程可点击[此处](https://zhuanlan.zhihu.com/p/37055648)和[菜鸟教程](https://www.runoob.com/redis/redis-tutorial.html)。
+
+#### 基础知识
+
+>  Redis里头是两个HashTable线程安全的。
+>
+> 可以通过Redis命令行在代码里对Hash表进行操作相当于Redis客户端，而Hash表所在的是Redis服务端（Server），也就是说Redis其实是一个C/S架构。Client和Server可以在一台机器上也可以不在。
+>
+> **Redis的Server是单线程服务器**，基于**Event-Loop模式**来处理Client的请求，这一点和NodeJS很相似。使用单线程的好处包括：
+>
+> - **不必考虑线程安全问题。**很多操作都不必加锁，既简化了开发，又提高了性能；
+> - **减少线程切换损耗的时间。**线程一多，CPU在线程之间切来切去是非常耗时的，单线程服务器则没有了这个烦恼；
+>
+> 
+
+
+
+
+
+
+
 <img src="E:\dev\javaweb\IDEA\javaExercise\images\主流应用架构.png" alt="image-20200527211154882"  />
 
 >  Memcache：代码层次类似于Hash
@@ -3331,11 +3352,156 @@ c)非叶子结点的指针 :P[1], P[2], .... P[M] ;其中P[1]指向关键字小�
 
 > 供用户使用的数据类型
 >
-> - String：最基本的数据类型，二进制安全
+> - String：最基本的数据类型，二进制安全，最大存储512MB
 > - Hash：String元素组成的字典，适合用于存储对象
 > - List：列表，按照String元素插入顺序排序
 > - Set：String元素组成的无需集合，通过哈希表实现，不允许重复
-> - Sorted Set： 通过分数来为集合中的成员进行从小到大的排序
+> - Sorted Set： 也即zset，每个元素都会关联一个double类型的分数。通过分数来为集合中的成员进行从小到大的排序，zset的成员是唯一的,但分数(score)却可以重复。
 > - 用于计数的HyperLogLog，用于支持存储地理位置信息的Geo
 
 <img src="E:\dev\javaweb\IDEA\javaExercise\images\底层数据类型基础.png" alt="image-20200527213843016" style="zoom:67%;" />
+
+#### 20 从海量Key里查询出某一固定前缀的Key
+
+注意：首先得问清楚数据规模。
+
+常规答案：采用Keys 指令：查找所有符号给定模式的key  eg: keys k1*   
+
+- keys指令一次性返回所有匹配的key
+- 键的数量过大会使服务卡顿
+
+改进方法：使用scan cursor [match pattern] [COUNTcount] eg: scan 0 match k1* count 10
+
+- ➢基于游标的迭代器,需要基于.上一次的游标延续之前的迭代过程
+  ➢以0作为游标开始一次新的迭代,直到命令返回游标0完成一-次遍历
+  ➢不保证每次执行都返回某个给定数量的元素,支持模糊查询
+  ➢一次返回的数量不可控,只能是大概率符合count参数
+
+
+
+#### 21如何通过Redis实现分布式锁
+
+分布式锁需要解决的问题：1）互斥性   2） 安全性  3） 死锁  4） 容错
+
+**SETNX key value：如果key不存在，则创建并赋值**
+
+- 时间复杂度：O(1)
+- 返回值：设置成功，返回1；设置失败，返回0
+
+**EXPIRE key seconds**:设置key的生存时间，当key过期时（生存时间为0），会被自动删除；缺点：原子性得不到满足
+
+**SET key value [EX seconds] [PX milliseconds] [NX|XX]**
+➢EX second :设置键的过期时间为second秒
+➢PX millisecond :设置键的过期时间为millisecond毫秒
+➢NX :只在键不存在时,才对键进行设置操作
+➢XX:只在键已经存在时,才对键进行设置操作
+➢SET操作成功完成时,返回OK ,否则返回nil 
+
+**集中过期,由于清除大量的key很耗时,会出现短暂的卡顿现象**
+➢解放方案:在设置key的过期时间的时候,给每个key加上**随机值**
+
+#### 22 如何使用Redis做异步队列
+
+> 使用List作为队列，RPUSH生产消息，LPOP消费消息
+>
+> - 缺点：没有等待队列里有值就直接消费
+> - 弥补：可以通过在应用层引入Sleep机制去调用LPOP重试
+>
+> BLPOP key [key .. timeout :阻塞直到队列有消息或者超时
+> ➢缺点:只能供一个消费者消费
+>
+> pub/sub :主题订阅者模式
+> ➢发送者(pub)发送消息,订阅者(sub)接收消息
+> ➢订阅者可以订阅任意数量的频道
+>
+> pub/sub的缺点：消息的发布时无状态的，无法保证可达
+
+
+
+#### 23 Redis如何做持久化
+
+Redis提供了三种持久化方式：
+
+**1、RDB（快照）持久化**：保存某个时间点的全量数据快照
+
+- SAVE：阻塞Resid的服务器进程，直到RDB文件被创建完毕
+- ==BGSAVE：Fork出一个子进程来创建RDB文件，不阻塞服务器进程==
+
+
+
+自动化触发RDB持久化的方式
+➢根据redis.conf配置里的SAVE m n定时触发(用的是BGSAVE )
+➢主从复制时,主节点自动触发
+➢执行Debug Reload
+➢执行Shutdown且没有开启AOF持久化
+
+BGSAVE原理：
+
+![img](E:\dev\javaweb\IDEA\javaExercise\images\BGSAVE.png)
+
+`注意:`bgsave命令是针对save阻塞问题做的优化。Redis内部所有涉及到RDB操作都采用basave的方式,save命令可以放弃使用。
+
+Copy-on-Write
+如果有多个调用者同时要求相同资源(如内存或磁盘上的数据存储)，他们会共同获取相同的指针指向相同的资源，直到某个调用者试图修改资源的内容时，系统才会真正复制一份专用副本给该调用者，而其他调用者所见到的最初的资源仍然保持不变。
+
+RDB持久化的缺点
+➢内存数据的全量同步,数据量大会由于I/O而严重影响性能
+➢可能会因为Redis挂掉而丢失从当前至最近一-次快照期间的数据
+
+**2、AOF（Append-Only-File）持久化**：保存写状态
+
+- 记录下除了查询以外的所有变更数据库状态的指令
+- 以append的形式追加保存到AOF文件中( 增量)
+
+![image-20200528005006309](E:\dev\javaweb\IDEA\javaExercise\images\AOF.png)
+
+![image-20200528005032538](E:\dev\javaweb\IDEA\javaExercise\images\Redis比较.png)
+
+![image-20200528005055419](E:\dev\javaweb\IDEA\javaExercise\images\RDB和AOF.png)
+
+**3 RDB-AOF混合持久化方式**
+
+BGSAVE做镜像全量持久化，AOF做增量持久化
+
+
+
+#### 24 使用Pipeline的好处
+
+➢Pipeline和Linux的管道类似
+➢Redis基 于请求/响应模型,单个请求处理需要一-应答
+➢Pipeline批量执行指令,节省多次IO往返的时间
+➢有顺序依赖的指令建议分批发送
+
+
+
+#### 25 Redis的同步机制
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\主从同步原理.png" alt="image-20200528005558898" style="zoom:67%;" />
+
+**全同步过程**
+➢Salve发送sync命令 到Master
+➢Master启动- 个后台进程,将Redis中的数据快照保存到文件中
+➢Master将保存数据快照期间接收到的写命令缓存起来
+➢Master完成写文件操作后, 将该文件发送给Salve
+➢使用新的AOF文件替换掉旧的AOF文件
+➢Master将这期间收集的增量写命令发送给Salve端
+
+**增量同步过程**
+➢Master接收到用户的操作指令,判断是否需要传播到Slave
+➢将操作记录追加到AOF文件
+➢将操作传播到其他Slave : 1、对齐主从库; 2、往响应缓存写入指令
+➢将缓存中的数据发送给Slave
+
+![image-20200528005840724](E:\dev\javaweb\IDEA\javaExercise\images\RedisSentinel.png)
+
+![image-20200528005934909](E:\dev\javaweb\IDEA\javaExercise\images\Gossip.png)
+
+#### 26 Redis的集群原理
+
+如何从海量数据里快速找到所需?
+➢分片:按照某种规则去划分数据,分散存储在多个节点上
+➢常规的按照哈希划分无法实现节点的动态增减
+
+![image-20200528010255762](E:\dev\javaweb\IDEA\javaExercise\images\集群原理.png)
+
+![image-20200528010640285](E:\dev\javaweb\IDEA\javaExercise\images\引入虚拟结点.png)
