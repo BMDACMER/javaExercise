@@ -1,7 +1,3 @@
-
-
-
-
 ## 一、JUC 
 
 ### 1 JUC是什么
@@ -2873,4 +2869,160 @@ ReenterLockDemo代码如下：
 
 
 
+
+## 四、剑指java校招面试（慕课网299）
+
+### 1 网络协议
+
+![image-20200527095650305](E:\dev\javaweb\IDEA\javaExercise\images\OSI七层模型.png)
+
+![image-20200527095757527](E:\dev\javaweb\IDEA\javaExercise\images\TCPIP.png)
+
+### 2 说说TCP/IP的三次握手
+
+**传输控制协议TCP简介**
+
+- 面向连接的、可靠的、基于字节流的传输层通信协议
+- 将应用层的数据流分割成报文段并发给目标结点的TCP层
+- 数据包都幼序号，对方收到则发送ACK确认，未收到则重传
+- 使用校验和来检验数据在传输过程中是否有误
+
+>  TCP Flags
+>
+> > URG：紧急指针标志
+> >
+> > ACK：确认序号标志
+> >
+> > PSH：push标志
+> >
+> > RST：重置连接标志
+> >
+> > SYN：同步序号，用于建立连接过程
+> >
+> > FIN：finish标志，用于释放连接
+
+![image-20200527101153075](E:\dev\javaweb\IDEA\javaExercise\images\三次握手.png)
+
+![image-20200527101958031](E:\dev\javaweb\IDEA\javaExercise\images\握手.png)
+
+**为什么需要三次握手才能建立连接？**
+
+答：为了初始化Sequence Number的初始值。
+
+![image-20200527102531361](E:\dev\javaweb\IDEA\javaExercise\images\首次握手的隐患.png)
+
+![image-20200527102721261](E:\dev\javaweb\IDEA\javaExercise\images\SYN.png)
+
+![image-20200527102817030](E:\dev\javaweb\IDEA\javaExercise\images\建立连接后.png)
+
+### 3 谈谈TCP的四次挥手
+
+![image-20200527103239965](E:\dev\javaweb\IDEA\javaExercise\images\四次挥手.png)
+
+![image-20200527103501507](E:\dev\javaweb\IDEA\javaExercise\images\四次挥手2.png)
+
+**为什么会有TIME_WAIT状态？**
+
+答：确保有足够的时间让对方收到ACK包，避免新旧连接混淆。
+
+**为什么需要四次握手才能断开连接？**
+
+答：因为全双工，发送方和接收方都需要FIN保温和ACK报文。
+
+**服务器出现大量CLOSE_WAIT状态的原因？**
+
+答：对方关闭socket连接，我方忙于读或写，没有及时关闭连接。
+
+>  解决办法：
+>
+> > 检查代码，特别是释放资源的代码
+> >
+> > 检查配置，特别是处理请求的线程配置，如线程池设置不合理等
+
+在linux中使用 `netstat`命令用于显示与IP、TCP、UDP和ICMP协议相关的统计数据，一般用于检验本机各端口的网络连接情况。netstat是在内核中访问网络及相关信息的程序，它能提供TCP连接，TCP和UDP监听，进程内存管理的相关报告。
+
+### 4 UDP简介
+
+![image-20200527104529022](E:\dev\javaweb\IDEA\javaExercise\images\UDP1.png)
+
+**UDP的特点**
+
+- 面向非连接
+- 不维护连接状态，支持同时向多个客户端传输相同的消息
+- 数据包报头只有8个字节，额外开销较小
+- 吞吐量只受限于数据生成速率、传输速率以及机器性能
+- 尽最大努力交付，不保证可靠交付，不需要维持复杂的链接状态表
+- 面向报文，不对应用程序提交的报文信息进行拆分或者合并
+
+**TCP和UDP的区别**
+
+- TCP是面向连接的，UDP是无连接的
+- TCP保证了传输的可靠性，而UDP不能保证
+- TCP传输是有序的，而UDP不具备
+- TCP比较慢，因为要创建链接等额外的时间消耗，而UDP不需要，更适合做视频，聊天软件
+- TCP是重量级的，报头含有20个字节，而UDP可看成是轻量级的，报头包含8个字节
+
+
+
+### 5 TCP的滑动窗口
+
+**RTT和RTO**
+
+- RTT：发送一个数据包到收到对应的ACK，所花费的时间
+- RTO：重传时间间隔
+
+**TCP使用滑动窗口做流量控制与乱序重排**
+
+- 保证TCP的可靠性
+- 保证TCP的流量控制特性
+
+![image-20200527111506001](E:\dev\javaweb\IDEA\javaExercise\images\TCP滑动窗口.png)
+
+![image-20200527111708547](E:\dev\javaweb\IDEA\javaExercise\images\TCP滑动窗口2.png)
+
+![image-20200527111743568](E:\dev\javaweb\IDEA\javaExercise\images\TCP滑动窗口3.png)
+
+### 6 HTTP简介
+
+**超文本传输协议HTTP主要特点**
+
+- 支持客户/服务器模式
+- 简单快速
+- 灵活
+- 无连接
+- 无状态
+
+**请求/响应的步骤**
+
+- 客户端连接到Web服务器
+- 发送HTTP请求
+- 服务器接受请求并返回HTTP响应
+- 释放连接TCP连接
+- 客户端浏览器解析HTML内容
+
+**面试题：在浏览器地址栏输入URL，按下回车之后经历的流程？**
+
+答：① DNS解析  ② TCP连接  ③ 发送HTTP请求   ④ 服务器处理请求并返回HTTP报文  ⑤ 浏览器解析渲染页面  ⑥ 连接结束
+
+详细介绍：首先浏览器会去URL逐层查询DNS，解析URL域名所对应的IP地址，DNS缓存从近到远依次是浏览器缓存、系统缓存、路由器缓存、IPS服务器缓存、根域名服务器缓存、顶级域名服务器缓存，从哪个找到对应的IP则直接返回，不在查询后面的缓存。根据找到的IP地址和对应的端口（默认是80）和服务器建立TCP连接。之后，浏览器会发送HTTP请求，该请求会发送给服务器，服务器处理请求并返回HTTP报文 ，接着，浏览器收到了HTML解析渲染页面，最后浏览器释放TCP连接（四次挥手）。
+
+**面试题：HTTP状态码？**
+
+答：五种可能的取值，如下：
+
+- 1xx：指示信息--表示请求已接受，继续处理
+- 2xx：成功--表示请求已被成功接收、理解、接收
+- 3xx：重定向--要完成请求必须进行更进一步的操作
+- 4xx：客户端错误--请求有语法错误或请求无法实现
+- 5xx：服务器端错误--服务器未能实现合法的请求
+
+**常见状态码：**
+
+200 OK:正常返回信息
+400 Bad Request:客户端请求有语法错误，不能被服务器所理解
+401 Unauthorized:请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用
+403 Forbidden:服务器收到请求，但是拒绝提供服务
+404 Not Found:请求资源不存在，eg,输入了错误的URL
+500 Internal Server Error:服务器发生不可预期的错误
+503 Server Unavailable:服务器当前不能处理客户端的请求，一段时间后可能恢复正常
 
