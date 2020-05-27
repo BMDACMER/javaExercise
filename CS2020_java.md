@@ -2872,13 +2872,15 @@ ReenterLockDemo代码如下：
 
 ## 四、剑指java校招面试（慕课网299）
 
-### 1 网络协议
+### 计算机网络
+
+#### 1 网络协议
 
 ![image-20200527095650305](E:\dev\javaweb\IDEA\javaExercise\images\OSI七层模型.png)
 
 ![image-20200527095757527](E:\dev\javaweb\IDEA\javaExercise\images\TCPIP.png)
 
-### 2 说说TCP/IP的三次握手
+#### 2 说说TCP/IP的三次握手
 
 **传输控制协议TCP简介**
 
@@ -2915,7 +2917,7 @@ ReenterLockDemo代码如下：
 
 ![image-20200527102817030](E:\dev\javaweb\IDEA\javaExercise\images\建立连接后.png)
 
-### 3 谈谈TCP的四次挥手
+#### 3 谈谈TCP的四次挥手
 
 ![image-20200527103239965](E:\dev\javaweb\IDEA\javaExercise\images\四次挥手.png)
 
@@ -2941,7 +2943,7 @@ ReenterLockDemo代码如下：
 
 在linux中使用 `netstat`命令用于显示与IP、TCP、UDP和ICMP协议相关的统计数据，一般用于检验本机各端口的网络连接情况。netstat是在内核中访问网络及相关信息的程序，它能提供TCP连接，TCP和UDP监听，进程内存管理的相关报告。
 
-### 4 UDP简介
+#### 4 UDP简介
 
 ![image-20200527104529022](E:\dev\javaweb\IDEA\javaExercise\images\UDP1.png)
 
@@ -2964,7 +2966,7 @@ ReenterLockDemo代码如下：
 
 
 
-### 5 TCP的滑动窗口
+#### 5 TCP的滑动窗口
 
 **RTT和RTO**
 
@@ -2982,7 +2984,7 @@ ReenterLockDemo代码如下：
 
 ![image-20200527111743568](E:\dev\javaweb\IDEA\javaExercise\images\TCP滑动窗口3.png)
 
-### 6 HTTP简介
+#### 6 HTTP简介
 
 **超文本传输协议HTTP主要特点**
 
@@ -3026,3 +3028,314 @@ ReenterLockDemo代码如下：
 500 Internal Server Error:服务器发生不可预期的错误
 503 Server Unavailable:服务器当前不能处理客户端的请求，一段时间后可能恢复正常
 
+**面试题：GET请求和POST请求的区别**
+
+答：从三个层面来解答：
+
+- http报文层面：GET将请求信息放在URL，POST方在报文体中
+- 数据库层面：GET符合幂等性和安全性，POST不符合，比如GET用于查询，POST则可以操作改变数据库
+- 其他层面：GET可以被缓存、被存储，而POST不行
+
+**面试题：Cookie和Session区别**
+
+答：
+
+> Cookie简介：
+>
+> - 是由服务器发送给客户端的特殊信息，以文本的性识存放在客户端
+> - 客户端再次请求的时候，会把Cookie回发
+> - 服务器接收到后，会解析Cookie生成与客户端相对应的内容
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\Cookie.png" alt="image-20200527115907188" style="zoom:67%;" />
+
+> Session简介
+>
+> - 服务器端的机制，在服务器上保存的信息
+> - 解析客户端请求并操作sessionid， 按需保存状态信息
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\Session.png" alt="image-20200527142333647" style="zoom:67%;" />
+
+**Session与Cookie区别？**
+
+- Cookid数据存放在客户的浏览器上，Session数据放在服务器上
+- Session相对于Cookie更安全
+- 若考虑减轻服务器负担，应当使用Cookie
+
+
+
+#### 7 HTTP与HTTPS的区别
+
+![image-20200527142641979](E:\dev\javaweb\IDEA\javaExercise\images\HTTP.png)
+
+```
+SSL(Security Sockets Layer ,安全套接层)
+➢ 为网络通信提供安全及数据完整性的一种安全协议
+➢是操作系统对外的API , SSL3.0后更名为TLS
+➢采用身份验证和数据加密保证网络通信的安全和数据的完整性
+
+加密的方式
+➢对称加密:加密和解密都使用同一个密钥
+➢非对称加密:加密使用的密钥和解密使用的密钥是不相同的
+➢哈希算法:将任意长度的信息转换为固定长度的值,算法不可逆
+➢数字签名:证明某个消息或者文件是某人发出/认同的
+
+HTTPS数据传输流程
+➢浏览器将支持的加密算法信息发送给服务器
+➢服务器选择-套浏览器支持的加密算法,以证书的形式回发浏览器
+➢浏览器验证证书合法性,并结合证书公钥加密信息发送给服务器
+➢服务器使用私钥解密信息,验证哈希,加密响应消息回发浏览器
+➢浏览器解密响应消息,并对消息进行验真,之后进行加密交互数据
+```
+
+**HTTP与HTTPS的区别**
+
+➢HTTPS需要到CA申请证书, HTTP不需要
+➢HTTPS密文传输, HTTP明文传输
+➢连接方式不同, HTTPS默认使用443端口, HTTP使用80端口
+➢HTTPS= HTTP+加密+认证+完整性保护,较HTTP安全
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\HTTPS.png" alt="image-20200527143644592" style="zoom:67%;" />
+
+#### 8 Socket简介
+
+![image-20200527143837455](E:\dev\javaweb\IDEA\javaExercise\images\Socket.png)
+
+![image-20200527143952047](E:\dev\javaweb\IDEA\javaExercise\images\Socket通信.png)
+
+**面试题：Socket相关的面试题**
+
+编写一个网络应用程序，有客户端与服务器端，客户端向服务器发送一个字符串，服务器收到该字符串后将其打印到命令行上，然后向客户端返回该字符串的长度，最后，客户端输出服务器端返回的该字符串的长度，分别用TCP和UDP两种方式去实现。
+
+具体代码详见：[此处](https://github.com/BMDACMER/javaExercise/tree/master/interview/src/main/java/com/interview/javabasic/socket)
+
+### 数据库
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\关系型数据库考点.png" alt="image-20200527155617663" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\RDBMS.png" alt="image-20200527160111894" style="zoom:67%;" />
+
+#### 9 索引模块
+
+>  为什么要使用索引？ 
+>
+> > - 快速查询数据
+
+> 什么样的信息能成为索引？
+>
+> - 主键、唯一键以及普通键等
+
+> 索引的数据结构
+>
+> - 生成索引，建立二叉查找树进行二分查找
+> - 生成索引，建立B-Tree结构进行查找
+> - 生成索引，建立B+-Tree结构进行查找
+> - 生成索引，建立Hash结构进行查找
+
+**B树（B-Tree）**也即B-树
+
+![image-20200527161820878](E:\dev\javaweb\IDEA\javaExercise\images\B-Tree.png)
+
+定义：
+
+- 根结点至少包括两个孩子
+- 树中每个结点最多含有m个孩子（m>=2）
+- 除根结点和叶节点外，其他每个结点至少有ceil(m/2)个孩子
+- 所有叶子结点都位于同一层
+
+假设每个非终端结点中包含有n个关键字信息，其中
+a) Ki (i1..n)为关键字,且关键字按顺序升序排序K(i-1)< Ki
+b)关键字的个数n必须满足: [ceil(m/ 2)-1]<=n <= m-1
+c)非叶子结点的指针 :P[1], P[2], .... P[M] ;其中P[1]指向关键字小于K[1]的子树, P[M]
+指向关键字大于K[M-1]的子树,其它P[]指向关键字属于(K[i-1], K[i])的子树
+
+**B+树**
+
+![image-20200527162617685](E:\dev\javaweb\IDEA\javaExercise\images\B+树.png)
+
+![image-20200527162735977](E:\dev\javaweb\IDEA\javaExercise\images\B+树2.png)
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\结论.png" alt="image-20200527162927132" style="zoom:67%;" />
+
+![image-20200527163227699](E:\dev\javaweb\IDEA\javaExercise\images\Hash索引.png)
+
+**注释：通常使用的是B+树**
+
+#### 10 密集索引和稀疏索引的区别
+
+- 密集索引文件中的每个搜索码值都对应一个索引值
+- 稀疏索引文件只为索引码的某些值建立索引项
+
+![image-20200527164055366](E:\dev\javaweb\IDEA\javaExercise\images\密集索引.png)
+
+**额外知识--InnoDB**
+
+- 若一个主键被定义，该主键则作为密集索引
+- 若没有主键被定义，该表的第一个唯一非空索引则作为密集索引
+- 若不满足以上条件，innodb内部会生成一个隐藏主键（密集索引）
+- 非主键索引存储相关键位和其对应的主键值，包含两次查找
+
+![image-20200527165005891](E:\dev\javaweb\IDEA\javaExercise\images\InnoDB.png)
+
+#### 11 如何定位并优化慢查询SQL
+
+具体场景具体分析，只提出大致思路：
+
+- 根据慢日志定位慢查询sql
+- 使用explain等工具分析sql
+- 修改sql或者尽量让sql走索引
+
+
+
+**Explain关键字段**
+
+- type
+
+  system>const>eq_ ref>ref>fulltext>ref _or_ null>index merge>unique_ subquery> index. subquery> range>==index>all==
+
+- extra
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\extra.png" alt="image-20200527170846250" style="zoom:67%;" />
+
+#### 12 联合索引的最左匹配原则的成因
+
+![image-20200527172044042](E:\dev\javaweb\IDEA\javaExercise\images\联合索引.png)
+
+1.最左前缀匹配原则，非常重要的原则，mysq|会- -直向右匹配直到遇到范围查询(>、 <、between、like)就停止匹配 ,比如a = 3 andb = 4 andc > 5 and d = 6如果建立(a,b,c,d)顺序的索引，d是用不到索引的,如果建立(a,b,d,c)的索引|则都可以用到, a,b,d的顺序可以任意调整。
+
+2.=和in可以乱序,比如a = 1 andb= 2 andc= 3建立(a,b,c)索引可以任意顺序, mysql的查询优化器会帮你优化成索引可以识别的形式.
+
+#### 13 索引是建立得越多越好吗？
+
+➢数据量小的表不需要建立索引,建立会增加额外的索引开销
+➢数据变更需要维护索引,因此更多的索弓|意味着更多的维护成本
+➢更多的索弓|意味着也需要更多的空间
+
+#### 14 锁模块
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\锁模块.png" alt="image-20200527172708179" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\共享锁和排斥锁的兼容性.png" alt="image-20200527175108192" style="zoom:67%;" />
+
+**MyISAM适合的场景**
+
+- 频繁执行全表count语句
+- 对数据进行增删改的频率不高，查询非常频繁
+- 没有事务
+
+**InnoDB适合的场景**
+
+- 数据增删改查都相当频繁
+- 可靠性要求比较高，要求支持事务
+
+**数据库锁的分类**
+
+- 按锁的粒度划分，可分为表级锁、行级锁、页级锁。其中InnoDB默认支持行级锁也支持表级锁，MyISAM仅支持表级锁。而页级锁是一种介于表级锁和行级锁之间的锁，不常用的BDB引擎支持页级锁。
+- 按锁级别划分，可分为 共享锁、排他锁
+- 按加锁方式划分，可分为自动锁、显示锁
+- 按操作划分，可分为DML锁、DDL锁
+- 按使用方式划分，可分为乐观锁、悲观锁（比如加syncharonized）
+
+#### 15 数据库事务的四大特性
+
+>  ACID
+>
+> - 原子性（Atomic）：事务执行要么全部执行要么全部失败回滚
+> - 一致性（Consistency）
+> - 隔离性（Isolation）：并发执行时，各事务互不影响
+> - 持久性（Durability）
+
+#### 16 事务并发访问引起的问题以及如何避免
+
+- 更新丢失---mysql所有事务隔离级别在数据库层面上均可避免
+- 脏读--READ-COMMITTED事务隔离级别以上可避免（oracle默认这个）
+- 不可重复读--REPEATABLE-READ事务隔离级别以上可避免（mysql默认这个级别）
+- 幻读--SERIALIZABLE事务隔离级别可避免
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\事务并发访问.png" alt="image-20200527185547614" style="zoom:67%;" />
+
+**丢失修改**：T1和T2两个事务都对一个数据进行==修改==，T1先修改，T2随后修改，T2的修改覆盖了T1的修改。
+
+**脏读**：T1修改一个数据，T2随后读取这个数据。如果T==1撤销了这次修改==，那么T2读取的数据是脏数据。
+
+**不可重复读**：T2读取一个数据，T1对该数据做了==修改==。如果T2再次读取这个数据，此时读取的结果和第一次读取的结果不同。
+
+**幻影读**：T1读取某个范围的数据，T2在这个范围内==插入==新的数据，T1再次读取这个范围的数据，此时读取的结果和和第一次读取的结果不同。
+
+#### 17  InnoDB可重复读隔离级别下如何避免幻读
+
+- 表象：快照读（非阻塞读） -- 伪MVCC
+- 内在：next-key锁（行锁+gap锁）
+
+**当前读和快照读**
+
+> ➢当前读: selec...lock in share mode , select.. .for update
+> ➢当前读: update , delete , insert
+> ➢快照读:不加锁的非阻塞读, select
+
+> RC、RR级别下的InnoDB的非阻塞读如何实现
+> ➢数据行里的DB_TRX_ID、DB_ROLL_PTR、DB_ROW_ID字段
+> ➢undo日志
+> ➢read view
+
+
+
+**对主键索引或者唯一索引会用Gap锁吗？**
+➢如果where条件全部命中,则不会用Gap锁,只会加记录锁
+➢如果where条件部分命中或者全不命中,则会加Gap锁
+
+**Gap锁会用在非唯一索引或者不走索引的当前读中**
+
+#### 18 语法部分
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\关键语法.png" alt="image-20200527203641805" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\groupBy.png" alt="image-20200527203753645" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\HAVING.png" alt="image-20200527205644550" style="zoom:67%;" />
+
+
+
+#### 彩蛋--面试的三层架构
+
+- 首轮：面试技术基本功
+- 次轮：架构涉及，通过技术解决某些场景下的问题
+- 末轮：稳定性以及未来规划，压工资
+
+### Redis
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\主流应用架构.png" alt="image-20200527211154882"  />
+
+>  Memcache：代码层次类似于Hash
+>
+> - 支持简单数据类型
+> - 不支持数据持久化存储
+> - 不支持主从
+> - 不支持分片
+
+> Redis
+>
+> - 数据类型丰富
+> - 支持数据磁盘持久化存储
+> - 支持主从
+> - 支持分片
+
+![image-20200527212158507](E:\dev\javaweb\IDEA\javaExercise\images\Redis1.png)
+
+ ![image-20200527212524650](E:\dev\javaweb\IDEA\javaExercise\images\Redis2.png)
+
+![image-20200527212732237](E:\dev\javaweb\IDEA\javaExercise\images\Select.png)
+
+![image-20200527212458503](E:\dev\javaweb\IDEA\javaExercise\images\redis3.png)
+
+#### 19 说说你用过的Redis的数据类型
+
+> 供用户使用的数据类型
+>
+> - String：最基本的数据类型，二进制安全
+> - Hash：String元素组成的字典，适合用于存储对象
+> - List：列表，按照String元素插入顺序排序
+> - Set：String元素组成的无需集合，通过哈希表实现，不允许重复
+> - Sorted Set： 通过分数来为集合中的成员进行从小到大的排序
+> - 用于计数的HyperLogLog，用于支持存储地理位置信息的Geo
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\底层数据类型基础.png" alt="image-20200527213843016" style="zoom:67%;" />
