@@ -3580,7 +3580,7 @@ BGSAVE做镜像全量持久化，AOF做增量持久化
 
 
 
-### java基础
+### JVM
 
 #### 31 谈谈你对java的理解
 
@@ -3697,3 +3697,186 @@ BGSAVE做镜像全量持久化，AOF做增量持久化
 - 碎片相关：栈产生的碎片远小于堆
 - 分配方式：==栈支持静态和动态分配，而堆仅支持动态分配==
 - 效率：栈的效率比堆高
+
+![image-20200528161135168](E:\dev\javaweb\IDEA\javaExercise\images\元空间堆线程独占部分间的联系.png)
+
+![image-20200528161304125](E:\dev\javaweb\IDEA\javaExercise\images\intern.png)
+
+![image-20200528161527536](E:\dev\javaweb\IDEA\javaExercise\images\intern6.png)
+
+==在JDK6中，输出结果为false   false;但在JDK6+以上版本，输出结果为false, true;==
+
+#### ![image-20200528161554923](E:\dev\javaweb\IDEA\javaExercise\images\intern6+.png)
+
+#### 36 垃圾回收机制
+
+##### 判断对象是否为垃圾的算法
+
+- 引用计数法
+- 可达性分析法
+
+
+
+> 引用计数法
+>
+> 判断对象的引用数量
+>
+> - 通过判断对象的引用数量来决定对象是否可以被回收
+> - 每个对象实例都有一个引用计数器，被引用则+1，完成引用则-1
+> - 任何==引用计数为0==的对象实例可以==被当作垃圾收集==
+>
+> 优点：执行效率高，程序执行受影响小
+>
+> 缺点：无法检测出循环引用的情况，导致内存泄漏
+
+> 可达性分析算法
+>
+> 通过判断对象的引用链是否可达来决定对象是否可以被回收
+
+> 可以作为GC Root的对象
+>
+> - 虚拟机栈中引用的对象（栈帧中的本地变量表）
+> - 方法区中的常量引用的对象
+> - 方法区中的类静态属性引用的对象
+> - 本地方法栈中JNI（Native方法）的引用对象
+> - 活跃线程的引用对象
+
+![image-20200528165325353](E:\dev\javaweb\IDEA\javaExercise\images\可达性分析.png)
+
+
+
+##### 谈谈你了解的垃圾回收算法
+
+![image-20200528181422757](E:\dev\javaweb\IDEA\javaExercise\images\标记-清除算法7.png)
+
+![image-20200528181508025](E:\dev\javaweb\IDEA\javaExercise\images\复制算法.png)
+
+![image-20200528181721184](E:\dev\javaweb\IDEA\javaExercise\images\标记-整理算法.png)
+
+![image-20200528181811209](E:\dev\javaweb\IDEA\javaExercise\images\分代收集算法.png)
+
+![image-20200528181921034](E:\dev\javaweb\IDEA\javaExercise\images\GC.png)
+
+![image-20200528182547136](E:\dev\javaweb\IDEA\javaExercise\images\年轻代.png)
+
+![image-20200528182857122](E:\dev\javaweb\IDEA\javaExercise\images\晋升到老年代.png)
+
+![image-20200528183004376](E:\dev\javaweb\IDEA\javaExercise\images\参数调优.png)
+
+![image-20200528183047234](E:\dev\javaweb\IDEA\javaExercise\images\老年代.png)
+
+![image-20200528183120242](E:\dev\javaweb\IDEA\javaExercise\images\老年代2.png)
+
+![image-20200528183409396](E:\dev\javaweb\IDEA\javaExercise\images\FullGC.png)
+
+
+
+##### 常见的垃圾收集器
+
+> Stop-the-World
+>
+> - JVM由于要执行GC而停止了应用程序的执行
+> - 任何一种GC算法中都会发生
+> - 多数GC优化通过减少Stop-the-World发生的时间来提高程序的性能
+
+> Safepoint
+>
+> - 分析过程中对象引用关系不会发生变化的点
+> - 产生Safepoint的地方：==方法调用；循环跳转；异常跳转==等
+> - 安全点数量得适中，太多的话会影响性能。
+
+
+
+> JVM的运行模式
+>
+> - Server 启动较慢  重量级虚拟机
+> - Client 启动较快  轻量级虚拟机
+
+
+
+垃圾收集器之间的联系
+
+![image-20200528184256154](E:\dev\javaweb\IDEA\javaExercise\images\垃圾收集器.png)
+
+![image-20200528184438489](E:\dev\javaweb\IDEA\javaExercise\images\Serial.png)
+
+![image-20200528184658791](E:\dev\javaweb\IDEA\javaExercise\images\ParNew.png)
+
+![image-20200528203143991](E:\dev\javaweb\IDEA\javaExercise\images\ParallelScavenge.png)
+
+![image-20200528203245488](E:\dev\javaweb\IDEA\javaExercise\images\ParallelScavenge2.png)
+
+![image-20200528203419586](E:\dev\javaweb\IDEA\javaExercise\images\SerialOld.png)
+
+![image-20200528203512146](E:\dev\javaweb\IDEA\javaExercise\images\ParallerOld46.png)
+
+![image-20200528203702729](E:\dev\javaweb\IDEA\javaExercise\images\CMS.png)
+
+![image-20200528203721501](E:\dev\javaweb\IDEA\javaExercise\images\CMS2.png)
+
+![image-20200528203840364](E:\dev\javaweb\IDEA\javaExercise\images\G1.png)
+
+![image-20200528204003162](E:\dev\javaweb\IDEA\javaExercise\images\G1_.png)
+
+#### 37 GC相关面试题
+
+##### Object的finalize()方法的作用是否与C++的析构函数作用相同？
+
+答：① 与C++的析构函数不同，析构函数调用确定，而它的是不确定的  ②将未被引用的对象放置于F-Queue队列 ③ 方法执行随时会被终止  ④  给予对象最后一次重生的机会
+
+
+
+##### Java中的强引用，软引用，弱引用，虚引用有什么用呢？
+
+> 强引用
+>
+> - 最普遍的引用： Object obj = new Object()
+> - 抛出OutOfMemoryError终止程序也不会回收具有强引用的对象
+> - 通过将对象设置为null来弱化引用，使其被回收
+
+> 软引用
+>
+> - 对象处在有用但非必须的状态
+> - ==只有当内存空间不足时，GC会回收该引用的对象的内存==
+> - 可以用来实现高速缓存
+
+```java
+String str = new String("abc");   // 强引用
+SoftReference<String> softRef = new SoftReference<String>(str);    // 软引用
+```
+
+> 弱引用
+>
+> - 非必须的对象，比软引用更弱一些
+> - GC时会被回收
+> - 被回收的概率也不大，因为GC线程优先级较低
+> - 适用于引用偶尔被使用且不影响垃圾收集的对象
+
+```java
+String str = new String("abc");
+WeakReference<String> abcWeakRef = new WeakReference<String>(str);
+```
+
+> 虚引用
+>
+> - 不会决定对象的声明周期
+> - 任何时候都可以被垃圾收集器回收
+> - ==跟踪对象被垃圾收集器回收的活动，起哨兵作用==
+> - 必须和引用队列ReferenceQueue联合使用
+
+```java
+String str = new String("abc");
+ReferenceQueue queue = new ReferenceQueue();
+PhantomReference ref = new PhantomRefernce(str, queue);
+```
+
+**强引用 > 软引用 > 弱引用 >  虚引用** 
+
+![image-20200528211313594](E:\dev\javaweb\IDEA\javaExercise\images\引用4.png)
+
+![image-20200528211502135](E:\dev\javaweb\IDEA\javaExercise\images\类层次结构.png)
+
+> 引用队列
+>
+> - 无实际存储结构，存储逻辑依赖于内部结点之间的关系来表达
+> - 存储关联的且被GC的软引用，弱引用以及虚引用
