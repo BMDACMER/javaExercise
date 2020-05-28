@@ -4046,3 +4046,107 @@ public class RunnableDemo {
 }
 ```
 
+#### 41 如何给run()方法传参
+
+实现的方式主要有三种：构造函数传参、成员变量传参、回调函数传参。
+
+#### 42 如何实现处理线程的返回值
+
+- 主线程等待法
+- 使用Thread类的join()阻塞当前线程以等待子线程处理完毕
+- 通过Callable接口实现：通过FutureTask 或者 线程池获取
+
+```java
+public class CycleWait implements Runnable {
+    private String value;
+
+    @Override
+    public void run() {
+        try {
+            Thread.currentThread().sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        value = "we have data now";
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        CycleWait cw = new CycleWait();
+        Thread t = new Thread(cw);
+        t.start();
+
+        // 方式一：主线程等待法
+//        while (cw.value == null) {
+////            Thread.currentThread().sleep(100);
+////        }
+////        
+        // 方法二：join
+        t.join();
+        System.out.println("value : " + cw.value);
+    }
+}
+
+// 通过Callable接口实现：通过FutureTask 或者 线程池获取
+// 通过FutureTask
+import java.util.concurrent.Callable;
+
+public class MyCallable implements Callable<String> {
+    @Override
+    public String call() throws Exception {
+        String value = "test";
+        System.out.println("Ready to work");
+        Thread.currentThread().sleep(3000);
+        System.out.println("task done");
+        return value;
+    }
+}
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+
+public class FutureTaskDemo {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        FutureTask<String> futureTask = new FutureTask<String>(new MyCallable());
+        new Thread(futureTask).start();
+        if (!futureTask.isDone()) {
+            System.out.println("task has not finished, please wait!");
+        }
+        System.out.println("task return: " + futureTask.get());
+    }
+}
+
+// 线程池获取
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class ThreadPoolDemo {
+    public static void main(String[] args) {
+        ExecutorService newCachedThreadPool = Executors.newCachedThreadPool();
+        Future<String> future = newCachedThreadPool.submit(new MyCallable());
+        if (!future.isDone()) {
+            System.out.println("task has not finished, please wait!");
+        }
+
+        try {
+            System.out.println(future.get());
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } finally {
+            newCachedThreadPool.shutdown();
+        }
+    }
+}
+```
+
+#### 42 线程的状态
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\线程状态.png" alt="image-20200529004505886" style="zoom:67%;" />
+
+![image-20200529004634157](E:\dev\javaweb\IDEA\javaExercise\images\线程状态2.png)
+
+[sleep() wait() yield() join()用法与区别](https://www.cnblogs.com/yhc20091116/p/4317338.html).
+
