@@ -2034,7 +2034,7 @@ public class ClassLoaderTest {
 
 **工作原理**
 
-> 如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行；如果父类加载器还存在其父亲加载器，则进一步向上委托，一次递归，请求最终将到达顶层的启动类加载器；如果父亲加载器可以完成类加载任务，就成功返回，倘若父亲加载器无法完成加载任务，子加载器才会尝试自己去加载，这就是双亲委派模式。
+> 如果一个类加载器收到了类加载请求，==它并不会自己先去加载==，而是把这个请求委托给父类的加载器去执行；如果父类加载器还存在其父亲加载器，则进一步向上委托，一次递归，请求最终将到达顶层的启动类加载器；==如果父亲加载器可以完成类加载任务，就成功返回，倘若父亲加载器无法完成加载任务，子加载器才会尝试自己去加载==，这就是双亲委派模式。
 
 ![image-20200407100908578](E:\dev\javaweb\IDEA\javaExercise\images\ClassLoader3.png)
 
@@ -3602,3 +3602,98 @@ BGSAVE做镜像全量持久化，AOF做增量持久化
 ![image-20200528102124538](E:\dev\javaweb\IDEA\javaExercise\images\java虚拟机.png)
 
 **谈谈反射**：JAVA反射机制是在运行状态中,对于任意-一个类,都能够知道这个类的所有属性和方法;对于任意一个对象,都能够调用它的任意方法和属性;这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。
+
+**ClassLoader**在Java中有着非常重要的作用, 它主要工作在Class装载的加载阶段,其主要作用是从系统外部获得Class二进制数据流。它是Java的核心组件，所有的Class都是由ClassLoader进行加载的，ClassLoader负责通过将Class文件里的二进制数据流装载进系统,然后交给Java虚拟机进行连接、初始化等操作。[code](https://github.com/BMDACMER/javaExercise/tree/master/interview/src/main/java/com/interview/javabasic/reflect)
+
+**ClassLoader种类**：[code](https://github.com/BMDACMER/javaExercise/tree/master/interview/src/main/java/com/interview/javabasic/reflect)
+
+- BootStrapClassLoader： C++编写，加载核心库java.*
+- ExtClassLoader：Java编写，加载扩展库javax.*
+- AppClassLoader：Java编写，加载程序所在目录
+- 自定义ClassLoader：Java编写，定制化加载
+
+#### 33 谈谈类加载器的双亲委派机制
+
+![image-20200528122136801](E:\dev\javaweb\IDEA\javaExercise\images\双亲委派机制.png)
+
+类加载方式：
+
+- 隐式加载：new
+- 显式加载：loadClass, forName等
+
+#### 34 java内存模型
+
+![image-20200528123608028](E:\dev\javaweb\IDEA\javaExercise\images\内存空间.png)
+
+![image-20200528123733924](E:\dev\javaweb\IDEA\javaExercise\images\JDK内存模型.png)
+
+> 程序计数器
+>
+> - 当前线程所执行的字节码行号指示器（逻辑）
+> - 改变计数器的值来选取下一条需要执行的字节码指令
+> - 和线程是一对一的关系即“线程私有”
+> - 对java方法计数，如果是Native方法则计数器值为Undefined
+> - 不会发生内存泄漏
+
+> Java虚拟机栈（Stack）
+>
+> - Java方法执行的内存模型
+> - 包含多个栈帧
+
+> 局部变量表和操作数栈
+>
+> - 局部变量表：包含方法执行过程中的所有变量
+> - 操作数栈：入栈、出栈、复制、交换、产生消费变量
+
+> 本地方法栈
+>
+> - 与虚拟机栈相似，主要作用于标注了native的方法
+
+> 元空间(MetaSoace)与永久代(PermGen)的区别
+>
+> - 元空间使用本地内存，而永久代使用的是JVM的内存
+> - java.lang.OutOfMemoryError: PermGen space
+
+**MetaSpace相比PermGen的优势**
+
+- 字符串常量池存放在永久代中，容易出现性能问题和内存溢出
+- 类和方法的信息大小难以确定，给永久代的大小指定带来困难
+- 永久代会为GC带来不必要的复杂性
+- 方便HotSpot与其他JVM如Jrockit的集成
+
+> Java堆（Heap）
+>
+> - 对象实例的分配区域
+> - GC管理的主要区域    （新生代+老年代）
+
+
+
+#### 35 JVM三大性能调优参数 \-Xms  \-Xmx   \-Xss 
+
+**-Xss**: 规定了每个线程虚拟机栈（堆栈）的大小
+
+**-Xms**: 堆的初始值
+
+**-Xmx**: 堆能达到的最大值
+
+![image-20200528154019329](E:\dev\javaweb\IDEA\javaExercise\images\JVM调优.png)
+
+一般情况下，-Xms与-Xmx设置相同，因为如果初始化的Xms的堆内存不足时，会扩容，产生抖动影响性能，所以一般就将-Xms与-Xmx设置相同的大小。
+
+**Java内存模型中==堆和栈==的区别----内存分配策略**
+
+- 静态存储：编译时确定每个数据目标在运行时的存储空间需求
+- 栈式存储：数据区需求在编译时未知，运行时模块入口前确定
+- 堆式存储：编译时或运行时模块入口都无法确定，动态分配
+
+**堆和栈的联系**：引用对象、数组时，栈里定义变量保存堆中目标的首地址
+
+![image-20200528160650387](E:\dev\javaweb\IDEA\javaExercise\images\堆和栈.png)
+
+**区别**：
+
+- 管理方式：栈自动释放，堆需要GC
+- 空间大小：栈比堆小
+- 碎片相关：栈产生的碎片远小于堆
+- 分配方式：==栈支持静态和动态分配，而堆仅支持动态分配==
+- 效率：栈的效率比堆高
