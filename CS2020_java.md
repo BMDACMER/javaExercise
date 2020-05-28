@@ -3955,3 +3955,94 @@ public class ReferenceQueueTest {
 }
 ```
 
+
+
+### JUC
+
+#### 38 进程与线程
+
+**进程**作为==资源分配的单位==，系统在运行时会为每个进程分配不同的内存区域。
+
+**线程**作为==CPU调度和执行的单位==，每个线程拥独立的运行栈和程序计数器(pc)，线程切换的开销小。因为CPU给每个线程分配道时间特别的短，所以用户感觉不到，感觉像是同时运行一样。
+
+**总结**
+
+- 线程不能看做独立应用，而进程可看作独立用用
+- 进程有独立的地址空间，相互不影响，线程知识进程的不同执行路径
+- 线程没有独立的地址空间，多进程的程序比都线程程序健壮
+- 进程的切换比线程的切换开销大
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\进程和线程.png" alt="image-20200528223137518" style="zoom:50%;" />
+
+#### 39 Thread中的start和run方法的区别
+
+![image-20200528223735046](E:\dev\javaweb\IDEA\javaExercise\images\start&run.png)
+
+
+
+#### 40 Thread和Runnable是什么关系？
+
+- ==Thread是实现了Runnable接口的类，使得run支持多线程==
+- 因类的单一继承原则，推荐多使用Runnable接口
+
+ThreadDemo.java   RunnableDemo.java   MyThread.java   MyRunnable.java
+
+```java
+// MyThread.java
+public class MyThread extends Thread{
+    private String name;
+    public MyThread(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Thread start : " + this.name + ", i = " + i);
+        }
+    }
+}
+
+// ThreadDemo.java
+public class ThreadDemo {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread("Thread1");
+        MyThread t2 = new MyThread("Thread2");
+        MyThread t3 = new MyThread("Thread3");
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
+
+// MyRunnable.java
+public class MyRunnable implements Runnable {
+    private String name;
+    public MyRunnable(String name){
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        for(int i = 0 ; i < 10 ; i ++){
+            System.out.println("Thread start : " + this.name + ",i= " + i);
+        }
+    }
+}
+
+// RunnableDemo.java
+public class RunnableDemo {
+    public static void main(String[] args) throws InterruptedException {
+        MyRunnable mr1 = new MyRunnable("Runnable1");
+        MyRunnable mr2 = new MyRunnable("Runnable2");
+        MyRunnable mr3 = new MyRunnable("Runnable3");
+        Thread t1 = new Thread(mr1);
+        Thread t2 = new Thread(mr2);
+        Thread t3 = new Thread(mr3);
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
+```
+
