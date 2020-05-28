@@ -3822,7 +3822,7 @@ BGSAVE做镜像全量持久化，AOF做增量持久化
 
 ##### Object的finalize()方法的作用是否与C++的析构函数作用相同？
 
-答：① 与C++的析构函数不同，析构函数调用确定，而它的是不确定的  ②将未被引用的对象放置于F-Queue队列 ③ 方法执行随时会被终止  ④  给予对象最后一次重生的机会
+答：① 与C++的析构函数不同，析构函数调用确定，而它的是不确定的  ②将未被引用的对象放置于F-Queue队列 ③ 方法执行随时会被终止  ④  给予对象最后一次重生的机会     [code](https://github.com/BMDACMER/javaExercise/tree/master/interview/src/main/java/com/interview/javabasic/gc)
 
 
 
@@ -3831,8 +3831,8 @@ BGSAVE做镜像全量持久化，AOF做增量持久化
 > 强引用
 >
 > - 最普遍的引用： Object obj = new Object()
-> - 抛出OutOfMemoryError终止程序也不会回收具有强引用的对象
-> - 通过将对象设置为null来弱化引用，使其被回收
+> - ==抛出OutOfMemoryError终止程序也不会回收具有强引用的对象==
+> - ==通过将对象设置为null来弱化引用，使其被回收==
 
 > 软引用
 >
@@ -3848,7 +3848,7 @@ SoftReference<String> softRef = new SoftReference<String>(str);    // 软引用
 > 弱引用
 >
 > - 非必须的对象，比软引用更弱一些
-> - GC时会被回收
+> - ==GC时会被回收==
 > - 被回收的概率也不大，因为GC线程优先级较低
 > - 适用于引用偶尔被使用且不影响垃圾收集的对象
 
@@ -3880,3 +3880,78 @@ PhantomReference ref = new PhantomRefernce(str, queue);
 >
 > - 无实际存储结构，存储逻辑依赖于内部结点之间的关系来表达
 > - 存储关联的且被GC的软引用，弱引用以及虚引用
+
+[code](https://github.com/BMDACMER/javaExercise/tree/master/interview/src/main/java/com/interview/javabasic/gc)  下面例子介绍 正常对象与弱引用和虚引用的关系
+
+```java
+// NormalObject
+public class NormalObject {
+    public String name;
+    public NormalObject(String name) {
+        this.name = name;
+    }
+
+    @Override
+    protected void finalize() {
+        System.out.println("Finalizing obj " + name);
+    }
+}
+
+
+// NormalObjectWeakReference
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
+
+public class NormalObjectWeakReference extends WeakReference<NormalObject> {
+    public String name;
+
+    public NormalObjectWeakReference(NormalObject normalObject, ReferenceQueue<NormalObject> rq) {
+        super(normalObject, rq);
+        this.name = normalObject.name;
+    }
+    @Override
+    protected void finalize(){
+        System.out.println("Finalizing NormalObjectWeakReference " + name);
+    }
+}
+
+
+// ReferenceQueueTest 负责测试引用队列
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
+public class ReferenceQueueTest {
+    private static ReferenceQueue<NormalObject> rq = new ReferenceQueue<NormalObject>();
+
+    private static void checkQueue(){
+        Reference<NormalObject> ref = null;
+        while ((ref = (Reference<NormalObject>)rq.poll()) != null){
+            if (ref != null){
+                System.out.println("In queue: " + ((NormalObjectWeakReference)(ref)).name);
+                System.out.println("reference object:" + ref.get());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        ArrayList<WeakReference<NormalObject>> weakList = new ArrayList<WeakReference<NormalObject>>();
+        for (int i =0; i < 3 ; i++){
+            weakList.add(new NormalObjectWeakReference(new NormalObject("Weak " + i),rq));
+            System.out.println("Created weak:" + weakList.get(i));
+        }
+        System.out.println("first time");
+        checkQueue();
+        System.gc();
+        try {
+            Thread.currentThread().sleep(1000);
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        System.out.println("second time");
+        checkQueue();
+    }
+}
+```
+
