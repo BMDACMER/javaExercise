@@ -3365,12 +3365,12 @@ c)非叶子结点的指针 :P[1], P[2], .... P[M] ;其中P[1]指向关键字小�
 
 注意：首先得问清楚数据规模。
 
-常规答案：采用Keys 指令：查找所有符号给定模式的key  eg: keys k1*   
+常规答案：采用Keys 指令：查找所有符号给定模式的key  ==eg: keys k1*==   
 
 - keys指令一次性返回所有匹配的key
 - 键的数量过大会使服务卡顿
 
-改进方法：使用scan cursor [match pattern] [COUNTcount] eg: scan 0 match k1* count 10
+改进方法：使用scan cursor [match pattern] [COUNTcount] ==eg: scan 0 match k1* count 10==
 
 - ➢基于游标的迭代器,需要基于.上一次的游标延续之前的迭代过程
   ➢以0作为游标开始一次新的迭代,直到命令返回游标0完成一-次遍历
@@ -3505,3 +3505,100 @@ BGSAVE做镜像全量持久化，AOF做增量持久化
 ![image-20200528010255762](E:\dev\javaweb\IDEA\javaExercise\images\集群原理.png)
 
 ![image-20200528010640285](E:\dev\javaweb\IDEA\javaExercise\images\引入虚拟结点.png)
+
+### Linux
+
+#### 27  如何查找特定的文件
+
+> find
+>
+> >  语法  find path [options] params
+>
+> eg： find ~ -name "target*"   // 查找当前home目录下所有以target开头的文件
+
+![image-20200528093058836](E:\dev\javaweb\IDEA\javaExercise\images\find.png)
+
+
+
+#### 28 检索文件内容
+
+> grep
+>
+> > 语法: grep [options] pattern file
+>
+> 全称：Global Regular Expression Print
+>
+> 作用：查找文件里符合添加的字符串
+>
+> eg:  grep "moo" target*    // 以target开头的文件包含moo的内容，没有的话什么也不返回
+
+> 管道操作符 |
+>
+> > 可将指令连接起来，前一个指令的输出作为后一个指令的输入
+>
+> eg：find ~ | grep "target"
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\grep.png" alt="image-20200528093845721" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\grep2.png" alt="image-20200528094127278" style="zoom:67%;" />
+
+#### 29 对文件内容做统计
+
+> awk
+>
+> > 语法： awk [options] 'cmd' file
+>
+> - 一次读取一行文件，按输入分隔符进行切片，切成多个组成部分
+>
+> - 将切片直接保存在内建的变量中，\$1,\$2...(\$0表示行的全部)
+> - 支持对单个切片的判断，支持循环判断，默认分隔符为空格
+
+![image-20200528094731612](E:\dev\javaweb\IDEA\javaExercise\images\文件统计.png)
+
+![image-20200528095037319](E:\dev\javaweb\IDEA\javaExercise\images\awk.png)
+
+#### 30 批量替换文本内容
+
+> sed
+>
+> > 语法：sed [option] 'sed command' filename
+>
+> - 全名stream editor, 流编辑器
+> - 适合用于对文本的**行内容**进行处理
+>
+> eg： sed 's/^Str/String/' replace.java   // 将replace.java中的Str开头的字符串替换为String 但执行后只会在终端更改，并不会修改源文件内容 这时可添加 `-i`来解决
+>
+>  sed -i 's/^Str/String/' replace.java  //  // 将replace.java中的Str开头的字符串替换为String，源文本也修改了
+
+![image-20200528095818863](E:\dev\javaweb\IDEA\javaExercise\images\sed.png)
+
+
+
+#### 面试彩蛋
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\面试彩蛋.png" alt="image-20200528100237106" style="zoom:67%;" />
+
+
+
+### java基础
+
+#### 31 谈谈你对java的理解
+
+- 平台无关性
+- GC
+- 语言特性（集合，泛型，λ表达式，流式。。。）
+- 面向对象
+- 类库
+- 异常处理
+
+![image-20200528101358876](E:\dev\javaweb\IDEA\javaExercise\images\java1.png)
+
+**为什么JVM不直接将源码解析成机器码去执行**？
+
+答：准备工作：每次执行都需要各种语法句法检查，整体性能受影响；兼容性：也可以将别的语言解析成字节码（比如Groovy，Scala等） 查看java字节码的命令`javap`
+
+#### 32 JVM如何加载.class文件
+
+![image-20200528102124538](E:\dev\javaweb\IDEA\javaExercise\images\java虚拟机.png)
+
+**谈谈反射**：JAVA反射机制是在运行状态中,对于任意-一个类,都能够知道这个类的所有属性和方法;对于任意一个对象,都能够调用它的任意方法和属性;这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。
