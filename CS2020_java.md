@@ -4939,6 +4939,8 @@ Thread-1 get lock
 
 #### 56 HashMap、HashTable 、ConcurrentHashMap
 
+详见[HashMap、HashTable与ConcurrentHashMap区别](https://www.cnblogs.com/binyue/p/4545550.html)
+
 ![image-20200529211111109](E:\dev\javaweb\IDEA\javaExercise\images\put.png)
 
 ![image-20200529212232609](E:\dev\javaweb\IDEA\javaExercise\images\concurrentHashMap.png)
@@ -5022,4 +5024,80 @@ Spring全家桶：Spring Core、SpringData、SpringBoot 、 SpringCloud 、Sprin
 - 指定初始化方法和销毁方法
 - 支持回调方法
 
-BeanFactory体系结构
+
+
+**BeanFactory : Spring框架最核心的接口**
+➢提供IOC的配置机制
+➢包含Bean的各种定义, 便于实例化Bean
+➢建立Bean之间的依赖关系
+
+
+
+**BeanFactory与ApplicationContext的比较**
+
+- BeanFactory是Spring框架的基础设施，面向Spring
+- ApplicationContext面向使用Spring框架的开发者
+
+**ApplicationContext的功能(继承多个接口)**
+➢BeanFactory :能够管理、装配Bean
+➢ResourcePatternResolver :能够加载资源文件
+➢MessageSource :能够实现国际化等功能
+➢ApplicationEventPublisher :能够注册监听器,实现监听机制
+
+
+
+**getBean方法的代码逻辑**
+➢转换beanName
+➢从缓存中加载实例
+➢实例化Bean
+➢检测parentBeanFactory
+➢初始化依赖的Bean
+➢创建Bean
+
+
+
+#### 59  SpringBean的作用域
+
+> ➢singleton : Spring的默认作用域,容器里拥有唯一的Bean实例 .
+> ➢prototype : 针对每个getBean请求,容器都会创建一个Bean实例
+> ➢request :会为每个Http请求创建一个Bean实例
+> ➢session :会为每个session创建一个Bean实例
+> ➢globalSession :会为每个全局Http Session创建一个Bean实例 ,该作用域仅对Portlet有效
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\销毁过程.png" alt="image-20200530001757411" style="zoom:67%;" />
+
+
+
+#### 60 了解Spring AOP吗？
+
+**关注点分离:不同的问题交给不同的部分去解决**
+➢面向切面编程AOP正是此种技术的体现
+➢通用化功能代码的实现,对应的就是所谓的切面( Aspect )
+➢业务功能代码和切面代码分开后,架构将变得高内聚低耦合
+➢确保功能的完整性:切面最终需要被合并到业务中( Weave )
+
+**AOP的三三种织入方式**
+➢编译时织入:需要特殊的Java编译器,如AspectJ
+➢类载时织入:需要特殊的Java编译器,如AspectJ和AspectWerkz
+➢运行时织入: Spring采用的方式,通过动态代理的方式,实现简单
+
+**AOP的主要名词概念**
+➢Aspect :通用功能的代码实现
+➢Target :被织入Aspect的对象
+➢Join Point :可以作为切入点的机会,所有方法都可以作为切入点
+➢Pointcut : Aspect实际被应用在的Join Point，支持正则
+➢Advice :类里的方法以及这个方法如何织入到目标方法的方式
+➢Weaving : Aop的实现过程
+
+**Advice的种类**
+➢前置通知( Before)
+➢后置通知( AfterReturning )
+➢异常通知( AfterThrowing )
+➢最终通知( After )
+➢环绕通知( Around )
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\AOP的实现.png" alt="image-20200530003346877" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\AOP.png" alt="image-20200530003433809" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\Spring.png" alt="image-20200530003803021" style="zoom: 67%;" />
