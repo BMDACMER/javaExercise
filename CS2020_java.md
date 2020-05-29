@@ -2484,7 +2484,7 @@ Compact阶段的开销与存活对像的数据成开比，如上一条所描述�
 
 #### 1、谈谈你对volatile的理解？
 
-答：①volatile是java虚拟机提供的轻量级的同步机制，包括三个特性：保证可见性，不保证原子性，禁止指令重排（保证了有序性）
+答：①volatile是java虚拟机提供的轻量级的同步机制，包括三个特性：==保证可见性，不保证原子性，禁止指令重排==（保证了有序性）
 
 ② JMM你谈谈？
 
@@ -4894,7 +4894,7 @@ Thread-1 get lock
 
 
 
-### Java异常
+###  Java常用类库与技巧
 
 **异常处理机制主要回答了三个问题**
 
@@ -4902,3 +4902,124 @@ Thread-1 get lock
 - Where：异常堆栈跟踪回答了在哪抛出
 - Why：异常信息回答了为什么被抛出
 
+
+
+#### 55 Error和Exception的区别
+
+从概念角度解析Java的异常处理机制
+➢Error :程序无法处理的系统错误,编译器不做检查
+➢Exception : 程序可以处理的异常, 捕获后可能恢复
+➢总结:前者是程序无法处理的错误,后者是可以处理的异常
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\Java异常体系.png" alt="image-20200529171655400" style="zoom: 67%;" />
+
+
+
+**RuntimeException**
+1.NullPointerException -空指针弓|用异常
+2.ClassCastException -类型强制转换异常
+3.llegalArgumentException -传递非法参数异常
+4.IndexOutOfBoundsException -下标越界异常
+5.NumberFormatException -数字格式异常
+
+**非RuntimeException**
+1.ClassNotFoundException -找不到指定class的异常
+2.IOException - IO操作异常
+
+**Error**
+1.NoClassDefFoundError -找不到class定义的异常
+2.StackOverflowError -深递归导致栈被耗尽而抛出的异常
+3.OutOfMemoryError -内存溢出异常
+
+#### 55 集合
+
+![image-20200529205432122](E:\dev\javaweb\IDEA\javaExercise\images\java集合.png)
+
+
+
+#### 56 HashMap、HashTable 、ConcurrentHashMap
+
+![image-20200529211111109](E:\dev\javaweb\IDEA\javaExercise\images\put.png)
+
+![image-20200529212232609](E:\dev\javaweb\IDEA\javaExercise\images\concurrentHashMap.png)
+
+![image-20200529212321118](E:\dev\javaweb\IDEA\javaExercise\images\concurrentHashMap2.png)
+
+![image-20200529212448522](E:\dev\javaweb\IDEA\javaExercise\images\三者区别.png)
+
+
+
+#### JUC知识点整理
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\JUC分类.png" alt="image-20200529212525034" style="zoom:50%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\开发工具类.png" alt="image-20200529212816591" style="zoom: 50%;" />
+
+![image-20200529213224931](E:\dev\javaweb\IDEA\javaExercise\images\CountDownLatch.png)
+
+![image-20200529213316167](E:\dev\javaweb\IDEA\javaExercise\images\CyclicBarrier.png)
+
+![image-20200529213358577](E:\dev\javaweb\IDEA\javaExercise\images\Semaphore.png)
+
+![image-20200529213428605](E:\dev\javaweb\IDEA\javaExercise\images\Exchanger.png)
+
+![image-20200529214020311](E:\dev\javaweb\IDEA\javaExercise\images\BlockingQueue.png)
+
+
+
+#### 57 Java的IO机制
+
+![image-20200529214720057](E:\dev\javaweb\IDEA\javaExercise\images\BIO.png)
+
+![image-20200529214924901](E:\dev\javaweb\IDEA\javaExercise\images\NBIO.png)
+
+![image-20200529215944933](E:\dev\javaweb\IDEA\javaExercise\images\select-poll-epoll.png)
+
+![image-20200529220041162](E:\dev\javaweb\IDEA\javaExercise\images\FD.png)
+
+![image-20200529220057951](E:\dev\javaweb\IDEA\javaExercise\images\消息传递1.png)
+
+![image-20200529220131265](E:\dev\javaweb\IDEA\javaExercise\images\AsynchronousIO.png)
+
+![image-20200529220223960](E:\dev\javaweb\IDEA\javaExercise\images\AIO.png)
+
+![image-20200529220851494](E:\dev\javaweb\IDEA\javaExercise\images\BIO-NIO-AIO对比.png)
+
+
+
+### 框架知识考点
+
+Spring全家桶：Spring Core、SpringData、SpringBoot 、 SpringCloud 、Spring Security
+
+#### 58 了解Spring IOC吗？
+
+**IOC(Inversion of Control)：控制反转**
+
+- Spring Core最核心的部分
+- 需要先了解依赖注入（Dependency Inversion）
+
+**依赖注入**：把底层类作为参数传递给上层类，实现上层对下层的“控制”。
+
+![image-20200529222211783](E:\dev\javaweb\IDEA\javaExercise\images\行李箱.png)
+
+![image-20200529222430488](E:\dev\javaweb\IDEA\javaExercise\images\IOC-DI-DL.png)
+
+![image-20200529222629999](E:\dev\javaweb\IDEA\javaExercise\images\依赖倒置原则.png)
+
+**IOC容器的优势**
+
+- 避免在各处使用new来创建类，并且可以做到统一维护
+- 创建实例的时候不需要了解其中的细节
+
+![image-20200529223028748](E:\dev\javaweb\IDEA\javaExercise\images\SpringIOC.png)
+
+**Spring IOC支持的功能**
+
+- ==依赖注入==
+- 依赖检查
+- ==自动装配==
+- 支持集合
+- 指定初始化方法和销毁方法
+- 支持回调方法
+
+BeanFactory体系结构
