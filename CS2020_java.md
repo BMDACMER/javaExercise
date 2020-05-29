@@ -2571,11 +2571,11 @@ instance(memory);//2.初始化对象
 
 ##### 2.1 比较并交换
 
+CAS的全称为Compare-And-Swap ,它是一条==CPU并发原语==.
+它的功能是==判断内存某个位置的值是否为预期值,如果是则更新为新的值==,这个过程是原子的.
+
 ```
-CAS的全称为Compare-And-Swap ,它是一条CPU并发原语.
-它的功能是判断内存某个位置的值是否为预期值,如果是则更新为新的值,这个过程是原子的.
- 
-CAS并发原语体现在Java语言中就是sun.miscUnSaffe类中的各个方法.调用UnSafe类中的CAS方法,JVM会帮我实现CAS汇编指令.这是一种完全依赖于硬件功能,通过它实现了原子操作,再次强调,由于CAS是一种系统原语,原语属于操作系统用于范畴,是由若干条指令组成,用于完成某个功能的一个过程,并且原语的执行必须是连续的,在执行过程中不允许中断,也即是说CAS是一条原子指令,不会造成所谓的数据不一致的问题.
+CAS并发原语体现在Java语言中就是sun.miscUnSaffe类中的各个方法.调用UnSafe类中的CAS方法,JVM会帮我们实现CAS汇编指令.这是一种完全依赖于硬件功能,通过它实现了原子操作,再次强调,由于CAS是一种系统原语,原语属于操作系统用于范畴,是由若干条指令组成,用于完成某个功能的一个过程,并且原语的执行必须是连续的,在执行过程中不允许中断,也即是说CAS是一条原子指令,不会造成所谓的数据不一致的问题.
 ```
 
 ![image-20200401221135255](E:\dev\javaweb\IDEA\javaExercise\images\CAS_AtomicInteger.png)
@@ -2622,10 +2622,10 @@ public class ABADemo {
 
 ![image-20200401220531347](E:\dev\javaweb\IDEA\javaExercise\images\CAS_UnSafe.png) 
 
-是CAS的核心类 由于Java 方法无法直接访问底层 ,需要通过本地(native)方法来访问,UnSafe相当于一个后面,基于该类可以直接操作特额定的内存数据.UnSafe类在于sun.misc包中,其内部方法操作可以向C的指针一样直接操作内存,因为Java中CAS操作的实现依赖于UNSafe类的方法.
+是CAS的核心类 由于Java 方法无法直接访问底层 ,需要通过本地(native)方法来访问,UnSafe相当于一个后门,基于该类可以直接操作特额定的内存数据.UnSafe类在于sun.misc包中,其内部方法操作可以向C的指针一样直接操作内存,因为==Java中CAS操作的实现依赖于UNSafe类的方法==.
 注意UnSafe类中所有的方法都是native修饰的,也就是说UnSafe类中的方法都是直接调用操作底层资源执行响应的任务
 
- 2.变量ValueOffset,便是该变量在内存中的偏移地址,因为UnSafe就是根据内存偏移地址获取数据的。
+ 2.变量ValueOffset,便是该变量在内存中的偏移地址,因为==UnSafe就是根据内存偏移地址获取数据==的。
 
 ```java
   public final int getAndIncrement() {
@@ -2653,7 +2653,7 @@ public class ABADemo {
 
   > 当对一个共享变量执行操作时，我们可以使用循环CAS的方式保证原子性，但是对多个共享变量操作时，循环CAS就无法保证操作的原子性，这个时候就可以用锁来保证原子性
 
-- 印出来ABA问题？？？  详见代码
+- 引出来ABA问题？？？  详见代码
 
   > 所谓的ABA问题，就是A线程要执行的程序被B操作了（最后又改为原始值），A却不知道
   >
@@ -2821,11 +2821,11 @@ public class ABADemo {
 
 限制不可以使用vector和Collections工具类的时候，推荐使用CopyOnWriteArrayList
 
-注意：集合中三种copyOnWrite方法
+==注意：集合中三种copyOnWrite方法==
 
-- List线程copyOnWriteArrayList
-- set线程CopyOnwriteHashSet
-- map线程ConcurrentHashMap
+- ==List线程copyOnWriteArrayList==
+- ==set线程CopyOnwriteHashSet==
+- ==map线程ConcurrentHashMap==
 
 #### 5、处理并发常见的锁
 
@@ -4149,4 +4149,756 @@ public class ThreadPoolDemo {
 ![image-20200529004634157](E:\dev\javaweb\IDEA\javaExercise\images\线程状态2.png)
 
 [sleep() wait() yield() join()用法与区别](https://www.cnblogs.com/yhc20091116/p/4317338.html).
+
+#### 43 sleep和wait的区别
+
+- sleep是Thread类的方法，wait是Object类中定义的方法
+- sleep()方法可以在任何地方使用，不会释放“锁标志”
+- wait()方法智能在synchronized方法或者synchronized块中使用
+
+**最主要的本质区别**
+
+- Thread.sleep只会让出CPU，不会导致锁行为的改变
+- Object.wait不仅让出CPU，还会释放已经占有的同步资源锁
+
+```java
+public class WaitSleepDemo {
+    public static void main(String[] args) {
+        final Object lock = new Object();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("thread A is waiting to get lock");
+                synchronized (lock){
+                    try {
+                        System.out.println("thread A get lock");
+                        Thread.sleep(20);
+                        System.out.println("thread A do wait method");
+                        lock.wait();
+                        System.out.println("thread A is done");
+                    } catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        try{
+            Thread.sleep(10);
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("thread B is waiting to get lock");
+                synchronized (lock){
+                    try {
+                        System.out.println("thread B get lock");
+                        System.out.println("thread B is sleeping 10 ms");
+                        Thread.sleep(10);
+                        lock.notifyAll();
+                        Thread.yield();
+                        Thread.sleep(2000);
+                        System.out.println("thread B is done");
+                    } catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+    }
+}
+
+```
+
+输出结果：
+
+```
+thread A is waiting to get lock
+thread A get lock
+thread A do wait method
+thread B is waiting to get lock
+thread B get lock
+thread B is sleeping 10 ms
+thread B is done
+thread A is done
+```
+
+#### 44 notify和notifyAll区别
+
+两个概念：锁池EntryList 和 等待池WaitSet
+
+**锁池**：假设线程A已经拥有了某个对象(不是类)的锁，而其它线程B、C想要调用这个对象的某个synchronized方法( 或者块)，由于B、C线程在进入对象的synchronized方法(或者块)之前必须先获得该对象锁的拥有权，而恰巧该对象的锁目前正被线程A所占用，此时B、C线程就会被阻塞，进入一个地方去等待锁的释放，这个地方便是该对象的锁池。
+
+**等待锁**：假设线程A调用了某个对象的wait()方法，线程A就会释放该对象的锁，同时线程A就进入到了该对象的等待池中，进入到等待池中的线程不会去竞争该对象的锁。
+
+➢notifyAll 会让所有处于等待池的线程全部进入锁池去竞争获取锁的机会
+➢notify 只会随机选取一个处于等待池中的线程进入锁池去竞争获取锁的机会。
+
+```java
+public class NotificationDemo {
+    private volatile boolean go = false;
+
+    public static void main(String args[]) throws InterruptedException {
+        final NotificationDemo test = new NotificationDemo();
+
+        Runnable waitTask = new Runnable(){
+
+            @Override
+            public void run(){
+                try {
+                    test.shouldGo();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName() + " finished Execution");
+            }
+        };
+
+        Runnable notifyTask = new Runnable(){
+
+            @Override
+            public void run(){
+                test.go();
+                System.out.println(Thread.currentThread().getName() + " finished Execution");
+            }
+        };
+
+        Thread t1 = new Thread(waitTask, "WT1"); //will wait
+        Thread t2 = new Thread(waitTask, "WT2"); //will wait
+        Thread t3 = new Thread(waitTask, "WT3"); //will wait
+        Thread t4 = new Thread(notifyTask,"NT1"); //will notify
+
+        //starting all waiting thread
+        t1.start();
+        t2.start();
+        t3.start();
+
+        //pause to ensure all waiting thread started successfully
+        Thread.sleep(200);
+
+        //starting notifying thread
+        t4.start();
+
+    }
+    /*
+     * wait and notify can only be called from synchronized method or bock
+     */
+    private synchronized void shouldGo() throws InterruptedException {
+        while(go != true){
+            System.out.println(Thread.currentThread()
+                    + " is going to wait on this object");
+            wait(); //release lock and reacquires on wakeup
+            System.out.println(Thread.currentThread() + " is woken up");
+        }
+        go = false; //resetting condition
+    }
+
+    /*
+     * both shouldGo() and go() are locked on current object referenced by "this" keyword
+     */
+    private synchronized void go() {
+        while (go == false){
+            System.out.println(Thread.currentThread()
+                    + " is going to notify all or one thread waiting on this object");
+
+            go = true; //making condition true for waiting thread
+//            notify(); // only one out of three waiting thread WT1, WT2,WT3 will woke up
+            notifyAll(); // all waiting thread  WT1, WT2,WT3 will woke up
+        }
+    }
+}
+
+```
+
+**notify()**结果
+
+```
+Thread[WT1,5,main] is going to wait on this object
+Thread[WT3,5,main] is going to wait on this object
+Thread[WT2,5,main] is going to wait on this object
+Thread[NT1,5,main] is going to notify all or one thread waiting on this object
+NT1 finished Execution
+Thread[WT1,5,main] is woken up
+WT1 finished Execution
+```
+
+ **notifyAll()**结果
+
+```
+Thread[WT1,5,main] is going to wait on this object
+Thread[WT3,5,main] is going to wait on this object
+Thread[WT2,5,main] is going to wait on this object
+Thread[NT1,5,main] is going to notify all or one thread waiting on this object
+NT1 finished Execution
+Thread[WT2,5,main] is woken up
+WT2 finished Execution
+Thread[WT3,5,main] is woken up
+Thread[WT3,5,main] is going to wait on this object
+Thread[WT1,5,main] is woken up
+Thread[WT1,5,main] is going to wait on this object
+```
+
+
+
+#### 45 yield
+
+**概念**：当调用Thread.yield()函数时 ,会给线程调度器一个当前线程==愿意让出CPU使用的暗示,但是线程调度器可能会忽略这个暗示==。不能是当前线程让出当前占用的锁。
+
+```java
+public class YieldDemo {
+    public static void main(String[] args) {
+        Runnable yieldTask = new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 1; i <= 10; i++) {
+                    System.out.println(Thread.currentThread().getName() + i);
+                    if (i == 5) {
+                        Thread.yield();
+                    }
+                }
+            }
+        };
+        Thread t1 = new Thread(yieldTask, "A");
+        Thread t2 = new Thread(yieldTask, "B");
+        t1.start();
+        t2.start();
+    }
+
+}
+```
+
+执行结果：
+
+```
+B1
+B2
+B3
+B4
+B5
+A1
+A2
+A3
+A4
+A5
+A6
+A7
+A8
+A9
+A10
+B6
+B7
+B8
+B9
+B10
+```
+
+#### 46 如何中断线程
+
+>  已经被抛弃的方法
+>
+> - 通过调用stop()方法停止线程，不安全，不推荐使用
+> - 通过调用suspend()和resume()方法，同上，不推荐使用
+> - 目前使用的方法是 调用interrupt(), 通知线程应该中断了，需要被调用的线程配合中断
+>   - ==如果线程处于被阻塞状态，那么线程将立即退出被阻塞状态，并抛出一个InterruptedException异常==
+>   - ==如果线程处于正常活动状态，那么会将该线程的终端标志设置为true。被设置中断标志的线程将继续正常运算运行，不受影响==。
+
+```java
+public class InterruptDemo {
+    public static void main(String[] args) throws InterruptedException {
+        Runnable interruptTask = new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                try {
+                    //在正常运行任务时，经常检查本线程的中断标志位，如果被设置了中断标志就自行停止线程
+                    while (!Thread.currentThread().isInterrupted()) {
+                        Thread.sleep(1000);
+                        i++;
+                        System.out.println(Thread.currentThread().getName() + " (" +
+                                Thread.currentThread().getState() + ") loop " + i);
+                    }
+                } catch (InterruptedException e) {
+                    //在调用阻塞方法时正确处理InterruptedException异常。（例如，catch异常后就结束线程。）
+                    System.out.println(Thread.currentThread().getName() + " (" + Thread.currentThread().getState() + ") catch InterruptedException.");
+                }
+            }
+        };
+        Thread t1 = new Thread(interruptTask, "t1");
+        System.out.println(t1.getName() +" ("+t1.getState()+") is new.");
+
+        t1.start();                      // 启动“线程t1”
+        System.out.println(t1.getName() +" ("+t1.getState()+") is started.");
+
+        // 主线程休眠300ms，然后主线程给t1发“中断”指令。
+        Thread.sleep(3000);
+        t1.interrupt();
+        System.out.println(t1.getName() +" ("+t1.getState()+") is interrupted.");
+
+        // 主线程休眠300ms，然后查看t1的状态。
+        Thread.sleep(300);
+        System.out.println(t1.getName() +" ("+t1.getState()+") is interrupted now.");
+    }
+}
+```
+
+**执行结果**：
+
+```
+t1 (NEW) is new.
+t1 (RUNNABLE) is started.
+t1 (RUNNABLE) loop 1
+t1 (RUNNABLE) loop 2
+t1 (TIMED_WAITING) is interrupted.
+t1 (RUNNABLE) catch InterruptedException.
+t1 (TERMINATED) is interrupted now.
+```
+
+#### 47 线程状态以及状态之间的转换
+
+![img](E:\dev\javaweb\IDEA\javaExercise\images\线程状态38.png)
+
+
+
+#### 48 synchronized
+
+>  线程安全问题的主要原因：
+>
+> - 存在共享数据（也称临界资源）
+> - 存在多条线程共同操作这些共享数据
+
+> 解决问题的根本方法：
+>
+> >  同一时刻有且只有一个线程在操作共享数据，其他线程必须等到该线程处理完数据后在对共享数据进行操作。
+
+
+
+**互斥锁的特性**：
+
+- 互斥性:即在同一时间只允许一个线程持有某 个对象锁,通过这种特性来实现多线程的协调机制,这样在同- -时间只有一个线程对需要同步的代码块(复合操作)进行访问。互斥性也称为操作的原子性。
+- 可见性:必须确保在锁被释放之前,对共享变量所做的修改,对于随后获得该锁的另一个线程是可见的(即在获得锁时应获得最新共享变量的值)，否则另-一个线程可能是在本地缓存的某个副本上继续操作,从而引起不一致。
+
+==synchronized锁的不是代码,锁的都是对象==
+
+
+
+根据获取的锁的分类：**获取对象锁和获取类锁**：
+
+- 获取**对象锁**的两种用法
+  1.同步代码块 ( synchronized (this) , synchronized (**类实例对象**) ) ,锁是小括号()中的实例对象。
+  2.同步非静态方法( synchronized method ) , 锁是当前对象的实例对象。
+- 获取**类锁**的两种用法
+  1.同步代码块( synchronized (**类.class**) ) , 锁是小括号()中的类对象(Class对象)。
+  2.同步静态方法 ( synchronized static method ) , 锁是当前对象的类对象(Class对象)。
+
+**对象锁和类锁的总结**
+
+1.有线程访问对象的同步代码块时 ,另外的线程可以访问该对象的非同步代码块;
+2.若锁住的是同一个对象, 一个线程在访问对象的==同步代码块==时,另一个访问对象的==同步代码块==的线程会被阻塞;
+3.若锁住的是同一 个对象,一个线程在访问对象的==同步方法==时,另一个访问对象==同步方法==的线程会被阻塞;
+4.若锁住的是同一 个对象,一个线程在访问对象的==同步代码块时,另一个访问对象同步方法==的线程会被阻塞,反之亦然;
+5.==同一个类的不同对象的对象锁互不干扰==;
+6.类锁由于也是一种特殊的对象锁，因此表现和上述1 , 2, 3, 4一致，而由于一个类只有一 把对象锁,所以同一个类的不同对象使用类锁将会是同步的;
+7.类锁和对象锁互不干扰。
+
+```java
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class SyncThread implements Runnable {
+    @Override
+    public void run() {
+        String threadName = Thread.currentThread().getName();
+        if (threadName.startsWith("A")) {
+            async();
+        } else if (threadName.startsWith("B")) {
+            syncObjectBlock1();
+        } else if (threadName.startsWith("C")) {
+            syncObjectMethod1();
+        } else if (threadName.startsWith("D")) {
+            syncClassBlock1();
+        } else if (threadName.startsWith("E")) {
+            syncClassMethod1();
+        }
+    }
+
+    private synchronized static void syncClassMethod1() {
+        System.out.println(Thread.currentThread().getName() + "_SyncClassMethod1: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        try {
+            System.out.println(Thread.currentThread().getName() + "_SyncClassMethod1_Start: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            Thread.sleep(1000);
+            System.out.println(Thread.currentThread().getName() + "_SyncClassMethod1_End: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void syncClassBlock1() {
+        System.out.println(Thread.currentThread().getName() + "_SyncClassBlock1: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        synchronized (SyncThread.class) {
+            try {
+                System.out.println(Thread.currentThread().getName() + "_SyncClassBlock1_Start: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                Thread.sleep(1000);
+                System.out.println(Thread.currentThread().getName() + "_SyncClassBlock1_End: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * synchronized 修饰非静态方法
+     */
+    private synchronized void syncObjectMethod1() {
+        System.out.println(Thread.currentThread().getName() + "_SyncObjectMethod1: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        try {
+            System.out.println(Thread.currentThread().getName() + "_SyncObjectMethod1_Start: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            Thread.sleep(1000);
+            System.out.println(Thread.currentThread().getName() + "_SyncObjectMethod1_End: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 方法中有 synchronized(this|object) {} 同步代码块
+     */
+    private void syncObjectBlock1() {
+        System.out.println(Thread.currentThread().getName() + "_SyncObjectBlock1: " +
+                new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        synchronized (this) {
+            try {
+                System.out.println(Thread.currentThread().getName() +
+                        "_SyncObjectBlock1_Start: " + new SimpleDateFormat("HH:mm:ss").format(new Date()));
+                Thread.sleep(1000);
+                System.out.println(Thread.currentThread().getName() + "_SyncObjectBlock1_End: " +
+                        new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 异步方法
+     */
+    private void async() {
+        try {
+            System.out.println(Thread.currentThread().getName() + "_Async_Start: " +
+                    new SimpleDateFormat("HH:mm:ss").format(new Date()));
+            Thread.sleep(1000);
+            System.out.println(Thread.currentThread().getName() + "_Async_End: " +
+                    new SimpleDateFormat("HH:mm:ss").format(new Date()));
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+// 测试上述方法
+public class SyncDemo {
+    public static void main(String... args) {
+        SyncThread syncThread = new SyncThread();
+        Thread A_thread1 = new Thread(syncThread, "A_thread1");
+        Thread A_thread2 = new Thread(syncThread, "A_thread2");
+        Thread B_thread1 = new Thread(syncThread, "B_thread1");
+        Thread B_thread2 = new Thread(syncThread, "B_thread2");
+        Thread C_thread1 = new Thread(syncThread, "C_thread1");
+        Thread C_thread2 = new Thread(syncThread, "C_thread2");
+        Thread D_thread1 = new Thread(syncThread, "D_thread1");
+        Thread D_thread2 = new Thread(syncThread, "D_thread2");
+        Thread E_thread1 = new Thread(syncThread, "E_thread1");
+        Thread E_thread2 = new Thread(syncThread, "E_thread2");
+        A_thread1.start();
+        A_thread2.start();
+        B_thread1.start();
+        B_thread2.start();
+        C_thread1.start();
+        C_thread2.start();
+        D_thread1.start();
+        D_thread2.start();
+        E_thread1.start();
+        E_thread2.start();
+    }
+}
+```
+
+执行结果如下：
+
+```
+A_thread2_Async_Start: 10:49:22
+D_thread1_SyncClassBlock1: 10:49:22
+B_thread2_SyncObjectBlock1: 10:49:22
+B_thread1_SyncObjectBlock1: 10:49:22
+E_thread1_SyncClassMethod1: 10:49:22
+C_thread1_SyncObjectMethod1: 10:49:22
+D_thread2_SyncClassBlock1: 10:49:22
+A_thread1_Async_Start: 10:49:22
+E_thread1_SyncClassMethod1_Start: 10:49:22
+C_thread1_SyncObjectMethod1_Start: 10:49:22
+E_thread1_SyncClassMethod1_End: 10:49:23
+A_thread1_Async_End: 10:49:23
+C_thread1_SyncObjectMethod1_End: 10:49:23
+A_thread2_Async_End: 10:49:23
+D_thread2_SyncClassBlock1_Start: 10:49:23
+B_thread1_SyncObjectBlock1_Start: 10:49:23
+D_thread2_SyncClassBlock1_End: 10:49:24
+B_thread1_SyncObjectBlock1_End: 10:49:24
+D_thread1_SyncClassBlock1_Start: 10:49:24
+B_thread2_SyncObjectBlock1_Start: 10:49:24
+B_thread2_SyncObjectBlock1_End: 10:49:25
+D_thread1_SyncClassBlock1_End: 10:49:25
+C_thread2_SyncObjectMethod1: 10:49:25
+E_thread2_SyncClassMethod1: 10:49:25
+C_thread2_SyncObjectMethod1_Start: 10:49:25
+E_thread2_SyncClassMethod1_Start: 10:49:25
+E_thread2_SyncClassMethod1_End: 10:49:26
+C_thread2_SyncObjectMethod1_End: 10:49:26
+```
+
+此结果与上述对象锁和类锁的总结相对应。
+
+
+
+#### 49 synchronized底层实现原理
+
+对象在内存中的布局：对象头、实例数据、对齐填充
+
+![image-20200529111905526](E:\dev\javaweb\IDEA\javaExercise\images\对象头.png)
+
+![image-20200529112011410](E:\dev\javaweb\IDEA\javaExercise\images\markWord.png)
+
+**Monitor：每个Java对象天生自带了一把看不见的锁**
+
+![image-20200529112420415](E:\dev\javaweb\IDEA\javaExercise\images\monitor.png)
+
+`javap -verbose`用来查看class文件的字节码。
+
+**什么是重入？**
+
+- 从互斥锁的设计来说，**当一个线程试图操作一个由其他线程持有的对象锁的临界资源时**，将会处于阻塞状态，但当一个线程再次请求自己持有对象锁的临界资源时，这种情况属于重入。如下所示：
+
+![image-20200529112926587](E:\dev\javaweb\IDEA\javaExercise\images\重入7.png)
+
+为什么会对synchronized嗤之以鼻
+
+- 早期版本中，synchronized属于重量级锁，依赖于Mutex Lock实现
+- 线程之间的切换需要从用户态转换到核心态，开销较大
+
+![image-20200529113326455](E:\dev\javaweb\IDEA\javaExercise\images\JDK6锁.png)
+
+
+
+**自旋锁与自适应自旋锁**
+
+**自旋锁**
+
+- 许多情况下，共享数据的锁定状态持续时间较短，切换线程不值得
+- ==通过让线程执行忙循环等待锁的释放，不让出CPU==
+- 缺点：若锁被其他线程长时间占用，会带来许多性能上的开销。自旋时间超时，采用传统方式挂起，用户可以使用PreBlockSpin参数来更改。
+
+**自适应自旋锁**
+
+- 自旋的次数不在固定
+- 由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定
+
+**锁消除**（更优化）
+
+- JIT编译时，对运行上下文进行扫描，去除不可能存在竞争的锁
+
+**锁粗化**（另一种极端）
+
+- 通过扩大加锁的范围，避免反复加锁和解锁
+
+**synchronized的四种状态**
+
+- 无锁、偏向锁、轻量级锁、重量级锁
+
+锁膨胀方向:无锁→偏向锁→轻量级锁-→重量级锁
+
+**偏向锁：减少同一线程获取锁的代价**
+
+- 大多数情况下，锁不存在多线程竞争，总是由同一线程获得
+
+核心思想：如果一个线程获得了锁，那么锁就进入偏向模式，此时Mark Word的结构也变成偏向锁结构，当该线程再次请求锁时，无需再做任何同步操作，即获取锁的过程只需要检查Mark Word的锁标记位位偏向锁以及当前线程Id等于Mark Word的ThreadID即可，这样就省去了大量有关锁申请的操作。
+
+不适用于锁竞争比较激烈的多线程场合。
+
+**轻量级锁**
+
+- ==轻量级锁是由偏向锁升级来的,==偏向锁运行在一个线程进 入同步块的情况下,当第二个线程加入锁争用的时候,偏向锁就会升级为轻量级锁。
+- 适应的场景:==线程交替执行同步块若存在同一时间访问同一锁的情况,就会导致轻量级锁膨胀为重量级锁==
+
+![image-20200529154819395](E:\dev\javaweb\IDEA\javaExercise\images\锁的内存语义.png)
+
+![image-20200529154842874](E:\dev\javaweb\IDEA\javaExercise\images\锁的汇总.png)
+
+
+
+#### 50 synchronized和ReentrantLock的区别
+
+**ReentrantLock(再入锁)**
+
+- 位于java.util.concurrent.lock包
+- 和CountDownLatch、FutureTask、Semaphore一样基于AQS（AbstractQueuedSynchronizer）实现
+- 能够实现比synchronized更细粒度的控制，如控制fairness
+- 调用lock()之后，必须调用unlock()释放锁
+- 性能未必比synchronized高，并且也是可重入的
+
+**ReentrantL ock公平性的设置**
+
+- ReentrantLock fairLock = new ReentrantLock(true);
+- 参数为true时 ,倾向于将锁赋予等待时间最久的线程
+- 公平锁:获取锁的顺序按先后调用lock方法的顺序(慎用)
+- 非公平锁:抢占的顺序不一-定,看运气
+- synchronized是非公平锁
+
+```java
+package com.interview.javabasic.thread;
+
+import java.util.concurrent.locks.ReentrantLock;
+
+public class ReentrantLockDemo  implements Runnable{
+
+    private static ReentrantLock lock = new ReentrantLock(true);
+
+    @Override
+    public void run() {
+        while (true) {
+            lock.lock();
+            try {
+                System.out.println(Thread.currentThread().getName() + " get lock");
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        ReentrantLockDemo reentrantLockDemo = new ReentrantLockDemo();
+        Thread t1 = new Thread(reentrantLockDemo);
+        Thread t2 = new Thread(reentrantLockDemo);
+        t1.start();
+        t2.start();
+    }
+}
+```
+
+**执行结果：**
+
+```
+Thread-0 get lock
+Thread-1 get lock
+Thread-0 get lock
+Thread-1 get lock
+Thread-0 get lock
+Thread-1 get lock
+```
+
+
+
+**ReentrantLock将锁对象化**
+
+- 判断是否有线程,或者某个特定线程,在排队等待获取锁
+- 带超时的获取锁的尝试
+- 感知有没有成功获取锁
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\synchronized和ReentrantLock4.png" alt="image-20200529160612064" style="zoom:67%;" />
+
+
+
+#### 51 什么是Java内存模型中的happens-before
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\JMM2.png" alt="image-20200529161505961" style="zoom:67%;" />
+
+**JMM的工作内存**
+
+- 存储当前方法的所有本地变量信息，本地变量对其他线程不可见
+- 字节码行号指示器、Native方法信息
+- 属于线程私有数据区域，不存在线程安全问题
+
+**主内存与工作内存的数据存储类型以及操作方式归纳**
+
+- 方法里的基本数据类型本地变量将直接存储在工作内存的栈帧结构中
+- 引用类型的本地变量:引用存储在工作内存中,实例存储在主内存中
+- 成员变量、static变量、 类信息均会被存储在主内存中
+- 主内存共享的方式是线程各拷贝一-份数据到工作内存,操作完成后刷新回主内存
+
+**指令重排序需要满足的条件**
+
+- 在**单线程**环境下不能改变程序运行的结果
+- 存在数据**依赖关系的**不允许重排序
+
+无法通过happens-before原则推导出来的,才能进行指令的重排序
+
+![image-20200529162346912](E:\dev\javaweb\IDEA\javaExercise\images\happens-before的八大原则.png)
+
+
+
+#### 52 volatile
+
+详细介绍见 <a href="#1、谈谈你对volatile的理解？">谈谈你对volatile的理解</a>。 补充知识：
+
+**volatile和synchronized的区别**
+
+1. volatile本质是在告诉JVM当前变量在寄存器(工作内存)中的值是不确定的,需要从主存中读取; synchronized则是锁定当前变量 ,只有当前线程可以访问该变量,其他线程被阻塞住直到该线程完成变量操作为止
+2. ==volatile仅能使用在变量==级别; synchronized则可以使用在==变量、方法和类==级别；
+3. volatile仅能实现变量的修改可见性,不能保证原子性;而synchronized则可以保证变量修改的可见性和原子性
+4. volatile不会造成线程的阻塞; synchronized可能会造成线程的阻塞
+5. volatile标记的变量不会被编译器优化; synchronized标记的变量可以被编译器优化
+
+
+
+#### **53** CAS（Compare and Swap）
+
+<a href="#2、CAS知道吗？">2、CAS知道吗？</a>
+
+
+
+#### 54  Java线程池
+
+![image-20200529165236970](E:\dev\javaweb\IDEA\javaExercise\images\java线程池.png)
+
+![image-20200529165338122](E:\dev\javaweb\IDEA\javaExercise\images\fork_join框架.png)
+
+![image-20200529165655833](E:\dev\javaweb\IDEA\javaExercise\images\Executor框架.png)
+
+**JUC的三个Executor接口**
+
+- Executor：运行新任务的简单接口，将任务提交和任务执行细节解耦
+- ExecutorService：具备管理执行器和任务生命周期的方法，提交任务机制更完善
+- ScheduledExecutorService：支持Future和定期执行任务
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\ThreadPoolExecutor.png" alt="image-20200529165917433" style="zoom: 80%;" />
+
+![image-20200529170150782](E:\dev\javaweb\IDEA\javaExercise\images\ThreadPoolExecutor的构造函数.png)
+
+![image-20200529170246276](E:\dev\javaweb\IDEA\javaExercise\images\handler.png)
+
+![image-20200529170355370](E:\dev\javaweb\IDEA\javaExercise\images\新任务提交Execute执行后的判断png)
+
+![image-20200529170429264](E:\dev\javaweb\IDEA\javaExercise\images\流程图.png)
+
+![image-20200529170645886](E:\dev\javaweb\IDEA\javaExercise\images\线程池的状态.png)
+
+![image-20200529170747242](E:\dev\javaweb\IDEA\javaExercise\images\流程图2.png)
+
+![image-20200529170844270](E:\dev\javaweb\IDEA\javaExercise\images\线程池的大小如何选定.png)
+
+
+
+### Java异常
+
+**异常处理机制主要回答了三个问题**
+
+- What：异常类型回答了什么被抛出
+- Where：异常堆栈跟踪回答了在哪抛出
+- Why：异常信息回答了为什么被抛出
 
