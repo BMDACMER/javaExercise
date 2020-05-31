@@ -3184,7 +3184,7 @@ c)非叶子结点的指针 :P[1], P[2], .... P[M] ;其中P[1]指向关键字小�
 - 使用explain等工具分析sql
 - 修改sql或者尽量让sql走索引
 
-
+[分表](https://zhuanlan.zhihu.com/p/54921615)
 
 **Explain关键字段**
 
