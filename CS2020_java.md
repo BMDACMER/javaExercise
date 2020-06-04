@@ -4165,7 +4165,7 @@ public class ThreadPoolDemo {
 
 - sleep是Thread类的方法，wait是Object类中定义的方法
 - sleep()方法可以在任何地方使用，不会释放“锁标志”
-- wait()方法智能在synchronized方法或者synchronized块中使用
+- wait()方法只能在synchronized方法或者synchronized块中使用
 
 **最主要的本质区别**
 
