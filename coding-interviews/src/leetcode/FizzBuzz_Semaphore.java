@@ -8,7 +8,7 @@ public class FizzBuzz_Semaphore {
     private int n;
     private Semaphore semaphore = new Semaphore(1);
     private int curNum = 1;
-
+//hashm
     public FizzBuzz_Semaphore(int n) {
         this.n = n;
     }
