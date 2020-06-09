@@ -3305,6 +3305,133 @@ c)非叶子结点的指针 :P[1], P[2], .... P[M] ;其中P[1]指向关键字小�
 
 关于Redis的入门教程可点击[此处](https://zhuanlan.zhihu.com/p/37055648)和[菜鸟教程](https://www.runoob.com/redis/redis-tutorial.html)。
 
+---
+
+以下是尚硅谷Redis相关课程总结
+
+**NoSQL数据库简介**
+
+- 适用场景
+  - 对数据高并发的读写
+  - 海量数据的读写
+  - 对数据高可扩展性的
+- 不适用场景
+  - 需要事务支持
+  - 基于sql的结构化查询存储，处理复杂的关系，需要及时查询
+
+==用不着sql的和用了sql也不行的情况，请考虑用NoSql==
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\Redis01.png" alt="image-20200609210907701" style="zoom:80%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\mongoDB.png" alt="image-20200609211149765" style="zoom:80%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\HBase.png" alt="image-20200609211534990" style="zoom:80%;" />
+
+Redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步。
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis1_尚硅谷.png" alt="image-20200609211848518" style="zoom:80%;" />
+
+![image-20200609212139083](E:\dev\javaweb\IDEA\javaExercise\images\redis2_尚硅谷.png)
+
+**Redis是单线程+多路IO服用技术**
+
+> 多路复用是指使用一个线程来检查多个文件描述符(Socket)de 就绪状态，比如调用select和poll函数，传入多个文件描述符，如果有一个文件描述符就绪，则返回，否则阻塞直到超时。得到就绪状态后进行真正的操作可以在同一线程里执行，也可以启动线程执行（比如使用线程池）
+>
+> **串行** **vs** **多线程**+**锁（memcached）** **vs** **单线程**+**多路IO复用**(Redis)
+
+![image-20200609213103775](E:\dev\javaweb\IDEA\javaExercise\images\Redis3_尚硅谷.png)
+
+| keys *                   | 查询当前库的所有键                                 |
+| ------------------------ | -------------------------------------------------- |
+| exists  <key>            | 判断某个键是否存在                                 |
+| type  <key>              | 查看键的类型                                       |
+| del  <key>               | 删除某个键                                         |
+| expire  <key>  <seconds> | 为键值设置过期时间，单位秒                         |
+| ttl  <key>               | 查看还有多少秒过期<br>-1表示永不过期，-2表示已过期 |
+| dbsize                   | 查看当前数据库的key的数量                          |
+| flushdb                  | 清空当前库                                         |
+| flushall                 | 通杀全部库                                         |
+
+![image-20200609213541650](E:\dev\javaweb\IDEA\javaExercise\images\redis4_尚硅谷.png)
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis5_尚硅谷.png" alt="image-20200609213607183" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis6_尚硅谷.png" alt="image-20200609213633807" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis7_尚硅谷.png" alt="image-20200609213731222" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis8_尚硅谷.png" alt="image-20200609213805680" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis9_尚硅谷.png" alt="image-20200609213831466" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis10_尚硅谷.png" alt="image-20200609213902712" style="zoom:67%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis11_尚硅谷.png" alt="image-20200609214004900" style="zoom:80%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis12_尚硅谷.png" alt="image-20200609214112342" style="zoom:80%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis13_尚硅谷.png" alt="image-20200609214143991" style="zoom:80%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis14_尚硅谷.png" alt="image-20200609214220348" style="zoom:80%;" />
+
+**Set**
+
+set对外提供的功能与list类似是一个列表的功能，特殊在于set是可以自动排重的。Set是String类型的无需集合，底层其实是一个value为null的hash表，所以添加，删除，查找的复杂度都是O(1)。
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis15_尚硅谷.png" alt="image-20200609214525693" style="zoom: 80%;" />
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis16_尚硅谷.png" alt="image-20200609214558334"  />
+
+![image-20200609214636860](E:\dev\javaweb\IDEA\javaExercise\images\redis17_尚硅谷.png)
+
+![image-20200609214801321](E:\dev\javaweb\IDEA\javaExercise\images\redis18_尚硅谷.png)
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis19_尚硅谷.png" alt="image-20200609214931813" style="zoom:80%;" />
+
+![image-20200609215000965](E:\dev\javaweb\IDEA\javaExercise\images\redis20_尚硅谷.png)
+
+![image-20200609215316425](E:\dev\javaweb\IDEA\javaExercise\images\redis21_尚硅谷.png)
+
+![image-20200609215358776](E:\dev\javaweb\IDEA\javaExercise\images\redis22_尚硅谷.png)
+
+<img src="E:\dev\javaweb\IDEA\javaExercise\images\redis23_尚硅谷.png" style="zoom:80%;" />
+
+**Redis事务**
+
+![image-20200609215948679](E:\dev\javaweb\IDEA\javaExercise\images\redis24_尚硅谷.png)
+
+![image-20200609220044564](E:\dev\javaweb\IDEA\javaExercise\images\redis25_尚硅谷.png)
+
+![image-20200609220108624](E:\dev\javaweb\IDEA\javaExercise\images\redis26_尚硅谷.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----
+
+以下是原课程（剑指java校招）课程内容
+
 #### 基础知识
 
 >  Redis里头是两个HashTable线程安全的。
