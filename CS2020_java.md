@@ -5128,7 +5128,7 @@ Thread-1 get lock
 
 
 **RuntimeException**
-1.NullPointerException -空指针弓|用异常
+1.NullPointerException -空指针引用异常
 2.ClassCastException -类型强制转换异常
 3.llegalArgumentException -传递非法参数异常
 4.IndexOutOfBoundsException -下标越界异常
