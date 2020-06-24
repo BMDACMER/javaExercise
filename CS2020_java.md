@@ -5233,6 +5233,8 @@ Spring全家桶：Spring Core、SpringData、SpringBoot 、 SpringCloud 、Sprin
 
 #### 58 了解Spring IOC吗？
 
+参考：https://www.jianshu.com/p/b60c30fdcc65
+
 **IOC(Inversion of Control)：控制反转**
 
 - Spring Core最核心的部分
