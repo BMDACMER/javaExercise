@@ -1,30 +1,83 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
- * 题一： 统计单词数
- * 思路：统计空格数+1即为句子的单词总数
- * 如果句子中 两个单词之间有多个空格，只能算一个来统计
- * 句子中如果第一个为空格，或者最后也为空格，特殊处理， 采用去重 trim()
- *
+ * 优先比较数组小的，在比较编号大的
  */
 public class Solution1 {
-    public static int countSegments(String s) {
-        // 异常处理
-        if (s.length() < 1 || s == null)
-            return 0;
-        // 统计单词
-        int count = 0;
-         String newStr = s.trim();
-         if ("".equals(newStr))
-             return 0;
-        for (int i = 1; i < newStr.length(); i++) {
-            if (newStr.charAt(i) == ' ' &&  newStr.charAt(i - 1) != ' ') {
-                count++;
+    /*
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+       int[][] dist = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                dist[i][j] = 100000;
             }
         }
 
-        return count + 1;
+        for (int i = 0; i < edges.length; i++) {
+            int start = edges[i][0];
+            int end = edges[i][1];
+            int weight = edges[i][2];
+            dist[start][end] = weight;
+            dist[end][start] = weight;
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                for (int k = 0; k < n; k++) {
+                    dist[j][k] = Math.min(dist[j][k], dist[j][i] + dist[i][k]);
+                }
+            }
+        }
+
+        int res = -1;
+        int minCount = 100000;
+        for (int i = 0; i < n; i++) {
+            int count = 0;
+            for (int j = 0; j < n; j++) {
+                if (i != j && dist[i][j] <= distanceThreshold) {
+                    count++;
+                }
+            }
+
+            if (count <= minCount) {
+                minCount = count;
+                res = i;
+            }
+        }
+        return res;
     }
 
-    public static void main(String[] args) {
-        System.out.println(countSegments("     foo   s       "));
+     */
+
+    /**
+     * public List<String> removeSubfolders(String[] folder) {
+     * Arrays.sort(folder);
+     * List<String> ans = new ArrayList<>();
+     * int a = 0;
+     * ans.add(folder[0]);
+     * for (int i = 1; i < folder.length; i++) {
+     * if (!folder[i].startsWith(folder[a] + "/")) {
+     * a = i;
+     * ans.add(folder[a]);
+     * }
+     * }
+     * return ans;
+     * <p>
+     * }
+     */
+
+    public int[] corpFlightBookings(int[][] bookings, int n) {
+        int[] setArr = new int[n];
+        for (int i = 0; i < bookings.length; i++) {
+            int start = bookings[i][0] - 1;
+            int end = bookings[i][1] - 1;
+            int num = bookings[i][2];
+            for (int j = start; j <= end; j++) {
+                setArr[j] += num;
+            }
+        }
+        return setArr;
     }
 }
