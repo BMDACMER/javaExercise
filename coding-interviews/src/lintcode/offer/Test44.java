@@ -13,5 +13,17 @@ public class Test44 {
         return reverseHead.next;
     }
 
+    // µÝ¹éµ÷ÓÃ
+    public ListNode ReverseList2(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+        ListNode newList = ReverseList2(head.next);
+        ListNode t = head.next;
+        t.next = head;
+        head.next = null;
+        return newList;
+    }
+
+
 
 }
