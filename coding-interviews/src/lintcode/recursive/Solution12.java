@@ -7,20 +7,25 @@ package lintcode.recursive;
  * 687. 最长同值路径
  */
 public class Solution12 {
-    /**
+
     int max = 0;
     public int longestUnivaluePath(TreeNode root) {
-        if(root == null) return 0;
-        int left = longestUnivaluePath(root.left);
-        int right = longestUnivaluePath(root.right);
-        int arrowLeft = 0, arrowRight = 0;
-        if (root.left != null && root.left.val == root.val) arrowLeft += left + 1;
-        if (root.right != null && root.right.val == root.val) arrowRight += right + 1;
-        max = Math.max(max, arrowLeft + arrowRight);
+        depth(root);
         return max;
     }
-     */
 
+    private int depth(TreeNode root) {
+        if(root == null) return 0;
+        int left = depth(root.left);
+        int right = depth(root.right);
+        int arrowLeft = root.left != null && root.left.val == root.val ? left + 1 : 0;
+        int arrowRight = root.right != null && root.right.val == root.val ? right + 1 : 0;
+        max = Math.max(max, arrowLeft + arrowRight);
+        return Math.max(arrowLeft, arrowRight);
+    }
+
+
+    /**
     private int path = 0;
     public int longestUnivaluePath(TreeNode root) {
         dfs(root);
@@ -36,4 +41,5 @@ public class Solution12 {
         path = Math.max(path, leftPath + rightPath);
         return Math.max(leftPath, rightPath);
     }
+     */
 }
