@@ -8,58 +8,51 @@ import java.util.Comparator;
  * @author:guohao
  * @email 1163753605@qq.com
  * @date: 2020/7/4 22:47
- *
+ * <p>
  * 123. 买卖股票的最佳时机 III
  */
 public class BuyStock3 {
-    int interest = 0;
     public int maxProfit(int[] prices) {
-        if (prices.length == 0) return 0;
-        int[] tmp = new int[prices.length - 1];
-        Arrays.fill(tmp,0);
-        int start = prices[0];
-        int j = 0;
-        for (int i = 1; i < prices.length; i++) {
-            if (prices[i] - prices[i - 1] < 0) {
-                tmp[j++] = prices[i - 1] - start;
-                start = prices[i];
-
-            }
+        if (prices == null || prices.length == 0) {
+            return 0;
         }
-        if (j < prices.length - 1)
-            tmp[j] = prices[prices.length - 1] - start;
-//        MyCompare mc = new MyCompare();
-//        Arrays.sort(tmp,mc);
-        Arrays.sort(tmp);
-        if (tmp[j] > 0) interest += tmp[j];
-        if (tmp[j-1] > 0) interest += tmp[j-1];
+        int len = prices.length;
 
-        return interest;
-    }
+        int min = prices[0];            // 初始化的前半部分最小买入价格
+        int max = prices[len - 1];      // 初始化的后半部分最大卖出价格
 
-    public static void main(String[] args) {
-        BuyStock3 b = new BuyStock3();
-        int[] arr = {7,6,4,3,1};
-        System.out.println(b.maxProfit(arr));
+        int maxPro1 = 0;                // 前半部分的每天最大利润
+        int maxPro2 = 0;                // 后半部分的每天最大利润
+
+        int[] profit1 = new int[len];   // 前半部分的利润表
+        int[] profit2 = new int[len];   // 后半部分的利润表
+
+        for (int i = 0; i < len; i++) {
+
+            // 1. 计算 从前往后 的利润
+            if (prices[i] <= min) {
+                min = prices[i];
+            } else {
+                maxPro1 = Math.max(maxPro1, prices[i] - min);
+            }
+            profit1[i] = maxPro1;
+
+            //  2. 计算 从后往前 的利润
+            if (prices[len - 1 - i] >= max) {
+                max = prices[len - 1 - i];
+            } else {
+                maxPro2 = Math.max(maxPro2, max - prices[len - 1 - i]);
+            }
+            profit2[len - i - 1] = maxPro2;
+        }
+
+        // 3. 计算利润和，求最大值
+        int res = Integer.MIN_VALUE;
+        for (int i = 0; i < len; i++) {
+            res = Math.max(res, profit1[i] + profit2[i]);
+        }
+        return res;
     }
 }
 
 
-/***
-//外部比较器
-class MyCompare implements Comparator<Integer> {
-
-    @Override
-    public int compare(Integer o1, Integer o2) {
-        // TODO Auto-generated method stub
-        return o1 > o2 ? -1 :(o1==o2 ? 0 :1);
-    }
-
-    @Override
-    public Comparator<Integer> reversed() {
-        return null;
-    }
-
-
-}
-?*/
