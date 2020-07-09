@@ -1,10 +1,7 @@
 package lintcode.sort;
 
-import dataStructure.数据结构与算法之美.Array;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author:guohao
@@ -20,13 +17,18 @@ public class TopKFrequentElements {
             map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
         }
 
-        int[] arr = new int[nums.length];
-        int index = 0;
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            if (entry.getValue() >= k) {
-                arr[index++] = entry.getKey();
-            }
+        // 构建最大堆
+        Queue<Integer> queue = new PriorityQueue<>((o1, o2) -> (map.get(o2) - map.get(o1)));
+        for (int key : map.keySet()) {
+            queue.add(key);
         }
-        return arr;
+
+        int[] ans = new int[k];
+        int index = 0;
+        while (index < k) {
+            ans[index++] = queue.poll();
+        }
+
+        return ans;
     }
 }
