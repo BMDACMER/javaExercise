@@ -19,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/service/EmployeeService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="30" column="20" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="20" />
+            <state relative-caret-position="208">
+              <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#482#483#0" expanded="true" />
@@ -33,10 +33,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeeCrudRepositoryTest.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeePagingAndSortRepositoryTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="46" column="9" lean-forward="true" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+            <state relative-caret-position="208">
+              <caret line="64" column="26" lean-forward="true" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeeJpaRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="186">
+              <caret line="11" column="60" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,31 +54,40 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeeCrudRepository.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeeJpaRepositoryTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="362">
+              <caret line="53" column="73" lean-forward="true" selection-start-line="48" selection-start-column="10" selection-end-line="53" selection-end-column="73" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/1.10.0.RELEASE/spring-data-commons-1.10.0.RELEASE.jar!/org/springframework/data/repository/CrudRepository.class">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeeJpaSpecificationRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+            <state relative-caret-position="198">
+              <caret line="12" column="51" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/1.10.0.RELEASE/spring-data-commons-1.10.0.RELEASE.jar!/org/springframework/data/repository/PagingAndSortingRepository.class">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeeJpaSpecificationExecutorRepositoryTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+            <state relative-caret-position="301">
+              <caret line="64" column="87" selection-start-line="64" selection-start-column="87" selection-end-line="64" selection-end-column="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeePagingAndSortingRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,8 +95,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/domain/Employee.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+            <state relative-caret-position="120">
+              <caret line="51" column="18" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -137,7 +155,13 @@
         <option value="$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeeCrudRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/imooc/service/EmployeeService.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeeCrudRepositoryTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeePagingAndSortingRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/imooc/domain/Employee.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeePagingAndSortRepositoryTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeeJpaRepository.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeeJpaRepositoryTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeeJpaSpecificationRepository.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeeJpaSpecificationExecutorRepositoryTest.java" />
       </list>
     </option>
   </component>
@@ -307,6 +331,10 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.imooc.repository" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.imooc.service" />
+      <recent name="com.imooc.repository" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\dev\javaweb\groovyExercise\springdata\src\test\java\com\imooc" />
     </key>
@@ -323,7 +351,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EmployeeCrudRepositoryTest.testSave">
+  <component name="RunManager" selected="JUnit.EmployeeJpaSpecificationExecutorRepositoryTest.testQuery">
     <configuration name="EmployeeCrudRepositoryTest.testSave" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="springdata" />
       <extension name="coverage">
@@ -340,65 +368,65 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EmployeeRepositoryTest.testGetCount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EmployeeJpaRepositoryTest.testFind" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="springdata" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.imooc.repository.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.imooc.repository" />
-      <option name="MAIN_CLASS_NAME" value="com.imooc.repository.EmployeeRepositoryTest" />
-      <option name="METHOD_NAME" value="testGetCount" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EmployeeRepositoryTest.testQueryLike2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="springdata" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.imooc.repository.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.imooc.repository" />
-      <option name="MAIN_CLASS_NAME" value="com.imooc.repository.EmployeeRepositoryTest" />
-      <option name="METHOD_NAME" value="testQueryLike2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EmployeeRepositoryTest.testUpdate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="springdata" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.imooc.repository.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.imooc.repository" />
-      <option name="MAIN_CLASS_NAME" value="com.imooc.repository.EmployeeRepositoryTest" />
-      <option name="METHOD_NAME" value="testUpdate" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EmployeeServiceTest.testUpdate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="springdata" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.imooc.repository.*" />
+          <option name="PATTERN" value="com.imooc.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.imooc.service" />
-      <option name="MAIN_CLASS_NAME" value="com.imooc.service.EmployeeServiceTest" />
-      <option name="METHOD_NAME" value="testUpdate" />
+      <option name="MAIN_CLASS_NAME" value="com.imooc.service.EmployeeJpaRepositoryTest" />
+      <option name="METHOD_NAME" value="testFind" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeJpaSpecificationExecutorRepositoryTest.testQuery" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="springdata" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.imooc.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.imooc.service" />
+      <option name="MAIN_CLASS_NAME" value="com.imooc.service.EmployeeJpaSpecificationExecutorRepositoryTest" />
+      <option name="METHOD_NAME" value="testQuery" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeePagingAndSortRepositoryTest.testPage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="springdata" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.imooc.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.imooc.service" />
+      <option name="MAIN_CLASS_NAME" value="com.imooc.service.EmployeePagingAndSortRepositoryTest" />
+      <option name="METHOD_NAME" value="testPage" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeePagingAndSortRepositoryTest.testPageAndSort" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="springdata" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.imooc.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.imooc.service" />
+      <option name="MAIN_CLASS_NAME" value="com.imooc.service.EmployeePagingAndSortRepositoryTest" />
+      <option name="METHOD_NAME" value="testPageAndSort" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -406,11 +434,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EmployeeJpaSpecificationExecutorRepositoryTest.testQuery" />
+        <item itemvalue="JUnit.EmployeeJpaRepositoryTest.testFind" />
+        <item itemvalue="JUnit.EmployeePagingAndSortRepositoryTest.testPageAndSort" />
+        <item itemvalue="JUnit.EmployeePagingAndSortRepositoryTest.testPage" />
         <item itemvalue="JUnit.EmployeeCrudRepositoryTest.testSave" />
-        <item itemvalue="JUnit.EmployeeServiceTest.testUpdate" />
-        <item itemvalue="JUnit.EmployeeRepositoryTest.testUpdate" />
-        <item itemvalue="JUnit.EmployeeRepositoryTest.testGetCount" />
-        <item itemvalue="JUnit.EmployeeRepositoryTest.testQueryLike2" />
       </list>
     </recent_temporary>
   </component>
@@ -424,26 +452,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1594451362366</updated>
-      <workItem from="1594451365955" duration="21074000" />
+      <workItem from="1594451365955" duration="23973000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="EmployeeRepositoryTest_testQueryParams1 - 2020.07.11 at 22h 19m 47s.xml">
-      <configuration name="EmployeeRepositoryTest.testQueryParams1" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="EmployeeRepositoryTest_testQueryParams2 - 2020.07.11 at 22h 21m 23s.xml">
-      <configuration name="EmployeeRepositoryTest.testQueryParams2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="EmployeeRepositoryTest_testQueryParams2 - 2020.07.11 at 22h 22m 18s.xml">
-      <configuration name="EmployeeRepositoryTest.testQueryParams2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="EmployeeRepositoryTest_testQueryLike1 - 2020.07.11 at 22h 23m 51s.xml">
-      <configuration name="EmployeeRepositoryTest.testQueryLike1" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="EmployeeRepositoryTest_testQueryLike1 - 2020.07.11 at 22h 24m 04s.xml">
-      <configuration name="EmployeeRepositoryTest.testQueryLike1" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="EmployeeRepositoryTest_testQueryLike2 - 2020.07.11 at 22h 24m 50s.xml">
       <configuration name="EmployeeRepositoryTest.testQueryLike2" configurationId="JUnit" />
     </history-entry>
@@ -459,9 +472,24 @@
     <history-entry file="EmployeeCrudRepositoryTest_testSave - 2020.07.11 at 22h 50m 44s.xml">
       <configuration name="EmployeeCrudRepositoryTest.testSave" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="EmployeePagingAndSortRepositoryTest_testPage - 2020.07.11 at 23h 04m 55s.xml">
+      <configuration name="EmployeePagingAndSortRepositoryTest.testPage" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmployeePagingAndSortRepositoryTest_testPage - 2020.07.11 at 23h 06m 16s.xml">
+      <configuration name="EmployeePagingAndSortRepositoryTest.testPage" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmployeePagingAndSortRepositoryTest_testPageAndSort - 2020.07.11 at 23h 08m 43s.xml">
+      <configuration name="EmployeePagingAndSortRepositoryTest.testPageAndSort" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmployeeJpaRepositoryTest_testFind - 2020.07.11 at 23h 27m 51s.xml">
+      <configuration name="EmployeeJpaRepositoryTest.testFind" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmployeeJpaRepositoryTest_testFind - 2020.07.11 at 23h 29m 31s.xml">
+      <configuration name="EmployeeJpaRepositoryTest.testFind" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21074000" />
+    <option name="totallyTimeSpent" value="23973000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -483,7 +511,7 @@
       <window_info anchor="bottom" id="Spring" order="6" />
       <window_info anchor="bottom" id="Message" order="7" />
       <window_info anchor="bottom" id="Find" order="8" />
-      <window_info anchor="bottom" id="Run" order="9" visible="true" weight="0.41301274" />
+      <window_info anchor="bottom" id="Run" order="9" visible="true" weight="0.281471" />
       <window_info anchor="bottom" id="Debug" order="10" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="11" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="12" weight="0.4" />
@@ -783,8 +811,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/service/EmployeeService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="30" column="20" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="20" />
+        <state relative-caret-position="208">
+          <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#482#483#0" expanded="true" />
@@ -797,18 +825,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/domain/Employee.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        <state relative-caret-position="120">
+          <caret line="51" column="18" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeeCrudRepositoryTest.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/1.10.0.RELEASE/spring-data-commons-1.10.0.RELEASE.jar!/org/springframework/data/repository/PagingAndSortingRepository.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="46" column="9" lean-forward="true" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="176">
+          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/1.10.0.RELEASE/spring-data-commons-1.10.0.RELEASE.jar!/org/springframework/data/repository/CrudRepository.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -822,17 +854,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/1.10.0.RELEASE/spring-data-commons-1.10.0.RELEASE.jar!/org/springframework/data/repository/CrudRepository.class">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeeCrudRepositoryTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        <state relative-caret-position="146">
+          <caret line="46" column="9" lean-forward="true" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/1.10.0.RELEASE/spring-data-commons-1.10.0.RELEASE.jar!/org/springframework/data/repository/PagingAndSortingRepository.class">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/1.10.0.RELEASE/spring-data-commons-1.10.0.RELEASE.jar!/org/springframework/data/domain/PageRequest.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+        <state relative-caret-position="128">
+          <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+          <folding>
+            <element signature="e#404#405#0" expanded="true" />
+            <element signature="e#448#449#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeePagingAndSortRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="64" column="26" lean-forward="true" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeePagingAndSortingRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeeJpaRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="11" column="60" selection-start-line="11" selection-start-column="60" selection-end-line="11" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/imooc/repository/EmployeeJpaSpecificationRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="12" column="51" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeeJpaRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="53" column="73" lean-forward="true" selection-start-line="48" selection-start-column="10" selection-end-line="53" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/imooc/service/EmployeeJpaSpecificationExecutorRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="64" column="87" selection-start-line="64" selection-start-column="87" selection-end-line="64" selection-end-column="87" />
         </state>
       </provider>
     </entry>
