@@ -1,66 +1,62 @@
-import org.junit.Test;
-
 import java.util.Scanner;
 
+/**
+ * @author:guohao
+ * @email 1163753605@qq.com
+ * @date: 2020/7/17 20:04
+ */
 public class Main {
-    @Test
-    public void test1(){
-        Scanner scan = new Scanner(System.in);
-        int n, m;
-        while (true) {
-            n = scan.nextInt();
-            m = scan.nextInt();
-            double sum = n;
-            double temp = n;
-            for (int i = 1; i < m; i++) {
-                sum += Math.sqrt(temp);
-                temp = Math.sqrt(temp);
-                System.out.println("sum_" +i +  " = " + sum);
-            }
-            System.out.println(String.format("%.2f",sum));
-    }
+    /**
+     * 第一题
+     */
+//    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+//        int x = sc.nextInt();
+//        int f = sc.nextInt();
+//        int d = sc.nextInt();
+//        int p = sc.nextInt();
+//
+//        int temp = d / x;
+//        if (temp < f)
+//            System.out.println(temp);
+//        else {
+//            int ret = d - x * f;
+//            int totalTime = f + ret / (x + p);
+//            System.out.println(totalTime);
+//        }
+//    }
 
-    }
 
-    @Test
-    public void test2() {
-        // 水仙花
-        Scanner scan = new Scanner(System.in);
-        int m;
+    /**
+     * 第二题
+     */
+    public static void main(String[] args) {
         int n;
-        while (true) {
-            m = scan.nextInt();
-            n = scan.nextInt();
-            while (m > n) {
-                System.out.println("请重新输入");
-                m = scan.nextInt();
-                n = scan.nextInt();
-            }
-            int count = 0;
-            int[] a = new int[3];   // 用来存放三个变量
-            for (int i = m; i <= n; i++) {
-                a[0] = i % 10;  // 个位
-                a[2] = i / 100;  // 百位
-                a[1] = (i / 10) % 10;  // 十位
-                if (a[0] * a[0] * a[0] + a[1] * a[1] * a[1] + a[2] * a[2] * a[2] == i) {
-                    System.out.print(i + " ");
-                    count++;
+        int[] arr = new int[4];
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        while (n-- != 0) {
+            arr[0] = sc.nextInt();   // n
+            arr[1] = sc.nextInt();  // A
+            arr[2] = sc.nextInt();   // B
+            arr[3] = sc.nextInt();   // C
+
+            if (6 * arr[0] > arr[1] + 2 * arr[2] + 3 * arr[3]) {
+                System.out.println("No");
+            } else {
+                arr[0] -= arr[2] / 3;
+                arr[0] -= arr[3] / 2;
+                arr[2] %= 3;
+                arr[3] %= 2;
+                if (arr[0] <= 0)
+                    System.out.println("Yes");
+                else if (arr[0] * 6 - arr[2] * 2 - arr[3] * 3 > 0  && arr[0] * 6 - arr[2] * 2 - arr[3] * 3 <= arr[1]){
+                    System.out.println("Yes");
+                } else {
+                    System.out.println("No");
                 }
-            }
-            if (count == 0) {
-                System.out.println("no");
             }
         }
     }
 
-    public static void main(String[] args) {
-        int date;
-        Scanner scan = new Scanner(System.in);
-        date = scan.nextInt();
-
-        int price, priceDownNum;
-        priceDownNum = (int) (Math.sqrt(2*date + 0.25) - 1.5);
-        price = date - 2*priceDownNum;
-        System.out.println(price);
-    }
 }
