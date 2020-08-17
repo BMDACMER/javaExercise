@@ -19,33 +19,31 @@ public class 多数元素递归 {
      */
     public int majorityElement(int[] nums) {
         if (nums.length < 1) return 0;
-        return help(nums, 0, nums.length);
-
-
+        return help(nums, 0, nums.length - 1);
     }
 
-    private int help(int[] nums, int i, int j) {
-        // 1、终止条件，全部切分完毕
-        if (nums.length < 1) return 0;
-        // 2、拆分数组，直到剩下最后一个
-        if (nums.length == 1) return nums[0];
-        // 3、处理子问题
-        int left = help(nums,0,nums.length/2);
-        int right = help(nums, nums.length/2+1,nums.length);
+    private int help(int[] nums, int start, int end) {
+        // 1、拆分数组，直到剩下最后一个 一定为众数
+        if (start == end) return nums[start];
+        // 2、处理子问题
+        int mid = start + (end - start) / 2;
+        int left = help(nums,start,mid);
+        int right = help(nums, mid+1,end);
+        //  如果它们的众数相同，那么显然这一段区间的众数是它们相同的值。
         if (left == right)
             return left;
-        if (solve(nums, left) > solve(nums, right)) {
-            return left;
-        } else {
-            return right;
-        }
 
+        // 统计左右区间的众数
+        int leftCount = countElement(nums, left, start, end);
+        int rightCount = countElement(nums, right, start, end);
+
+       return leftCount > rightCount ? left : right;
     }
 
-    private int solve(int[] nums, int tmp) {
+    private int countElement(int[] nums, int num, int start, int end) {
         int count = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (tmp == nums[i])
+        for (int i = start; i <= end; i++) {
+            if (num == nums[i])
                 count++;
         }
         return count;
