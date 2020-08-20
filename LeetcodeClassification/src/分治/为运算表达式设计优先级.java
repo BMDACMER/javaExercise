@@ -86,5 +86,8 @@ public class 为运算表达式设计优先级 {
         return c == '+' || c == '-' || c == '*';
     }
 
-
+    public static void main(String[] args) {
+        为运算表达式设计优先级 m = new 为运算表达式设计优先级();
+        System.out.println(m.diffWaysToCompute("2*3-4*5"));
+    }
 }
