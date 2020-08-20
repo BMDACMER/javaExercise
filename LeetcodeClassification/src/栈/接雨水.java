@@ -42,4 +42,10 @@ public class 接雨水 {
     著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
  */
+
+    public static void main(String[] args) {
+        接雨水 a = new 接雨水();
+        int[] height = { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 };
+        System.out.println(a.trap(height));
+    }
 }
