@@ -42,14 +42,14 @@ public class 回文子串 {
     }*/
 
     // 暴力算法的优化--中心扩展法
-    // 时间复杂度：O(n^2)O(n
-    //空间复杂度：O(n^2)O(n
+    // 时间复杂度：O(n^2)
+    //空间复杂度：O(n^2)
     public int countSubstrings(String s) {
         int count = 0;
         /**
          * 1）当 i = j时，是回文串  相当于单个字符
          * 2）当 s[i] = s[j] && j-i==1时，相当于奇数长度的字串
-         * 3）中心扩展法，根据已有的回文数字串推到下一个字串，当 s[i] = s[j] && s[j+1,i-1]为回文子串时，s[i,j]也是回文子串
+         * 3）中心扩展法，根据已有的回文数字串推到下一个字串，当 s[i] = s[j] && s[j+1,i-1]为回文子串时，s[j,i]也是回文子串
          */
         int n = s.length();
         boolean[][] dp = new boolean[n][n];  // 默认为false
