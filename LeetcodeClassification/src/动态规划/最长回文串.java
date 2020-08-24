@@ -21,13 +21,13 @@ public class 最长回文串 {
         boolean[][] dp = new boolean[n][n];   // 默认为false
         int maxLength = 0;
         String maxStr = "";
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = 0; j <= i; j++) {
-                if (s.charAt(i) == s.charAt(j) && (i - j < 2 || dp[j+1][i-1])) {
-                    dp[j][i] = true;
-                    if (maxLength < s.substring(j,i+1).length()) {
-                        maxLength = s.substring(j,i+1).length();
-                        maxStr = s.substring(j,i+1);
+        for (int j = 0; j < s.length(); ++j) {
+            for (int i = 0; i <= j; ++i) {
+                if (s.charAt(i) == s.charAt(j) && (j - i < 2 || dp[i+1][j-1])) {
+                    dp[i][j] = true;
+                    if (maxLength < s.substring(i,j+1).length()) {
+                        maxLength = s.substring(i,j+1).length();
+                        maxStr = s.substring(i,j+1);
                     }
                 }
             }
