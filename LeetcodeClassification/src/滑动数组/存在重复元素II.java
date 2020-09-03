@@ -58,6 +58,6 @@ public class 存在重复元素II {
     public static void main(String[] args) {
         存在重复元素II m = new 存在重复元素II();
         int[] nums = {1,0,1,1};
-        System.out.println(m.containsNearbyDuplicate2(nums, 1));
+        System.out.println(m.containsNearbyDuplicate2(nums, 2));
     }
 }

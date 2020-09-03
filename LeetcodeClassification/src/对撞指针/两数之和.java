@@ -23,6 +23,22 @@ public class 两数之和 {
         return null;
     }
 
+    public int[] twoSum(int[] nums, int target) {
+        int i = 0;
+        int j = nums.length;
+        while (i < j) {
+            int temp = nums[i] + nums[j];
+            if (temp == target) {
+                return new int[] {i, j};
+            } else if (temp < target){
+                i++;
+            } else {
+                j--;
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         两数之和 m = new 两数之和();
         int[] num = {2,8,7,0,1};
