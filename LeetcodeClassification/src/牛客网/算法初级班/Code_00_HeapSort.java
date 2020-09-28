@@ -26,8 +26,11 @@ public class Code_00_HeapSort {
     private static void heapify(int[] arr, int i, int size) {
         int leftChild = 2 * i + 1;
         while (leftChild < size) {
+            // 取左右孩子最大的一个
             int largest = leftChild + 1 < size && arr[leftChild + 1] > arr[leftChild] ? leftChild + 1 : leftChild;
+            // 最大的一个跟 根节点 比较
             largest = arr[largest] > arr[leftChild] ? largest : i;
+            // 如果当前最大的节点时自己 则停止更新
             if (largest == i) {
                 break;
             }
@@ -46,7 +49,7 @@ public class Code_00_HeapSort {
 
     // 插入元素，即 构建大顶堆
     private static void heapInsert(int[] arr, int i) {
-        while (arr[i] > arr[(i - 1) / 2]) {
+        while (arr[i] > arr[(i - 1) / 2]) {  // 插入的子节点跟父节点比较
             swap(arr, i, (i - 1) / 2);
             i = (i - 1) / 2;
         }

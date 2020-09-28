@@ -23,7 +23,7 @@ public class Util {
     }
     // 2 生成随机函数
     public static int[] generatorRandomArray(int maxSize, int maxValue) {
-        int[] arr = new int[(int)((maxSize + 1) * Math.random()) - (int)(maxSize * Math.random())];
+        int[] arr = new int[(int)((maxSize + 1) * Math.random())];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (int)((maxValue + 1) * Math.random()) - (int)(maxValue * Math.random());
         }
@@ -50,7 +50,7 @@ public class Util {
         if (arr1.length != arr2.length)
             return false;
         for (int i = 0; i < arr1.length; i++) {
-            if (!isEquals(arr1, arr2)) {
+            if (arr1[i] != arr2[i]) {
                 return false;
             }
         }
