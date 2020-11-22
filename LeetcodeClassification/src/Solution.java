@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * @author:guohao
  * @email 1163753605@qq.com
@@ -25,24 +27,50 @@ public class Solution {
             }
         }*/
 
-       while (num != 0) {
-           int res = num % 3;
-           sb.append(res);
-           num /= 3;
-       }
+        while (num != 0) {
+            int res = num % 3;
+            sb.append(res);
+            num /= 3;
+        }
 
         for (int i = sb.length() - 1; i >= 0; --i) {
             switch (sb.charAt(i)) {
-                case '0': sb2.append('@');break;
-                case '1': sb2.append('$');break;
-                case '2': sb2.append('&');break;
+                case '0':
+                    sb2.append('@');
+                    break;
+                case '1':
+                    sb2.append('$');
+                    break;
+                case '2':
+                    sb2.append('&');
+                    break;
             }
         }
         return sb2.toString();
     }
 
     public static void main(String[] args) {
-        Solution s = new Solution();
-        System.out.println(s.triCoding(123));
+        /*Solution s = new Solution();
+        System.out.println(s.triCoding(123));*/
+
+        /*Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        System.out.println(a + b);*/
+
+        short s = 1;
+//        s = s + 1;
+        s += 1;
+        String str = "b1";
+        switch (str) {
+            case "a":
+                System.out.println("aaaaa");
+                break;
+            case "b":
+                System.out.println("bbbb");
+                break;
+            default:
+                System.out.println("default");
+        }
     }
 }
