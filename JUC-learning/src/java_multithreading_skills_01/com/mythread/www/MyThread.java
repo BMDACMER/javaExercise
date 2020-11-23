@@ -12,12 +12,12 @@ public class MyThread extends Thread{
         System.out.println("MyThread");
     }*/
 
-    /*@Override
+    @Override
     public void run() {
         for (int i = 0; i < 10000; i++) {
             System.out.println("run=" + Thread.currentThread().getName());
         }
-    }*/
+    }
 
     // P12
     private int i;
@@ -27,8 +27,8 @@ public class MyThread extends Thread{
         this.i = i;
     }
 
-    @Override
+   /* @Override
     public void run() {
         System.out.println(i);
-    }
+    }*/
 }
