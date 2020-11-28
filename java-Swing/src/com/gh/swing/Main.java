@@ -1,7 +1,6 @@
 package com.gh.swing;
 
-import javax.swing.*;
-import java.awt.*;
+import java.util.*;
 
 /**
  * @author:guohao
@@ -10,27 +9,42 @@ import java.awt.*;
  */
 public class Main {
     public static void main(String[] args) {
-        JFrame jf = new JFrame("测试窗口");
-        jf.setSize(200, 250);
-        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        jf.setLocationRelativeTo(null);
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int m = scanner.nextInt();
 
-        // 创建内容面板，指定使用 流式布局
-        JPanel panel = new JPanel(new FlowLayout());
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            list.add(scanner.nextInt());
+        }
 
-        JButton btn01 = new JButton("按钮01");
-        JButton btn02 = new JButton("按钮02");
-        JButton btn03 = new JButton("按钮03");
-        JButton btn04 = new JButton("按钮04");
-        JButton btn05 = new JButton("按钮05");
+        // 统计输入的各数字的重复次数
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < list.size(); i++) {
+            map.put(list.get(i), map.getOrDefault(list.get(i), 0) + 1);
+        }
 
-        panel.add(btn01);
-        panel.add(btn02);
-        panel.add(btn03);
-        panel.add(btn04);
-        panel.add(btn05);
+        long res = 1;
+        Set<Map.Entry<Integer, Integer>> entries = map.entrySet();
 
-        jf.setContentPane(panel);
-        jf.setVisible(true);        // PS: 最后再设置为可显示(绘制), 所有添加的组件才会显示
+        for (Map.Entry<Integer, Integer> entry : entries) {
+            res *= A(entry.getValue(), entry.getValue());
+        }
+
+//        System.out.println(res % (Math.pow(10,9) + 7));
+
+        System.out.printf("%d", (int)(res % (Math.pow(10,9) + 7)));
+    }
+
+    // 排列组合
+    public static long A(int a, int b) {
+        long sum = 1;
+        int x = a;
+        for (int i = 1; i <= b; i++) {
+            sum *= x;
+            x--;
+        }
+
+        return sum;
     }
 }
