@@ -7,7 +7,7 @@ package com.gh.swing;
  */
 public class Test {
     public static void main(String[] args) {
-        /*Integer a = 1;
+        Integer a = 1;
         Integer b = 2;
         Integer c = 3;
         Integer d = 3;
@@ -20,7 +20,7 @@ public class Test {
         System.out.println(c == (a + b));  // true
         System.out.println(c.equals(a + b));  // true
         System.out.println(g == (a + b));     // true
-        System.out.println(g.equals(a + b));  // false*/
+        System.out.println(g.equals(a + b));  // false
 
         /**
          * Java-Integer缓存机制
@@ -33,7 +33,7 @@ public class Test {
          * 且这种机制只在自动装箱时有效，如果用 Integer a = new Integer(10);这种方式则无效
          */
 
-        Integer a = 10;
+        /*Integer a = 10;
         Integer b = 10;
         System.out.println("a == b: " + (a == b));  // true
 
@@ -51,7 +51,7 @@ public class Test {
 
         int j = 10;
         Integer k = 10;
-        System.out.println("j == k: " + (j == k)); // true
+        System.out.println("j == k: " + (j == k)); // true*/
 
     }
 }

@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        /*Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         int m = scanner.nextInt();
 
@@ -46,5 +46,15 @@ public class Main {
         }
 
         return sum;
+        */
+
+        String[] a = new String[2];
+        Object[] b = a;
+        a[0] = "hi";
+        a[1] = "balbal";
+        b[1] = Integer.valueOf(42);
+//        b[1] = "qqqqq";
+        System.out.println("a的地址为" + a + "\t a[0] = " + a[0] + "\t a[1] = " + a[1] + "\nb的地址 " + b + "b[1] = " + b[1]);
     }
+
 }
