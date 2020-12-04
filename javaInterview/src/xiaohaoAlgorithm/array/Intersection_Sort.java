@@ -14,7 +14,6 @@ public class Intersection_Sort {
     public static int[] intersect(int[] nums1, int[] nums2) {
         int i, j, k;
         i = j = k = 0;
-        int[] res = new int[Math.min(nums1.length, nums2.length)];
         Arrays.sort(nums1);
         Arrays.sort(nums2);
 
@@ -24,14 +23,14 @@ public class Intersection_Sort {
             } else if (nums1[i] < nums2[j]) {
                 i++;
             } else {
-                res[k] = nums1[i];
+                nums1[k] = nums1[i];
                 i++;
                 j++;
                 k++;
             }
         }
 
-        return Arrays.copyOf(res, k);
+        return Arrays.copyOf(nums1, k);
     }
 
     public static void main(String[] args) {
