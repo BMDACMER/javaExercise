@@ -22,7 +22,7 @@ public class BinaryTreeMinDepth {
 
         Queue<TreeNode> queue = new LinkedList<>();   // 核心数据结构
         queue.offer(root);  // 在容量已满的情况下，add() 方法会抛出IllegalStateException异常，offer() 方法只会返回 false 。
-        int step = 1;  // root已经进队列了  记1，  负责记录扩散的步数
+        int step = 1;  // root本身就是易层，将depth初始化为1  负责记录扩散的步数
 
         while (!queue.isEmpty()) {
             int len = queue.size();
