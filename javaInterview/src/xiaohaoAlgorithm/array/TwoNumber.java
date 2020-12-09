@@ -1,5 +1,6 @@
 package xiaohaoAlgorithm.array;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -9,7 +10,7 @@ import java.util.HashMap;
  * 1. 两数之和
  */
 public class TwoNumber {
-    public static int[] twoSum(int[] nums, int target) {
+    /*public static int[] twoSum(int[] nums, int target) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
@@ -19,7 +20,7 @@ public class TwoNumber {
             map.put(nums[i], i);
         }
         return null;
-    }
+    }*/
 
     public static void main(String[] args) {
         int[] nums = {2,7,11,15};
@@ -28,4 +29,25 @@ public class TwoNumber {
             System.out.print(ans[i] + " ");
         }
     }
+
+    /**
+     * 以下针对的是有序的
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int[] twoSum(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            if (nums[left] + nums[right] == target) {
+                return new int[] {left, right};
+            } else if (nums[left] + nums[right] < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return new int[] {-1, -1};
+    }
+
 }
