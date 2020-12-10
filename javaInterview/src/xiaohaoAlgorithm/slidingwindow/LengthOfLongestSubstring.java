@@ -21,11 +21,11 @@ public class LengthOfLongestSubstring {
             window.put(c, window.getOrDefault(c, 0) + 1);
 
             // 判断左侧窗口是否要压缩
-            while (window.get(c) > 1) {
+            while (window.get(c) > 1) {  // 去重
                 char d = s.charAt(left);
                 left++;
                 // 进行窗口内数据的一系列更新
-                window.put(d, window.get(d));
+                window.put(d, window.get(d) - 1);
             }
             // 更新最长无重复子串
             res = Math.max(res, right - left);

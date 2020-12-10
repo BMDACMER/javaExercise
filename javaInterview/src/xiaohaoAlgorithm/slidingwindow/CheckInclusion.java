@@ -9,7 +9,7 @@ import java.util.HashMap;
  * @email 1163753605@qq.com
  * @date: 2020/12/10 10:49
  *
- *  字符串排列
+ *  剑指 Offer 38. 字符串的排列
  */
 public class CheckInclusion {
 
@@ -36,7 +36,7 @@ public class CheckInclusion {
             // 判断字串t是否包含字符c
             if (need.containsKey(c)) {
                 window.put(c, window.getOrDefault(c, 0) + 1);
-                if (window.get(c) == need.get(c)) {
+                if (window.get(c).equals(need.get(c))) {
                     valid++;
                 }
             }
@@ -51,7 +51,7 @@ public class CheckInclusion {
                 left++;
                 // 进行窗口内数据的一系列更新
                 if (need.containsKey(d)) {
-                    if (window.get(d) == need.get(d)) {
+                    if (window.get(d).equals(need.get(d))) {
                         valid--;
                     }
                     window.put(d, window.get(d) - 1);

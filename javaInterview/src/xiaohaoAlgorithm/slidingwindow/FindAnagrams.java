@@ -9,7 +9,7 @@ import java.util.List;
  * @email 1163753605@qq.com
  * @date: 2020/12/10 11:14
  *
- *  找所有字母异位词
+ *  438. 找到字符串中所有字母异位词
  */
 public class FindAnagrams {
 
@@ -27,7 +27,7 @@ public class FindAnagrams {
             right++;
             if (need.containsKey(c)) {
                 window.put(c, window.getOrDefault(c, 0) + 1);
-                if (window.get(c) == need.get(c)) {
+                if (window.get(c).equals(need.get(c))) {
                     valid++;
                 }
             }
@@ -42,7 +42,7 @@ public class FindAnagrams {
                 left++;
                 // 进行窗口内数据的一系列更新
                 if (need.containsKey(d)) {
-                    if (window.get(c) == need.get(c)) {
+                    if (window.get(d).equals(need.get(d))) {
                         valid--;
                     }
                     window.put(d, window.get(d) - 1);
