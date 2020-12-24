@@ -12,7 +12,7 @@ import java.util.Stack;
  */
 public class ReverseKGroup {
 
-    public ListNode reverseKGroup(ListNode head, int k) {
+    /*public ListNode reverseKGroup(ListNode head, int k) {
         Stack<ListNode> stack = new Stack<>();
         int n;
         ListNode curr = head;
@@ -49,5 +49,38 @@ public class ReverseKGroup {
         prev.next = curr;
 
         return head.next;
+    }*/
+
+    /**
+     * 递归思想  反转k个数组
+     * @param head
+     * @param k
+     * @return
+     */
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (head == null) return head;
+        // 反转区间[a,b)上的元素
+        ListNode a = head, b = head;
+        for (int i = 0; i < k; i++) {
+            // 不足k个不需要反转， base case
+            if (b == null) return head;
+            b = b.next;
+        }
+        // 反转前k个元素
+        ListNode newHead = reverse(a,b);
+        // 递归反转后续链表并链接起来
+        a.next = reverseKGroup(b, k);
+        return newHead;
+    }
+
+    private ListNode reverse(ListNode a, ListNode b) {
+        ListNode curr = a, tmp, prev = null;
+        while (curr != b) {
+            tmp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = prev;
+        }
+        return prev;
     }
 }
