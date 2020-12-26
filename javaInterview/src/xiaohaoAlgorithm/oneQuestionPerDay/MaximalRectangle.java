@@ -1,5 +1,9 @@
 package xiaohaoAlgorithm.oneQuestionPerDay;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+
 /**
  * @author:guohao
  * @email 1163753605@qq.com
@@ -17,7 +21,7 @@ public class MaximalRectangle {
      * @param matrix
      * @return
      */
-    public int maximalRectangle(char[][] matrix) {
+   /* public int maximalRectangle(char[][] matrix) {
         if (matrix == null || matrix.length == 0) return 0;
 
         // 定义with[height][with] --- 记录每一行中连续1的最大个数
@@ -49,5 +53,67 @@ public class MaximalRectangle {
             }
         }
         return maxArea;
+    }*/
+
+
+    /**
+     * 借用84题的单调栈求解
+     * 思路：对二位数组每一行 都看作 height[i]高度 调用单调栈即可
+     * @param matrix
+     * @return
+     */
+    public int maximalRectangle(char[][] matrix) {
+        if (matrix == null || matrix.length == 0) return 0;
+
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int maxArea = 0;
+        int[] heights = new int[col];
+        Arrays.fill(heights, 0);
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (matrix[i][j] == '1') {
+                    heights[j]++;
+                } else {
+                    heights[j] = 0;
+                }
+            }
+
+            maxArea = Math.max(maxArea, largestRectangleArea(heights));
+        }
+
+        return maxArea;
     }
+
+    public int largestRectangleArea (int[] heights) {
+        if (heights == null || heights.length == 0) return 0;
+
+        int len = heights.length;
+        if (len == 1) return heights[0];
+
+        int maxArea = 0;
+        int[] newHeights = new int[len + 2];
+        newHeights[0] = 0;
+        System.arraycopy(heights, 0, newHeights, 1, len);
+        newHeights[len + 1] = 0;
+        len += 2;
+        heights = newHeights;   // 重新将heights数组指针指向  newHeights
+
+        Deque<Integer> stack = new ArrayDeque<Integer>(len);
+        // 先放入哨兵，在循环里就不用做非空判断
+        stack.addLast(0);
+
+        for (int i = 1; i < len; i++) {
+            while (heights[i] < heights[stack.peekLast()]) {
+                int currentHeight = heights[stack.pollLast()];
+                int width = i - stack.peekLast() - 1;
+                maxArea = Math.max(maxArea, currentHeight * width);
+            }
+            stack.addLast(i);
+        }
+
+        return maxArea;
+    }
+
 }
