@@ -23,8 +23,8 @@ public class TwoNumber {
     }*/
 
     public static void main(String[] args) {
-        int[] nums = {2,7,11,15};
-        int[] ans = twoSum(nums, 9);
+        int[] nums = {3,2,4};
+        int[] ans = twoSum(nums, 6);
         for (int i = 0; i < ans.length; i++) {
             System.out.print(ans[i] + " ");
         }
