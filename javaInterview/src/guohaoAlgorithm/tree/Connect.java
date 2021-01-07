@@ -63,4 +63,27 @@ public class Connect {
         return root;
     }
 
+
+    // 优化后的BFS
+    public Node connect3(Node root) {
+        if (root == null) return root;
+        Node curr = root;
+        while (curr != null) {
+            Node dummy = new Node(0);
+            Node pre = dummy;
+
+            while (curr != null && curr.left != null) {
+                pre.next = curr.left;
+                pre = pre.next;
+
+                pre.next = curr.right;
+                pre = pre.next;
+
+                curr = curr.next;
+            }
+            curr = dummy.next;
+        }
+
+        return root;
+    }
 }
