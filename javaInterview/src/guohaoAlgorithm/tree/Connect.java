@@ -1,5 +1,8 @@
 package guohaoAlgorithm.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @author:guohao
  * @email 1163753605@qq.com
@@ -26,4 +29,38 @@ public class Connect {
         connectTwoNode(node2.left, node2.right);
         connectTwoNode(node1.right,node2.left);
     }
+
+    /**
+     * 其他解法：
+     *  1、BFS
+     *  2、优化后的BFS
+     *  3、BFS变体
+     *
+     */
+    // 二叉树BFS
+    public Node connect2(Node root) {
+        if (root == null) return null;
+
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            // 每一层的数量
+            int levelCount = q.size();
+            // 前一个节点
+            Node pre = null;
+            for (int i = 0; i < levelCount; i++) {
+                Node node = q.poll();
+                if (pre != null)
+                    pre.next = node;
+                pre = node;
+                if (node.left != null)
+                    q.add(node.left);
+                if (node.right != null)
+                    q.add(node.right);
+            }
+
+        }
+        return root;
+    }
+
 }
