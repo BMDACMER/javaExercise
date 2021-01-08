@@ -33,4 +33,33 @@ public class Flatten {
 
         p.right = right;
     }
+
+    /**
+     * 方法二：
+     * 1）将左子树插到根节点的右子树，
+     * 2）将右子树插到左子树的最近的右节点
+     * 3）将根节点的左子树置空，根节点移到右节点上
+     * 4)重复上述步骤 直到为空
+     */
+    public void flatten2(TreeNode root) {
+        while (root != null) {
+            if (root.left == null) {
+                root = root.right;
+            } else {
+                TreeNode right = root.right;
+
+                // 找到左子树最右的节点
+                TreeNode pre = root.left;
+                while (pre.right != null) {
+                    pre = pre.right;
+                }
+
+                // 将左子树插到根节点的右子树位置
+                root.right = root.left;
+                root.left = null;
+                pre.right = right;
+                root = root.right;
+            }
+        }
+    }
 }
