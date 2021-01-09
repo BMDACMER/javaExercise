@@ -51,10 +51,16 @@ public class MaxProfitI {
             if (profit < prices[i] - start) {
                 profit = prices[i] - start;
             }
-            if (prices[i] > start) {
+            if (prices[i] < start) {
                 start = prices[i];
             }
         }
         return profit;
+    }
+
+    public static void main(String[] args) {
+        MaxProfitI m = new MaxProfitI();
+        int[] prices = {7,1,5,3,6,4};
+        System.out.println(m.maxProfit2(prices));
     }
 }
