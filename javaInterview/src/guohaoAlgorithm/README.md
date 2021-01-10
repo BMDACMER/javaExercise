@@ -21,11 +21,11 @@
    | [297](https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree) | [二叉树的序列化与反序列化](guohaoAlgorithm.tree.Codec_Postorder) | 困难     | 经典！  前序、后续及BFS三种方法                              |
    | [105](https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal) | [从前序与中序遍历序列构造二叉树](guohaoAlgorithm.tree.BuildTree) | 中等     |                                                              |
    | [106](https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal) | [从中序与后序遍历序列构造二叉树](guohaoAlgorithm.tree.BuildTree2) | 中等     |                                                              |
-   |                                                              |                                                              |          |                                                              |
-   |                                                              |                                                              |          |                                                              |
-   |                                                              |                                                              |          |                                                              |
-   |                                                              |                                                              |          |                                                              |
-   |                                                              |                                                              |          |                                                              |
+   | [230](https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/) | [二叉搜索树中第K小的元素](guohaoAlgorithm.tree.KthSmallest)  | 中等     | 中序遍历                                                     |
+   | [538](https://leetcode-cn.com/problems/convert-bst-to-greater-tree/) | [把二叉搜索树转换为累加树](guohaoAlgorithm.tree.ConvertBST)  | 中等     | 中序遍历                                                     |
+   | [1038](https://leetcode-cn.com/problems/binary-search-tree-to-greater-sum-tree/) | [把二叉搜索树转换为累加树](guohaoAlgorithm.tree.ConvertBST)  | 中等     |                                                              |
+   | [124](https://leetcode-cn.com/problems/binary-tree-maximum-path-sum) | [二叉树中的最大路径和](guohaoAlgorithm.tree.MaxPathSum)      | 困难     | 后序遍历                                                     |
+   | [99](https://leetcode-cn.com/problems/recover-binary-search-tree/) | [恢复二叉搜索树](guohaoAlgorithm.tree.RecoverTree)           | 困难     | ==比较抽象，中序遍历==                                       |
    |                                                              |                                                              |          |                                                              |
    |                                                              |                                                              |          |                                                              |
    |                                                              |                                                              |          |                                                              |
