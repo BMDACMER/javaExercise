@@ -122,27 +122,27 @@
 
 - **unionfind** 并查集
 
-  | [990](https://leetcode-cn.com/problems/satisfiability-of-equality-equations) | 等式方程的可满足性 | medium | 并查集更简单/dfs                 |
-  | ------------------------------------------------------------ | ------------------ | ------ | -------------------------------- |
-  | [130](https://leetcode-cn.com/problems/surrounded-regions/)  | 被围绕的区域       | medium | 并查集/dfs更简单                 |
-  | [399](https://leetcode-cn.com/problems/evaluate-division/)   | 除法求值           | medium | 并查集  有点难啊~                |
-  | [547](https://leetcode-cn.com/problems/number-of-provinces/) | 省份数量           | medium | 并查集（效率低）/dfs/bfs效率更高 |
-  | [684](https://leetcode-cn.com/problems/redundant-connection/) | 冗余连接           | medium | 并查集                           |
-  | [1319](https://leetcode-cn.com/problems/number-of-operations-to-make-network-connected/) | 连通网络的操作次数 | medium | 并查集   简单                    |
-  | [1631](https://leetcode-cn.com/problems/path-with-minimum-effort/) | 最小体力消耗路径   | medium | 并查集                           |
-  | [959](https://leetcode-cn.com/problems/regions-cut-by-slashes/) | 由斜杠划分区域     | medium | 并查集                           |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
-  |                                                              |                    |        |                                  |
+  | [990](https://leetcode-cn.com/problems/satisfiability-of-equality-equations) | 等式方程的可满足性 | medium | 并查集更简单/dfs                  |
+  | ------------------------------------------------------------ | ------------------ | ------ | --------------------------------- |
+  | [130](https://leetcode-cn.com/problems/surrounded-regions/)  | 被围绕的区域       | medium | 并查集/dfs更简单                  |
+  | [399](https://leetcode-cn.com/problems/evaluate-division/)   | 除法求值           | medium | 并查集  有点难啊~                 |
+  | [547](https://leetcode-cn.com/problems/number-of-provinces/) | 省份数量           | medium | 并查集（效率低）/dfs/bfs效率更高  |
+  | [684](https://leetcode-cn.com/problems/redundant-connection/) | 冗余连接           | medium | 并查集                            |
+  | [1319](https://leetcode-cn.com/problems/number-of-operations-to-make-network-connected/) | 连通网络的操作次数 | medium | 并查集   简单                     |
+  | [1631](https://leetcode-cn.com/problems/path-with-minimum-effort/) | 最小体力消耗路径   | medium | 并查集                            |
+  | [959](https://leetcode-cn.com/problems/regions-cut-by-slashes/) | 由斜杠划分区域     | medium | 并查集   （划分为四个小方块来做） |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
+  |                                                              |                    |        |                                   |
 
   
 
