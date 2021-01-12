@@ -56,4 +56,14 @@ public class UnionFind {
         }
         return x;
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    public boolean isConnect(int p, int q) {
+        int rootP = find(p);
+        int rootQ = find(q);
+        return rootP == rootQ;
+    }
 }
