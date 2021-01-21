@@ -1,4 +1,4 @@
-package guohaoAlgorithm.array;
+package guohaoAlgorithm.backtrack;
 
 import javabase.Array;
 
