@@ -13,21 +13,34 @@ import java.util.*;
  */
 public class DeleteAndEarn {
 
-    /*// 非动态规划
-    public int deleteAndEarn(int[] nums) {
+    /**
+     * 思路：遍历数组中元素，记当前元素为num[i]，其相邻值num[i]-1, num[i-2]；将剩余元素存放到队列中
+     * 如果当前元素的相邻元素在队列中，则将其从队列中全部删除（需要借助hashset，这样可以把多次出现的相同元素都删掉）
+     * 如果队列不为空，从队列中取出一个元素，累加，并计算其相邻值，重复上述操作，直到队列为空。这样删除当前元素nums[i]，
+     * 获得的点数存到ArrayList中，  依次遍历其他元素，最后取出最大点数，并返回。
+     *
+     * 经测试 [3,7,10,5,2,4,8,9,9,4,9,2,6,4,6,5,4,7,6,10]这组数据一直过不了，请问错在哪里？
+     * @param nums
+     * @return
+     */
+    public int deleteAndEarn2(int[] nums) {
         int n = nums.length;
         if (n == 0) return 0;
-        int[] dp = new int[n];
+        ArrayList<Integer> dp = new ArrayList<>();
 
-        int ans, pre = Integer.MIN_VALUE;  // 用来消除重复数据
+        int ans;
+        HashSet<Integer> set = new HashSet<>();  // 用来消除重复数据
         for (int i = 0; i < n; i++) {
-            if (pre == nums[i]) continue;
-            pre = nums[i];
+            // 避免相同元素重复计算  比如[2,2,2,3,4,4,5]  计算了依次2   后面再次遇到2就跳过  直来到3这个位置
+            if (set.contains(i)) continue;
+            set.add(i);
 
             ans = nums[i];
             int left = nums[i] - 1, right = nums[i] + 1;
-            HashMap<Integer, Integer> map = new HashMap<>();
-            Queue<Integer> queue = new LinkedList<>();
+            HashMap<Integer, Integer> map = new HashMap<>();   // map，-----> 用来辅助队列删除相同元素
+            Deque<Integer> queue = new ArrayDeque<>();
+
+            // 将除了当前元素外的其他元素都入队
             for (int j = 0; j < n; j++) {
                 if (j != i) {
                     map.put(nums[j], map.getOrDefault(nums[j],0) + 1);
@@ -36,32 +49,38 @@ public class DeleteAndEarn {
             }
 
             while (!queue.isEmpty()) {
+                // 移除队列中与当前元素相邻的元素  num[i] - 1
                 while (map.containsKey(left) && map.get(left) != 0) {
                     map.put(left, map.get(left) - 1);
                     queue.remove(left);
                 }
+                // 移除队列中与当前元素相邻的元素  num[i] + 1
                 while (map.containsKey(right) && map.get(right) != 0) {
                     map.put(right, map.get(right) - 1);
                     queue.remove(right);
                 }
 
+                // 如果队列不为空   为下一次操作做准备
                 if (!queue.isEmpty()) {
+                    // 取出队头元素
                     int tmp = queue.poll();
+                    // 当前元素累加到结果ans中
                     ans += tmp;
+                    // 当前元素的相邻元素
                     left = tmp - 1;
                     right = tmp + 1;
                 }
             }
-            dp[i] = ans;
+            dp.add(ans);
         }
 
         // 寻找dp中最大的元素
-        int max = dp[0];
-        for (int i = 1; i < n; i++) {
-            max = Math.max(max, dp[i]);
+        int max = dp.get(0);
+        for(int num : dp) {
+            max = Math.max(max, num);
         }
         return max;
-    }*/
+    }
 
     /**
      * 动态规划   仿造打家劫舍
@@ -95,7 +114,7 @@ public class DeleteAndEarn {
 
     public static void main(String[] args) {
         DeleteAndEarn d = new DeleteAndEarn();
-        int[] nums = {2, 2, 3, 3, 3, 4};
-        System.out.println(d.deleteAndEarn(nums));
+        int[] nums = {3,7,10,5,2,4,8,9,9,4,9,2,6,4,6,5,4,7,6,10};
+        System.out.println(d.deleteAndEarn2(nums));
     }
 }
