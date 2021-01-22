@@ -9,7 +9,7 @@ import java.util.HashMap;
  * @email 1163753605@qq.com
  * @date: 2020/12/10 10:49
  *
- *  剑指 Offer 38. 字符串的排列
+ *  567. 字符串的排列
  */
 public class CheckInclusion {
 
@@ -41,7 +41,7 @@ public class CheckInclusion {
                 }
             }
 
-            // 判断是否需要收缩，由于是包含字串的全排列，所以条件改为right - left > t.length()
+            // 判断是否需要收缩，由于是包含字串的全排列，所以条件改为right - left >= t.length()
             while (right - left >= need.size()) {
                 if (valid == need.size()) {
                     return true;
