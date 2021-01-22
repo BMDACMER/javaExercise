@@ -27,6 +27,7 @@ public class DeleteAndEarn {
         int n = nums.length;
         if (n == 0) return 0;
         ArrayList<Integer> dp = new ArrayList<>();
+        Arrays.sort(nums);
 
         int ans;
         HashSet<Integer> set = new HashSet<>();  // 用来消除重复数据
