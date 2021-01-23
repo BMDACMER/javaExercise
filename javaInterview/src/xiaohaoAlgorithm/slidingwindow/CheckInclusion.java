@@ -42,7 +42,7 @@ public class CheckInclusion {
             }
 
             // 判断是否需要收缩，由于是包含字串的全排列，所以条件改为right - left >= t.length()
-            while (right - left >= need.size()) {
+            while (right - left >= t.length()) {
                 if (valid == need.size()) {
                     return true;
                 }
