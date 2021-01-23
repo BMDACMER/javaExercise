@@ -1,4 +1,4 @@
-package guohaoAlgorithm.dynamic;
+package guohaoAlgorithm.backtrack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
