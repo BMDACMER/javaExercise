@@ -5,7 +5,7 @@ package guohaoAlgorithm.unionfind;
  * @email 1163753605@qq.com
  * @date: 2021/1/12 23:07
  *
- * 959. 由斜杠划分区域
+ * 959. 由斜杠划分区域   1.25号的每日一题
  */
 public class RegionsBySlashes2 {
 
