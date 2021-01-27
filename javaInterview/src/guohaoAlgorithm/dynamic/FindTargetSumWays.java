@@ -59,24 +59,76 @@ public class FindTargetSumWays {
         return dp[n][sum+S];
     }
 
-    // 动态规划  一维   没通过
+    /**
+     * 转为划分子集    0-1背包问题
+     * 二维的会超出内存限制
+     * [1,2,7,9,981]
+     * 1000000000
+     * @param nums
+     * @param S
+     * @return
+     */
     public int findTargetSumWays2(int[] nums, int S) {
+        /**
+         * sub(A) - sub(B) = target
+         * sub(A) = sub(b) + target
+         * sub(A) + sub(A) = sub(A) + sub(B) + target
+         * 2*sub(A) = sum(nums) + target
+         */
+        int sum = 0;
+        for (int num : nums) sum += num;
+        sum = sum + S;
+        // 将题目转化为 划分子集 416. 分割等和子集
+        if (sum % 2 != 0) return 0;
+
+        sum /= 2;
+        int n = nums.length;
+        int[][] dp = new int[n + 1][sum + 1];
+        // dp[0][..] = 0. dp[..][0] = 1  转化为01背包问题
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 1;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= sum; j++) {
+                if (j - nums[i-1] >= 0) {
+                    dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i - 1]];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        return dp[n][sum];
+    }
+
+    /**
+     * 转为划分子集    0-1背包问题    优化空间   详细参考P212-215
+     * 击败90%用户
+     * @param nums
+     * @param S
+     * @return
+     */
+    public int findTargetSumWays3(int[] nums, int S) {
         int n = nums.length;
         int sum = 0;
         for (int num : nums) sum += num;
-        if (Math.abs(S) > sum) return 0;
-
-        int[] dp = new int[2 * sum + 1];
-        dp[sum] = 1;
+        if (sum < S || (sum + S) % 2 == 1) return 0;
+        sum += S;
+        sum /= 2;
+        int[] dp = new int[sum + 1];
+        dp[0] = 1;
         for (int i = 1; i <= n; i++) {
-            for (int j = 2 * sum; j >= 0; j--) {
-                int l = j - nums[i - 1] >= 0 ? j - nums[i - 1] : 0;
-                int r = j + nums[i - 1] <= 2 * sum ? j + nums[i - 1] : 2 * sum;
-                dp[j] = dp[l] + dp[r];
+            for (int j = sum; j >= 0; j--) {
+                if (j >= nums[i-1]) {
+                    dp[j] = dp[j] + dp[j - nums[i-1]];
+                }
             }
         }
-        return dp[sum + S];
+        return dp[sum];
     }
+
+
 
     // dfs 回溯法
     public int findTargetSumWaysDFS(int[] nums, int S) {
