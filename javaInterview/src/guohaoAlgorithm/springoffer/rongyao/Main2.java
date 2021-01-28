@@ -8,6 +8,10 @@ import java.util.Scanner;
  * @date: 2021/1/13 16:58
  *
  * 第二题   送伞
+ *
+ * 公司员工都在食堂，下雨了，食堂只有一把小伞，公司有m把小伞，n把大伞，小伞一次能打两个人，
+ * 大伞一次打三个人，食堂回公司一小时，公司到食堂1小时，每个人除了打的伞最多拿1把伞。
+ * 问多久可以回到公司。
  */
 public class Main2 {
     public static void main(String[] args) {

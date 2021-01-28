@@ -1,21 +1,32 @@
-package guohaoAlgorithm.dynamic;
+package guohaoAlgorithm.springoffer.rongyao;
+
+import guohaoAlgorithm.dynamic.LongestCommonSubsequence;
 
 import java.util.Scanner;
 
 /**
  * @author:guohao
  * @email 1163753605@qq.com
- * @date: 2021/1/23 19:02
+ * @date: 2021/1/28 12:24
  *
- * 1143. 最长公共子序列
- * https://leetcode-cn.com/problems/longest-common-subsequence/
- *
- * 输入：text1 = "abcde", text2 = "ace"
+ * 最大子序列
+ * 输入：
+ *  1  2  3  4
+ *  2  3  1  4
  * 输出：3
- * 解释：最长公共子序列是 "ace"，它的长度为 3。
+ * 原因：去掉1，剩余均为  2  3  4
+ * 1
+ * 2
+ * 3
+ * 4
+ * 5
+ * 两数字序列，去掉部分数字后使剩余数字序列相同，求剩余最大数
  */
-public class LongestCommonSubsequence {
+public class Main3 {
 
+    /**
+     * 套路就是 最大公共子序列
+     */
     public int longestCommonSubsequence(String text1, String text2) {
         int n1 = text1.length(), n2 = text2.length();
         int[][] dp = new int[n1 + 1][n2 + 1];

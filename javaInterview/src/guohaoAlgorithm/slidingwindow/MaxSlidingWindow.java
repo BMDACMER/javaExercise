@@ -69,7 +69,6 @@ public class MaxSlidingWindow {
 
         int n = nums.length;
         int[] ans = new int[n - k + 1];
-        int index = 0;
         Deque<Integer> q = new LinkedList<>();
         // 未形成窗口时
         for (int i = 0; i < k && i < n; i++) {
