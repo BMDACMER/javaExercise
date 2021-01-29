@@ -65,7 +65,7 @@ public class MaxSlidingWindow {
 
     // 单调队列
     public int[] maxSlidingWindow(int[] nums, int k) {
-        if (nums == null || nums.length == 0 || k == 0) return null;
+        if (nums == null || nums.length == 0 || k == 0) return new int[]{};
 
         int n = nums.length;
         int[] ans = new int[n - k + 1];
