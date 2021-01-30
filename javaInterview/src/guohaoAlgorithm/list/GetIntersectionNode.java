@@ -24,6 +24,7 @@ public class GetIntersectionNode {
          */
         ListNode me = headA, you = headB;
         while (me != you) {  // 若是有缘终将相遇
+            System.out.println(me == null ? null : me.val + "->" );
             me = me != null ? me.next : headB; //当我走到终点时，开始走你走的路；
             you = you != null ? you.next : headA; // 当你走到终点时，开始走我走的路；
         }
@@ -33,6 +34,30 @@ public class GetIntersectionNode {
             you = me.next;  // 时而你挽着我的手
             me = you.next;  // 时而我搂着你的腰
         }
+
         return me;
+    }
+
+    public static void main(String[] args) {
+        GetIntersectionNode g = new GetIntersectionNode();
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        ListNode node4 = new ListNode(23);
+        ListNode node5 = new ListNode(24);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node5;
+
+        ListNode n1 = new ListNode(4);
+        ListNode n2 = new ListNode(7);
+        ListNode n3 = new ListNode(23);
+        ListNode n4 = new ListNode(24);
+        n1.next = n2;
+        n2.next = n3;
+        n3.next = n4;
+
+        g.getIntersectionNode(node1, n1);
     }
 }
