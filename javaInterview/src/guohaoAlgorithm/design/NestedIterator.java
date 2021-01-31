@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class NestedIterator implements Iterator<Integer> {
 
-    /// 执行耗时 2ms   击败java用户100%   75%
+    /// 执行耗时 2ms   击败java用户100%   76%
     private Iterator<Integer> it;
 
     public NestedIterator(List<NestedInteger> nestedList) {
