@@ -87,7 +87,9 @@ public class Reverse {
             b = b.next;
         }
 
+        // 反转前K个元素
         ListNode newHead = reverseAB(a, b);
+        // 递归反转后续链表并连接起来
         a.next = reverseKGroup(b, k);
         return newHead;
     }
