@@ -38,55 +38,61 @@ public class GenerateParenthesis {
     private List<String> res = new ArrayList<>();
     public List<String> generateParenthesis(int n) {
         if (n < 1) return res;
-        StringBuilder path = new StringBuilder();
+//        StringBuilder path = new StringBuilder();
+        LinkedList<String> path = new LinkedList<>();
         dfs(n, n, path);
         return res;
     }
 
-   /* private void dfs(int l, int r, LinkedList<Character> path) {
+    private void dfs(int l, int r, LinkedList<String> path) {
         if (l < 0 || r < 0) return;
         if (r < l) return;
 
         if (l == 0 && r == 0) {
             StringBuilder sb = new StringBuilder(path.size());
-            while (!path.isEmpty()) {
-                sb.append(path.pollFirst());
+            for (int i = 0; i < path.size(); i++) {
+                sb.append(path.get(i));
             }
+            // 以下写法不对    因为会破坏path路径
+//            while (!path.isEmpty())
+//                sb.append(path.pollFirst());
             res.add(sb.toString());
             return;
         }
 
         // 添加左括号
-        path.addLast('(');
+        path.addLast("(");
         dfs(l - 1, r, path);
-//        path.removeLast();
         path.pollLast();
 
         // 添加右括号
-        path.addLast(')');
+        path.addLast(")");
         dfs(l, r - 1, path);
-//        path.removeLast();
         path.pollLast();
-    }*/
+    }
 
-    private void dfs(int left, int right, StringBuilder path) {
+    /*private void dfs(int left, int right, LinkedList<String> path) {
         if (left < 0 || right < 0) return;
         if (right < left) return;
 
         if (left == 0 && right == 0) {
-            res.add(path.toString());
+            StringBuilder sb = new StringBuilder(path.size());
+            for (int i = 0; i < path.size(); i++) {
+                sb.append(path.get(i));
+            }
+            res.add(sb.toString());
             return;
         }
         // 尝试添加一个左括号
-        path.append("(");
+        path.addLast("(");
         dfs(left-1,right,path);
-        path.deleteCharAt(path.length() - 1);
+        path.pollLast();
 
         // 尝试添加一个右括号
-        path.append(")");
+        path.addLast(")");
         dfs(left,right-1,path);
-        path.deleteCharAt(path.length() - 1);
-    }
+        path.pollLast();
+    }*/
 
     public static void main(String[] args) {
         GenerateParenthesis g = new GenerateParenthesis();
