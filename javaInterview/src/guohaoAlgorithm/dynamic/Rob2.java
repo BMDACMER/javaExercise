@@ -17,13 +17,21 @@ public class Rob2 {
     }
 
     private int help(int[] nums, int start, int end) {
-        int steal = 0, noSteal = 0;
+        /*int steal = 0, noSteal = 0;
         for (int j = start; j <= end; j++) {
             int temp = steal;
             steal = noSteal + nums[j];
             noSteal = Math.max(noSteal, temp);
         }
-        return Math.max(steal, noSteal);
+        return Math.max(steal, noSteal);*/
+        if (end - start <= 0) return nums[start];
+        int dp_1 = nums[start], dp_2 = Math.max(nums[start], nums[start + 1]), dp_i = dp_2;
+        for (int i = start + 2; i <= end; i++) {
+            dp_i = Math.max(dp_1 + nums[i], dp_2);
+            dp_1 = dp_2;
+            dp_2 = dp_i;
+        }
+        return dp_i;
 
 //        ×÷Õß£ºsdwwld
 //        Á´½Ó£ºhttps://leetcode-cn.com/problems/house-robber-ii/solution/dong-tai-gui-hua-jie-jue-ji-bai-liao-100-l8ub/
