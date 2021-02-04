@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class CopyRandomList {
 
-    public Node copyRandomList(Node head) {
+    /*public Node copyRandomList(Node head) {
         if(head == null) return null;
         Node cur = head;
         Map<Node, Node> map = new HashMap<>();
@@ -27,6 +27,26 @@ public class CopyRandomList {
             cur = cur.next;
         }
         // 5. 返回新链表的头节点
+        return map.get(head);
+    }*/
+
+    public Node copyRandomList(Node head) {
+        if (head == null) return head;
+        Node cur = head;
+        HashMap<Node, Node> map = new HashMap<>();
+        // 复制各节点    原节点---新节点
+        while (cur != null) {
+            map.put(cur, new Node(cur.val));
+            cur = cur.next;
+        }
+        // 复制源节点的next、random域
+        cur = head;
+        while (cur != null) {
+            map.get(cur).next = map.get(cur.next);
+            map.get(cur).random = map.get(cur.random);
+            cur = cur.next;
+        }
+        // 返回头节点
         return map.get(head);
     }
 }
