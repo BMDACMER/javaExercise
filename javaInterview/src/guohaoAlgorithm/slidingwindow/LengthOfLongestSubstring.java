@@ -1,6 +1,8 @@
 package guohaoAlgorithm.slidingwindow;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * @author:guohao
@@ -43,5 +45,23 @@ public class LengthOfLongestSubstring {
         LengthOfLongestSubstring l = new LengthOfLongestSubstring();
         String str = "abcbabcbb";
         System.out.println(l.lengthOfLongestSubstring(str));
+    }
+
+    // 方法二  参考P95
+    public int lengthOfLongestSubstring2(String s) {
+        Map<Character, Integer> window = new HashMap<>();
+        int left = 0, right = 0, res = 0;
+        while (right < s.length()) {
+            char c = s.charAt(right);
+            right++;
+            window.put(c, window.getOrDefault(c, 0) + 1);
+            if (window.get(c) > 1) {
+                char d = s.charAt(left);
+                left++;
+                window.put(d, window.get(d) - 1);
+            }
+            res = Math.max(res, right - left);
+        }
+        return res;
     }
 }
