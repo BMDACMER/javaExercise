@@ -26,7 +26,7 @@ public class TranslateNum {
     // ²Î¿¼£ºhttps://leetcode-cn.com/leetbook/read/illustration-of-algorithm/99dnh6/
     public int translateNum(int num) {
         String s = String.valueOf(num);
-        int a = 1, b = 1;
+        int a = 1, b = 1;   // a=f(n-2)   b=f(n-1)
         for (int i = 2; i <= s.length(); i++) {
             String tmp = s.substring(i-2, i);
             int c = tmp.compareTo("10") >= 0 && tmp .compareTo("25") <= 0 ? a + b : b;
