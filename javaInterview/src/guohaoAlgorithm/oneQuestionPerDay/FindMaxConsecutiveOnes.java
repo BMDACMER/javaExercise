@@ -20,26 +20,39 @@ package guohaoAlgorithm.oneQuestionPerDay;
  */
 public class FindMaxConsecutiveOnes {
 
+    // 执行3ms
     public int findMaxConsecutiveOnes(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
         int n = nums.length;
-        int maxCount = Integer.MIN_VALUE, right = 0, count = 0;
+        int maxCount = Integer.MIN_VALUE, left = 0, right = 0;
         while (right < n) {
-            count++;
+            if (nums[right] != 1) {
+                left = right + 1;
+            }
+            maxCount = Math.max(maxCount, right - left + 1);
             right++;
-            if (right < n && nums[right] == nums[right - 1]) {
+        }
+        return maxCount;
+    }
+
+    // 执行2ms
+    public int findMaxConsecutiveOnes2(int[] nums) {
+        int maxCount = 0, count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
                 count++;
-            }else if (right < n){
+            }else {
+                maxCount = Math.max(maxCount, count);
                 count = 0;
             }
-            maxCount = Math.max(maxCount, count);
         }
+        maxCount = Math.max(maxCount, count);   // 针对全1的情况
         return maxCount;
     }
 
     public static void main(String[] args) {
         FindMaxConsecutiveOnes f = new FindMaxConsecutiveOnes();
-        int[] nums = {1,1,0,1,1};
+        int[] nums = {1,1,0};
         System.out.println(f.findMaxConsecutiveOnes(nums));
     }
 }
