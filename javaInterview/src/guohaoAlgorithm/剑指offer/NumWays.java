@@ -35,4 +35,17 @@ public class NumWays {
         }
         return a;
     }
+
+    // 动态规划  原始的  效率低的
+    public int numWays2(int n) {
+        if (n == 0) return 1;
+        if (n == 1 || n == 2) return n;
+        int[] nums = new int[n];
+        nums[0] = 1;
+        nums[1] = 2;
+        for (int i = 2; i < n; i++) {
+            nums[i] = (nums[i-1] + nums[i - 2]) % 1000_000_007;
+        }
+        return nums[n - 1];
+    }
 }
