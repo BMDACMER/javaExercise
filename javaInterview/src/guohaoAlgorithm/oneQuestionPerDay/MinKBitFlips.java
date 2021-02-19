@@ -10,7 +10,7 @@ import java.util.LinkedList;
  */
 public class MinKBitFlips {
 
-    public int minKBitFlips(int[] A, int K) {
+    /*public int minKBitFlips(int[] A, int K) {
         int n = A.length;
         int[] diff = new int[n + 1];
         int ans = 0, revCnt = 0;
@@ -54,5 +54,27 @@ public class MinKBitFlips {
             }
         }
         return cnt;
+    }*/
+
+    // 暴力算法  官方的不懂  参考https://leetcode-cn.com/problems/minimum-number-of-k-consecutive-bit-flips/solution/k-lian-xu-wei-de-zui-xiao-fan-zhuan-ci-s-dseq/
+    public int minKBitFlips(int[] A, int K) {
+        int count = 0;
+        for (int i = 0; i < A.length; i++) {
+            if (A[i] == 0) {
+                if (i + K > A.length) return -1;
+                for (int j = i; j < i + K; j++) {
+                    A[j] ^= 1;  // 异或 相当于 翻转   0-》1   1-》0
+                }
+                count++;
+            }
+        }
+        return count;
     }
+
+    public static void main(String[] args) {
+        MinKBitFlips m = new MinKBitFlips();
+        int[] A={0,0,0,1,0,1,1,0};
+        System.out.println(m.minKBitFlips(A,3));
+    }
+
 }
