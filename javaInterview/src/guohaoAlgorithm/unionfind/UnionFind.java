@@ -56,6 +56,13 @@ public class UnionFind {
         }
         return x;
     }
+    // ÁíÒ»ÖÖĞ´·¨
+    public int findII(int x) {
+        if (x != parent[x]) {
+            parent[x] = find(parent[x]);
+        }
+        return parent[x];
+    }
 
     public int getCount() {
         return count;
