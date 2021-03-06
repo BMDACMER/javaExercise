@@ -1,5 +1,8 @@
 package guohaoAlgorithm.acm;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 /**
  * @Author guohao
  * @Date 2021/3/4 9:53
@@ -13,5 +16,7 @@ public class Test {
         short s1 = 1;
 //        s1 = s1 + 1;
         s1 += 1;
+
+        HashMap<Integer, Integer> map = new HashMap<>();
     }
 }
