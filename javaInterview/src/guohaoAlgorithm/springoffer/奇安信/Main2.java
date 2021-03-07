@@ -1,5 +1,6 @@
 package guohaoAlgorithm.springoffer.Ææ°²ÐÅ;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -16,6 +17,8 @@ public class Main2 {
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(null, null);
         n = input.nextInt();   // 6
         int countEdges = 0;
         int start = input.nextInt();  // 0
